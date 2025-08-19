@@ -1,727 +1,913 @@
 <!DOCTYPE html>
+
 <html lang="en" class="scroll-smooth">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura — The Future of Connection</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-    <style>
-        /* Custom styles to apply the Inter font family */
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: #000;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
+    <meta charset="UTF-8">
 
-        /* BETA FEATURE: CSS @property (Houdini) */
-        @property --glow-color {
-            syntax: '<color>';
-            inherits: false;
-            initial-value: rgba(79, 70, 229, 0);
-        }
-        
-        /* Aurora Background Effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 15% 50%, #4f46e5 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 85% 30%, #d946ef 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 50% 80%, #10b981 0%, rgba(0,0,0,0) 20%);
-            z-index: -1;
-            animation: animateAurora 20s infinite linear;
-            opacity: 0.3;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        @keyframes animateAurora {
-            0% { transform: rotate(0deg) scale(1.5); }
-            50% { transform: rotate(180deg) scale(2); }
-            100% { transform: rotate(360deg) scale(1.5); }
-        }
-        
-        /* Enhanced Liquid Glass Effect */
-        .glass-effect {
-            background-color: rgba(17, 17, 17, 0.5);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
+    <title>Aura — The Future of Connection</title>
 
-        /* Interactive Glow effect for Feature Cards */
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: inherit;
-            box-shadow: 0 0 40px 10px var(--glow-color);
-            opacity: 0;
-            transition: opacity 0.4s ease, box-shadow 0.4s ease;
-            z-index: -1;
-        }
+    
 
-        .feature-card:hover::before {
-            opacity: 1;
-        }
+    <!-- Tailwind CSS -->
 
-        .feature-card {
-            --glow-color: rgba(79, 70, 229, 0.5);
-            transition: transform 0.3s ease;
-        }
+    <script src="https://cdn.tailwindcss.com"></script>
 
-        .feature-card:hover {
-            transform: translateY(-8px);
-        }
+    
 
-        /* BETA FEATURE: CSS Scroll-Driven Animations */
-        #hero-content {
-            animation: fade-out-scale-down linear;
-            animation-timeline: scroll(root);
-            animation-range: 0 50vh;
-        }
+    <!-- Google Fonts: Inter -->
 
-        @keyframes fade-out-scale-down {
-            to {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-        .view-animate {
-            animation: fade-in-up linear;
-            animation-timeline: view();
-            animation-range: entry 0% cover 40%;
-            animation-fill-mode: both;
-        }
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        /* Gradient text style */
-        .gradient-text {
-            background: linear-gradient(90deg, #a5b4fc, #f9a8d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    
 
-        /* Styling for the new Aura AI section */
-        #aura-ai-response {
-            min-height: 100px;
-        }
-        .loader {
-            width: 24px;
-            height: 24px;
-            border: 3px solid #FFF;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
+    <!-- GSAP for advanced animations -->
 
-        @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-        /* SUPER ADVANCED BETA CANARY FEATURES CSS */
-        #webgpu-canvas {
-            width: 100%;
-            height: 80vh;
-            display: block;
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        #webxr-3d-model {
-            width: 100%;
-            height: 80vh;
-            display: block;
-        }
-        .realtime-counter {
-            font-size: 4rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            background: linear-gradient(45deg, #10b981, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    
 
-        .pulsing-dot {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
+    <style>
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.5);
-                opacity: 0.5;
-            }
-        }
-    </style>
+        /* Custom styles to apply the Inter font family */
+
+        body {
+
+            font-family: 'Inter', sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+
+            -moz-osx-font-smoothing: grayscale;
+
+            background-color: #000;
+
+            overflow-x: hidden; /* Prevent horizontal scroll */
+
+        }
+
+
+
+        /* BETA FEATURE: CSS @property (Houdini) */
+
+        @property --glow-color {
+
+            syntax: '<color>';
+
+            inherits: false;
+
+            initial-value: rgba(79, 70, 229, 0);
+
+        }
+
+        
+
+        /* Aurora Background Effect */
+
+        body::before {
+
+            content: '';
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: radial-gradient(circle at 15% 50%, #4f46e5 0%, rgba(0,0,0,0) 25%),
+
+                        radial-gradient(circle at 85% 30%, #d946ef 0%, rgba(0,0,0,0) 25%),
+
+                        radial-gradient(circle at 50% 80%, #10b981 0%, rgba(0,0,0,0) 20%);
+
+            z-index: -1;
+
+            animation: animateAurora 20s infinite linear;
+
+            opacity: 0.3;
+
+        }
+
+
+
+        @keyframes animateAurora {
+
+            0% { transform: rotate(0deg) scale(1.5); }
+
+            50% { transform: rotate(180deg) scale(2); }
+
+            100% { transform: rotate(360deg) scale(1.5); }
+
+        }
+
+        
+
+        /* Enhanced Liquid Glass Effect */
+
+        .glass-effect {
+
+            background-color: rgba(17, 17, 17, 0.5);
+
+            backdrop-filter: blur(24px);
+
+            -webkit-backdrop-filter: blur(24px);
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
+
+            position: relative;
+
+        }
+
+
+
+        /* Interactive Glow effect for Feature Cards */
+
+        .feature-card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            border-radius: inherit;
+
+            box-shadow: 0 0 40px 10px var(--glow-color);
+
+            opacity: 0;
+
+            transition: opacity 0.4s ease, box-shadow 0.4s ease;
+
+            z-index: -1;
+
+        }
+
+
+
+        .feature-card:hover::before {
+
+            opacity: 1;
+
+        }
+
+
+
+        .feature-card {
+
+            --glow-color: rgba(79, 70, 229, 0.5);
+
+            transition: transform 0.3s ease;
+
+        }
+
+
+
+        .feature-card:hover {
+
+            transform: translateY(-8px);
+
+        }
+
+
+
+        /* BETA FEATURE: CSS Scroll-Driven Animations */
+
+        #hero-content {
+
+            animation: fade-out-scale-down linear;
+
+            animation-timeline: scroll(root);
+
+            animation-range: 0 50vh;
+
+        }
+
+
+
+        @keyframes fade-out-scale-down {
+
+            to {
+
+                opacity: 0;
+
+                transform: scale(0.9);
+
+            }
+
+        }
+
+
+
+        .view-animate {
+
+            animation: fade-in-up linear;
+
+            animation-timeline: view();
+
+            animation-range: entry 0% cover 40%;
+
+            animation-fill-mode: both;
+
+        }
+
+
+
+        @keyframes fade-in-up {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(60px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+
+        /* Gradient text style */
+
+        .gradient-text {
+
+            background: linear-gradient(90deg, #a5b4fc, #f9a8d4);
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+
+
+        /* Styling for the new Aura AI section */
+
+        #aura-ai-response {
+
+            min-height: 100px;
+
+        }
+
+        .loader {
+
+            width: 24px;
+
+            height: 24px;
+
+            border: 3px solid #FFF;
+
+            border-bottom-color: transparent;
+
+            border-radius: 50%;
+
+            display: inline-block;
+
+            box-sizing: border-box;
+
+            animation: rotation 1s linear infinite;
+
+        }
+
+
+
+        @keyframes rotation {
+
+            0% {
+
+                transform: rotate(0deg);
+
+            }
+
+            100% {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 <body class="bg-black text-gray-300">
 
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
-                <span>Aura</span>
-            </a>
-            <nav class="hidden md:flex space-x-2 items-center">
-                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Features</a>
-                <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
-                <a href="#tech" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Technology</a>
-                <a href="#canary-features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Canary</a>
-                <a href="#aura-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Aura AI</a>
-                <a href="#" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2 rounded-full transition-colors" data-magnetic>Buy Now</a>
-            </nav>
-            <button class="md:hidden text-white" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
-        </div>
-    </header>
-
-    <main>
-        <section class="h-[150vh] flex items-start justify-center text-center bg-transparent pt-48 sticky top-0">
-            <div class="container mx-auto px-6" id="hero-content">
-                <div class="max-w-4xl mx-auto">
-                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight mb-6">
-                        Experience <span class="gradient-text">Aura</span>.
-                        <br>
-                        Purely Magical.
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-                        The future of personal devices is here. Seamlessly integrated, intuitively designed, and powerfully simple.
-                    </p>
-                    <div>
-                        <a href="#canary-features" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 inline-block" data-magnetic>Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="relative z-10 bg-black">
-            <section class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                     <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Aura+Device" 
-                          alt="Aura Device Showcase" 
-                          class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
-                          id="product-image"
-                          onerror="this.onerror=null;this.src='https://placehold.co/1200x800/111111/444444?text=Image+Not+Found';">
-                </div>
-            </section>
-
-            <section id="features" class="py-20">
-                <div class="container mx-auto px-6">
-                    <div class="text-center mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate">Everything you need. <br>And then some.</h2>
-                    </div>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="22" y2="7"></line><line x1="2" y1="17" x2="22" y2="17"></line></svg>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3">Quantum Core</h3>
-                            <p class="text-gray-400">Our next-generation processor delivers performance that’s not just fast, it’s instantaneous.</p>
-                        </div>
-                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3">CrystalClear Audio</h3>
-                            <p class="text-gray-400">Spatial audio with dynamic head tracking places sound all around you for a truly immersive experience.</p>
-                        </div>
-                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3">All-Day Battery</h3>
-                            <p class="text-gray-400">Engineered for efficiency, Aura lasts from your morning coffee to your late-night playlist.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="design" class="py-20">
-                <div class="container mx-auto px-6">
-                    <div class="grid md:grid-cols-2 gap-16 items-center">
-                        <div class="view-animate">
-                             <img src="https://placehold.co/800x800/000000/FFFFFF?text=Sleek+Design" 
-                                  alt="Aura Device Close-up" 
-                                  class="rounded-3xl glass-effect p-2"
-                                  onerror="this.onerror=null;this.src='https://placehold.co/800x800/111111/444444?text=Image+Not+Found';">
-                        </div>
-                        <div class="view-animate" style="animation-delay: 0.2s;">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Designed for life.</h2>
-                            <p class="text-lg text-gray-400 mb-4">Crafted from aerospace-grade aluminum and fortified ceramic glass, Aura is as durable as it is beautiful. Every curve, every edge, and every pixel is meticulously engineered for a perfect feel and a flawless look.</p>
-                            <p class="text-lg text-gray-400">Available in four stunning finishes: Midnight, Starlight, Nebula, and Rose Gold.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="tech" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-4xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate">Powered by AuraOS.</h2>
-                        <p class="text-lg md:text-xl text-gray-400 mb-12 view-animate" style="animation-delay: 0.2s;">
-                            Our revolutionary operating system anticipates your needs, protects your privacy, and connects your world like never before. It’s not just smart; it’s intuitive.
-                        </p>
-                        <div class="view-animate" style="animation-delay: 0.4s;">
-                             <img src="https://placehold.co/1200x600/000000/FFFFFF?text=AuraOS+Interface" 
-                                  alt="AuraOS User Interface" 
-                                  class="rounded-2xl shadow-lg glass-effect p-2"
-                                  onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            ---
-
-            <section id="canary-features" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate gradient-text">SUPER ADVANCED BETA CANARY FEATURES</h2>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-16 view-animate" style="animation-delay: 0.2s;">
-                        Explore what's next. These experimental features are powered by bleeding-edge web technologies, giving you a glimpse into the future of the web.
-                    </p>
-
-                    <div class="glass-effect p-8 rounded-3xl mb-16 view-animate" style="animation-delay: 0.4s;">
-                        <h3 class="text-2xl font-semibold text-white mb-4">Live Aura Pulse</h3>
-                        <p class="text-gray-400 mb-2">
-                            <span class="inline-block h-2 w-2 rounded-full bg-green-500 pulsing-dot mr-2"></span>
-                            Live data from the Aura network.
-                        </p>
-                        <div class="realtime-counter" id="visitor-counter">
-                            0
-                        </div>
-                        <p class="text-sm text-gray-500 mt-2">Current visitors to Aura's virtual space.</p>
-                    </div>
-
-                    <div class="glass-effect p-8 rounded-3xl mb-16 view-animate" style="animation-delay: 0.6s;">
-                        <h3 class="text-2xl font-semibold text-white mb-4">WebGPU: Next-Gen Graphics</h3>
-                        <p class="text-gray-400 mb-6">
-                            Experience the future of graphics with a dynamic, hardware-accelerated particle simulation.
-                        </p>
-                        <canvas id="webgpu-canvas" class="p-2"></canvas>
-                    </div>
-
-                    <div class="glass-effect p-8 rounded-3xl mb-16 view-animate" style="animation-delay: 0.8s;">
-                        <h3 class="text-2xl font-semibold text-white mb-4">Quantum Core Benchmark</h3>
-                        <p class="text-gray-400 mb-6">
-                            Run a cryptographic benchmark on a dedicated thread to test the Aura Quantum Core's power without freezing the UI.
-                        </p>
-                        <button id="run-benchmark-btn" class="bg-purple-600 hover:bg-purple-500 text-white font-semibold px-8 py-3 rounded-full transition-colors">
-                            Run Quantum Benchmark
-                        </button>
-                        <p id="benchmark-result" class="text-lg mt-6 text-gray-200">Result: Not started.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="py-20" id="3d-viewer">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate">Interact with Aura in 3D</h2>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 view-animate" style="animation-delay: 0.2s;">
-                        Drag to rotate and explore the meticulously crafted Aura device from every angle.
-                    </p>
-                    <div class="glass-effect p-2 rounded-3xl view-animate" style="animation-delay: 0.4s;">
-                        <canvas id="webxr-3d-model"></canvas>
-                    </div>
-                </div>
-            </section>
-            
-            ---
-
-            <section id="aura-ai" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-3xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate">Have a question?</h2>
-                        <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
-                            Ask our AI anything about the Aura device.
-                        </p>
-                        <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
-                            <div class="flex flex-col md:flex-row gap-4 mb-6">
-                                <input type="text" id="ai-prompt" placeholder="e.g., How long does the battery last?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
-                                <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
-                                    <span>✨ Ask Aura AI</span>
-                                </button>
-                            </div>
-                            <div id="aura-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300">
-                                Ask a question to see the AI's response here.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer class="glass-effect border-t-0 mt-20">
-        <div class="container mx-auto px-6 py-12">
-            <div class="grid md:grid-cols-4 gap-8 text-gray-400">
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Aura</h4>
-                    <p>The Future of Connection</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Product</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Overview</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Features</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Tech Specs</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Company</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">About</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Careers</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Press</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Support</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Help Center</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Contact Us</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Warranty</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2025 Aura Inc. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- MAGNETIC BUTTONS EFFECT ---
-            const magneticElements = document.querySelectorAll('[data-magnetic]');
-            magneticElements.forEach(el => {
-                el.addEventListener('mousemove', function(e) {
-                    const position = el.getBoundingClientRect();
-                    const x = e.clientX - position.left - position.width / 2;
-                    const y = e.clientY - position.top - position.height / 2;
+    <!-- Header & Navigation -->
 
-                    gsap.to(el, {
-                        x: x * 0.3,
-                        y: y * 0.3,
-                        duration: 0.7,
-                        ease: "elastic.out(1, 0.3)"
-                    });
-                });
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
 
-                el.addEventListener('mouseleave', function() {
-                    gsap.to(el, {
-                        x: 0,
-                        y: 0,
-                        duration: 0.7,
-                        ease: "elastic.out(1, 0.3)"
-                    });
-                });
-            });
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
 
-            // --- GEMINI API INTEGRATION ---
-            const askAiBtn = document.getElementById('ask-ai-btn');
-            const aiPromptInput = document.getElementById('ai-prompt');
-            const aiResponseContainer = document.getElementById('aura-ai-response');
+            <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
 
-            askAiBtn.addEventListener('click', handleAiRequest);
-            aiPromptInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleAiRequest();
-                }
-            });
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
 
-            async function handleAiRequest() {
-                const userPrompt = aiPromptInput.value.trim();
-                if (!userPrompt) {
-                    aiResponseContainer.textContent = 'Please enter a question.';
-                    return;
-                }
+                <span>Aura</span>
 
-                // Show loading state
-                askAiBtn.disabled = true;
-                askAiBtn.innerHTML = '<span class="loader"></span><span>Thinking...</span>';
-                aiResponseContainer.innerHTML = 'Generating response...';
+            </a>
 
-                // Context for the AI model
-                const productInfo = `
-                    You are Aura AI, a helpful assistant for the 'Aura' device.
-                    The Aura device is a futuristic personal gadget with these features:
-                    - Quantum Core Processor: Instantaneous performance.
-                    - CrystalClear Audio: Spatial audio with dynamic head tracking.
-                    - All-Day Battery: Lasts from morning to night.
-                    - Design: Aerospace-grade aluminum and fortified ceramic glass. Available in Midnight, Starlight, Nebula, and Rose Gold.
-                    - OS: Powered by AuraOS, which is intuitive and protects privacy.
-                    
-                    Keep your answers concise, friendly, and focused on the product.
-                `;
+            <nav class="hidden md:flex space-x-2 items-center">
 
-                const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
+                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Features</a>
 
-                try {
-                    let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Leave empty
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
 
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                <a href="#tech" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Technology</a>
 
-                    if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
-                    }
+                <a href="#aura-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Aura AI</a>
 
-                    const result = await response.json();
+                <a href="#" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2 rounded-full transition-colors" data-magnetic>Buy Now</a>
 
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        aiResponseContainer.textContent = text;
-                    } else {
-                        throw new Error('Unexpected API response structure.');
-                    }
+            </nav>
 
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    aiResponseContainer.textContent = 'Sorry, I had trouble connecting to my brain. Please try again in a moment.';
-                } finally {
-                    // Restore button state
-                    askAiBtn.disabled = false;
-                    askAiBtn.innerHTML = '<span>✨ Ask Aura AI</span>';
-                }
-            }
+            <button class="md:hidden text-white" data-magnetic>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+
+            </button>
+
+        </div>
+
+    </header>
 
 
-            // --- SUPER ADVANCED BETA CANARY FEATURES JS ---
 
-            // WebSockets Mock for live counter
-            // This is a mock implementation as a real WebSocket server is not available.
-            const visitorCounter = document.getElementById('visitor-counter');
-            let visitors = 1001; // Starting number
-            const socket = new WebSocket('wss://mock-aura-pulse.com');
-            socket.onopen = () => {
-                console.log("Mock WebSocket connection established.");
-                // Simulate a message from the server every 2 seconds
-                setInterval(() => {
-                    visitors += Math.floor(Math.random() * 5);
-                    visitorCounter.textContent = visitors;
-                }, 2000);
-            };
+    <main>
 
-            // WebGPU Integration (for illustrative purposes, simplified)
-            async function initWebGPU() {
-                if (!navigator.gpu) {
-                    console.log("WebGPU not supported on this device.");
-                    const canvas = document.getElementById('webgpu-canvas');
-                    const ctx = canvas.getContext('2d');
-                    ctx.font = '24px Inter';
-                    ctx.fillStyle = '#f9f9f9';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('WebGPU Not Supported', canvas.width/2, canvas.height/2);
-                    return;
-                }
+        <!-- Hero Section -->
 
-                const adapter = await navigator.gpu.requestAdapter();
-                const device = await adapter.requestDevice();
-                const canvas = document.getElementById('webgpu-canvas');
-                const context = canvas.getContext('webgpu');
-                const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
-                context.configure({
-                    device,
-                    format: presentationFormat,
-                    alphaMode: 'premultiplied'
-                });
+        <section class="h-[150vh] flex items-start justify-center text-center bg-transparent pt-48 sticky top-0">
 
-                // Simple render loop that clears the canvas with a dynamic color
-                const render = () => {
-                    const commandEncoder = device.createCommandEncoder();
-                    const textureView = context.getCurrentTexture().createView();
-                    const renderPassDescriptor = {
-                        colorAttachments: [{
-                            view: textureView,
-                            clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
-                            loadOp: 'clear',
-                            storeOp: 'store'
-                        }]
-                    };
-                    const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
-                    passEncoder.end();
-                    device.queue.submit([commandEncoder.finish()]);
-                    requestAnimationFrame(render);
-                };
-                render();
-                
-                // Animate background color slightly for effect
-                setInterval(() => {
-                    const randomColor = `rgb(${Math.floor(Math.random() * 50)}, ${Math.floor(Math.random() * 50)}, ${Math.floor(Math.random() * 50)})`;
-                    canvas.style.transition = 'background-color 5s ease-in-out';
-                    canvas.style.backgroundColor = randomColor;
-                }, 5000);
-            }
-            initWebGPU();
+            <div class="container mx-auto px-6" id="hero-content">
 
-            // Web Worker & Web Crypto for heavy computation
-            const runBenchmarkBtn = document.getElementById('run-benchmark-btn');
-            const benchmarkResult = document.getElementById('benchmark-result');
-            
-            if (window.Worker) {
-                const quantumWorker = new Worker('data:application/javascript;base64,' + btoa(`
-                    self.onmessage = async (e) => {
-                        const {iterations} = e.data;
-                        let count = 0;
-                        const t0 = performance.now();
-                        for (let i = 0; i < iterations; i++) {
-                            const data = new Uint8Array(2048);
-                            const hash = await crypto.subtle.digest('SHA-256', data);
-                            count++;
-                            if (i % 1000 === 0) {
-                                self.postMessage({ status: 'progress', progress: (i / iterations) * 100 });
-                            }
-                        }
-                        const t1 = performance.now();
-                        const timeTaken = t1 - t0;
-                        self.postMessage({ status: 'complete', timeTaken: timeTaken, count: count });
-                    };
-                `));
+                <div class="max-w-4xl mx-auto">
 
-                runBenchmarkBtn.addEventListener('click', () => {
-                    benchmarkResult.textContent = 'Running simulation...';
-                    runBenchmarkBtn.disabled = true;
-                    quantumWorker.postMessage({ iterations: 5000 });
-                });
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight mb-6">
 
-                quantumWorker.onmessage = (e) => {
-                    if (e.data.status === 'progress') {
-                        benchmarkResult.textContent = 'Running... ' + Math.round(e.data.progress) + '% complete.';
-                    } else if (e.data.status === 'complete') {
-                        benchmarkResult.textContent = 'Completed in ' + (e.data.timeTaken / 1000).toFixed(2) + ' seconds. Hashed ' + e.data.count + ' files.';
-                        runBenchmarkBtn.disabled = false;
-                    }
-                };
-            } else {
-                benchmarkResult.textContent = 'Web Workers are not supported.';
-                runBenchmarkBtn.disabled = true;
-            }
+                        Experience <span class="gradient-text">Aura</span>.
 
-            // Three.js 3D model viewer
-            function init3DViewer() {
-                const canvas = document.getElementById('webxr-3d-model');
-                const scene = new THREE.Scene();
-                const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                        <br>
 
-                const geometry = new THREE.BoxGeometry(2, 2, 2);
-                const material = new THREE.MeshPhongMaterial({ color: 0x4f46e5, shininess: 100 });
-                const deviceModel = new THREE.Mesh(geometry, material);
-                scene.add(deviceModel);
+                        Purely Magical.
 
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-                scene.add(ambientLight);
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-                directionalLight.position.set(5, 5, 5);
-                scene.add(directionalLight);
+                    </h1>
 
-                camera.position.z = 5;
+                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
 
-                let isDragging = false;
-                let previousMousePosition = {
-                    x: 0,
-                    y: 0
-                };
+                        The future of personal devices is here. Seamlessly integrated, intuitively designed, and powerfully simple.
 
-                function onMouseDown(event) {
-                    isDragging = true;
-                    previousMousePosition = {
-                        x: event.clientX,
-                        y: event.clientY
-                    };
-                }
+                    </p>
 
-                function onMouseMove(event) {
-                    if (!isDragging) return;
-                    const deltaMove = {
-                        x: event.clientX - previousMousePosition.x,
-                        y: event.clientY - previousMousePosition.y
-                    };
-                    const deltaRotationQuaternion = new THREE.Quaternion().setFromEuler(
-                        new THREE.Euler(
-                            deltaMove.y * 0.01,
-                            deltaMove.x * 0.01,
-                            0,
-                            'XYZ'
-                        )
-                    );
-                    deviceModel.quaternion.multiplyQuaternions(deltaRotationQuaternion, deviceModel.quaternion);
-                    previousMousePosition = {
-                        x: event.clientX,
-                        y: event.clientY
-                    };
-                }
+                    <div>
 
-                function onMouseUp(event) {
-                    isDragging = false;
-                }
+                        <a href="#" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 inline-block" data-magnetic>Learn More</a>
 
-                canvas.addEventListener('mousedown', onMouseDown, false);
-                canvas.addEventListener('mousemove', onMouseMove, false);
-                canvas.addEventListener('mouseup', onMouseUp, false);
+                    </div>
 
-                const animate = () => {
-                    requestAnimationFrame(animate);
-                    if (!isDragging) {
-                        deviceModel.rotation.y += 0.005;
-                    }
-                    renderer.render(scene, camera);
-                };
+                </div>
 
-                animate();
-            }
-            init3DViewer();
-        });
-    </script>
+            </div>
+
+        </section>
+
+
+
+        <!-- Content sections container to scroll over the sticky hero -->
+
+        <div class="relative z-10 bg-black">
+
+            <!-- Product Image Section -->
+
+            <section class="py-20">
+
+                <div class="container mx-auto px-6 text-center">
+
+                     <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Aura+Device" 
+
+                         alt="Aura Device Showcase" 
+
+                         class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
+
+                         id="product-image"
+
+                         onerror="this.onerror=null;this.src='https://placehold.co/1200x800/111111/444444?text=Image+Not+Found';">
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Features Section -->
+
+            <section id="features" class="py-20">
+
+                <div class="container mx-auto px-6">
+
+                    <div class="text-center mb-16">
+
+                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate">Everything you need. <br>And then some.</h2>
+
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8">
+
+                        <!-- Feature Card 1 -->
+
+                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
+
+                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="22" y2="7"></line><line x1="2" y1="17" x2="22" y2="17"></line></svg>
+
+                            </div>
+
+                            <h3 class="text-2xl font-semibold text-white mb-3">Quantum Core</h3>
+
+                            <p class="text-gray-400">Our next-generation processor delivers performance that’s not just fast, it’s instantaneous.</p>
+
+                        </div>
+
+                        <!-- Feature Card 2 -->
+
+                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
+
+                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
+
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+
+                            </div>
+
+                            <h3 class="text-2xl font-semibold text-white mb-3">CrystalClear Audio</h3>
+
+                            <p class="text-gray-400">Spatial audio with dynamic head tracking places sound all around you for a truly immersive experience.</p>
+
+                        </div>
+
+                        <!-- Feature Card 3 -->
+
+                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
+
+                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+
+                            </div>
+
+                            <h3 class="text-2xl font-semibold text-white mb-3">All-Day Battery</h3>
+
+                            <p class="text-gray-400">Engineered for efficiency, Aura lasts from your morning coffee to your late-night playlist.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Design Section -->
+
+            <section id="design" class="py-20">
+
+                <div class="container mx-auto px-6">
+
+                    <div class="grid md:grid-cols-2 gap-16 items-center">
+
+                        <div class="view-animate">
+
+                             <img src="https://placehold.co/800x800/000000/FFFFFF?text=Sleek+Design" 
+
+                                 alt="Aura Device Close-up" 
+
+                                 class="rounded-3xl glass-effect p-2"
+
+                                 onerror="this.onerror=null;this.src='https://placehold.co/800x800/111111/444444?text=Image+Not+Found';">
+
+                        </div>
+
+                        <div class="view-animate" style="animation-delay: 0.2s;">
+
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Designed for life.</h2>
+
+                            <p class="text-lg text-gray-400 mb-4">Crafted from aerospace-grade aluminum and fortified ceramic glass, Aura is as durable as it is beautiful. Every curve, every edge, and every pixel is meticulously engineered for a perfect feel and a flawless look.</p>
+
+                            <p class="text-lg text-gray-400">Available in four stunning finishes: Midnight, Starlight, Nebula, and Rose Gold.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            
+
+            <!-- Technology Section -->
+
+            <section id="tech" class="py-20">
+
+                <div class="container mx-auto px-6 text-center">
+
+                    <div class="max-w-4xl mx-auto">
+
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate">Powered by AuraOS.</h2>
+
+                        <p class="text-lg md:text-xl text-gray-400 mb-12 view-animate" style="animation-delay: 0.2s;">
+
+                            Our revolutionary operating system anticipates your needs, protects your privacy, and connects your world like never before. It’s not just smart; it’s intuitive.
+
+                        </p>
+
+                        <div class="view-animate" style="animation-delay: 0.4s;">
+
+                             <img src="https://placehold.co/1200x600/000000/FFFFFF?text=AuraOS+Interface" 
+
+                                 alt="AuraOS User Interface" 
+
+                                 class="rounded-2xl shadow-lg glass-effect p-2"
+
+                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Aura AI Section (Powered by Gemini) -->
+
+            <section id="aura-ai" class="py-20">
+
+                <div class="container mx-auto px-6 text-center">
+
+                    <div class="max-w-3xl mx-auto">
+
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate">Have a question?</h2>
+
+                        <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
+
+                            Ask our AI anything about the Aura device.
+
+                        </p>
+
+                        <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
+
+                            <div class="flex flex-col md:flex-row gap-4 mb-6">
+
+                                <input type="text" id="ai-prompt" placeholder="e.g., How long does the battery last?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
+
+                                <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
+
+                                    <span>✨ Ask Aura AI</span>
+
+                                </button>
+
+                            </div>
+
+                            <div id="aura-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300">
+
+                                Ask a question to see the AI's response here.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- Footer -->
+
+    <footer class="glass-effect border-t-0 mt-20">
+
+        <div class="container mx-auto px-6 py-12">
+
+            <div class="grid md:grid-cols-4 gap-8 text-gray-400">
+
+                <div>
+
+                    <h4 class="font-semibold text-white mb-4">Aura</h4>
+
+                    <p>The Future of Connection</p>
+
+                </div>
+
+                <div>
+
+                    <h4 class="font-semibold text-white mb-4">Product</h4>
+
+                    <ul>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Overview</a></li>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Features</a></li>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Tech Specs</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div>
+
+                    <h4 class="font-semibold text-white mb-4">Company</h4>
+
+                    <ul>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">About</a></li>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Careers</a></li>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Press</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div>
+
+                    <h4 class="font-semibold text-white mb-4">Support</h4>
+
+                    <ul>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Help Center</a></li>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Contact Us</a></li>
+
+                        <li class="mb-2"><a href="#" class="hover:text-white">Warranty</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+
+                <p>&copy; 2025 Aura Inc. All rights reserved.</p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // --- MAGNETIC BUTTONS EFFECT ---
+
+            const magneticElements = document.querySelectorAll('[data-magnetic]');
+
+            magneticElements.forEach(el => {
+
+                el.addEventListener('mousemove', function(e) {
+
+                    const position = el.getBoundingClientRect();
+
+                    const x = e.clientX - position.left - position.width / 2;
+
+                    const y = e.clientY - position.top - position.height / 2;
+
+
+
+                    gsap.to(el, {
+
+                        x: x * 0.3,
+
+                        y: y * 0.3,
+
+                        duration: 0.7,
+
+                        ease: "elastic.out(1, 0.3)"
+
+                    });
+
+                });
+
+
+
+                el.addEventListener('mouseleave', function() {
+
+                    gsap.to(el, {
+
+                        x: 0,
+
+                        y: 0,
+
+                        duration: 0.7,
+
+                        ease: "elastic.out(1, 0.3)"
+
+                    });
+
+                });
+
+            });
+
+
+
+            // --- GEMINI API INTEGRATION ---
+
+            const askAiBtn = document.getElementById('ask-ai-btn');
+
+            const aiPromptInput = document.getElementById('ai-prompt');
+
+            const aiResponseContainer = document.getElementById('aura-ai-response');
+
+
+
+            askAiBtn.addEventListener('click', handleAiRequest);
+
+            aiPromptInput.addEventListener('keypress', (e) => {
+
+                if (e.key === 'Enter') {
+
+                    handleAiRequest();
+
+                }
+
+            });
+
+
+
+            async function handleAiRequest() {
+
+                const userPrompt = aiPromptInput.value.trim();
+
+                if (!userPrompt) {
+
+                    aiResponseContainer.textContent = 'Please enter a question.';
+
+                    return;
+
+                }
+
+
+
+                // Show loading state
+
+                askAiBtn.disabled = true;
+
+                askAiBtn.innerHTML = '<span class="loader"></span><span>Thinking...</span>';
+
+                aiResponseContainer.innerHTML = 'Generating response...';
+
+
+
+                // Context for the AI model
+
+                const productInfo = `
+
+                    You are Aura AI, a helpful assistant for the 'Aura' device.
+
+                    The Aura device is a futuristic personal gadget with these features:
+
+                    - Quantum Core Processor: Instantaneous performance.
+
+                    - CrystalClear Audio: Spatial audio with dynamic head tracking.
+
+                    - All-Day Battery: Lasts from morning to night.
+
+                    - Design: Aerospace-grade aluminum and fortified ceramic glass. Available in Midnight, Starlight, Nebula, and Rose Gold.
+
+                    - OS: Powered by AuraOS, which is intuitive and protects privacy.
+
+                    
+
+                    Keep your answers concise, friendly, and focused on the product.
+
+                `;
+
+
+
+                const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
+
+
+
+                try {
+
+                    let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
+
+                    const payload = { contents: chatHistory };
+
+                    const apiKey = ""; // Leave empty
+
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+
+
+                    const response = await fetch(apiUrl, {
+
+                        method: 'POST',
+
+                        headers: { 'Content-Type': 'application/json' },
+
+                        body: JSON.stringify(payload)
+
+                    });
+
+
+
+                    if (!response.ok) {
+
+                        throw new Error(`API request failed with status ${response.status}`);
+
+                    }
+
+
+
+                    const result = await response.json();
+
+
+
+                    if (result.candidates && result.candidates.length > 0 &&
+
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+
+                        result.candidates[0].content.parts.length > 0) {
+
+                        const text = result.candidates[0].content.parts[0].text;
+
+                        aiResponseContainer.textContent = text;
+
+                    } else {
+
+                        throw new Error('Unexpected API response structure.');
+
+                    }
+
+
+
+                } catch (error) {
+
+                    console.error("Error calling Gemini API:", error);
+
+                    aiResponseContainer.textContent = 'Sorry, I had trouble connecting to my brain. Please try again in a moment.';
+
+                } finally {
+
+                    // Restore button state
+
+                    askAiBtn.disabled = false;
+
+                    askAiBtn.innerHTML = '<span>✨ Ask Aura AI</span>';
+
+                }
+
+            }
+
+        });
+
+    </script>
+
 </body>
+
 </html>

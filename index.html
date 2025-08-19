@@ -230,7 +230,7 @@
             <nav class="hidden md:flex space-x-2 items-center">
                 <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Features</a>
                 <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
-                <a href="#tech" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Technology</a>
+                <a href="#scripting" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Scripting</a>
                 <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Vex AI</a>
                 <button id="get-script-btn-nav" class="liquid-glass-btn" data-magnetic>Get Script</button>
             </nav>
@@ -270,7 +270,7 @@
                 <div class="container mx-auto px-6 text-center">
                     <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Vex+Script+Showcase" 
                             alt="Vex Script Showcase" 
-                            class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
+                            class="rounded-3xl mx-auto shadow-2xl glass-effect p-2 shadow-indigo-500/20 view-animate"
                             id="product-image"
                             onerror="this.onerror=null;this.src='https://placehold.co/1200x800/111111/444444?text=Image+Not+Found';">
                 </div>
@@ -325,22 +325,18 @@
                 </div>
             </section>
             
-            <section id="tech" class="py-20">
+            <section id="scripting" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-4xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate text-balance">Powered by VexOS.</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate text-balance">Scripted with Lua.</h2>
                         <p class="text-lg md:text-xl text-gray-400 mb-12 view-animate" style="animation-delay: 0.2s;">
-                            Our revolutionary operating system anticipates your needs, protects your privacy, and connects your world like never before. It’s not just smart; it’s intuitive.
+                            The Vex script is written in Lua, the powerful and lightweight scripting language used by Roblox. This ensures maximum compatibility, performance, and stability within the Roblox engine.
                         </p>
                         <div class="view-animate" style="animation-delay: 0.4s;">
-                            <img src="https://placehold.co/1200x600/000000/FFFFFF?text=VexOS+Interface" 
-                                    alt="VexOS User Interface" 
+                            <img src="https://placehold.co/1200x600/000000/FFFFFF?text=Lua+Scripting+Interface" 
+                                    alt="Lua Scripting Interface" 
                                     class="rounded-2xl shadow-lg glass-effect p-2"
                                     onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
-                        </div>
-                        <div class="mt-12 view-animate" style="animation-delay: 0.6s;">
-                            <h3 class="text-2xl font-bold text-white mb-4 text-balance">A Glimpse of the Future: WebGPU</h3>
-                            <canvas id="webgpu-canvas" width="600" height="400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -351,11 +347,11 @@
                     <div class="max-w-3xl mx-auto">
                         <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate text-balance">Have a question?</h2>
                         <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
-                            Ask our AI anything about the Vex device.
+                            Ask our AI anything about the Vex script.
                         </p>
                         <div class="glass-effect p-8 rounded-3xl view-animate motion-bg" style="animation-delay: 0.4s;">
                             <div class="flex flex-col md:flex-row gap-4 mb-6">
-                                <input type="text" id="ai-prompt" placeholder="e.g., How long does the battery last?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
+                                <input type="text" id="ai-prompt" placeholder="e.g., How does the invincibility work?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
                                 <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
                                     <span>✨ Ask Vex AI</span>
                                 </button>
@@ -380,9 +376,9 @@
                 <div>
                     <h4 class="font-semibold text-white mb-4">Product</h4>
                     <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Overview</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Features</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Tech Specs</a></li>
+                        <li class="mb-2"><a href="#features" class="hover:text-white">Overview</a></li>
+                        <li class="mb-2"><a href="#features" class="hover:text-white">Features</a></li>
+                        <li class="mb-2"><a href="#scripting" class="hover:text-white">Tech Specs</a></li>
                     </ul>
                 </div>
                 <div>
@@ -394,11 +390,10 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold text-white mb-4">Support</h4>
+                    <h4 class="font-semibold text-white mb-4">Contact</h4>
                     <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Help Center</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Contact Us</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Warranty</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-white">Discord</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-white">Email Us</a></li>
                     </ul>
                 </div>
             </div>
@@ -655,6 +650,7 @@ LogDebug("Vex5.2 initialized successfully")`;
                     - **Anti-Respawn Bypass:** Prevents common bypasses that allow players to instantly respawn.
                     - **Debug Logging:** Includes a toggle to enable or disable debug logs for developers.
                     - **Design:** The website showcases a futuristic design with a focus on liquid-glass aesthetics.
+                    - **Scripting Language:** The script is written in Lua.
                     
                     Keep your answers concise, friendly, and focused on the product.
                 `;
@@ -699,92 +695,6 @@ LogDebug("Vex5.2 initialized successfully")`;
                     askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
                 }
             }
-
-            // --- BETA FEATURE: WEBGPU API ---
-            async function initWebGPU() {
-                if (!navigator.gpu) {
-                    console.log("WebGPU not supported on this browser.");
-                    return;
-                }
-                
-                const adapter = await navigator.gpu.requestAdapter();
-                const device = await adapter.requestDevice();
-                const canvas = document.getElementById('webgpu-canvas');
-                const context = canvas.getContext('webgpu');
-                
-                const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
-                context.configure({
-                    device: device,
-                    format: presentationFormat,
-                    alphaMode: 'premultiplied'
-                });
-                
-                const pipeline = device.createRenderPipeline({
-                    layout: 'auto',
-                    vertex: {
-                        module: device.createShaderModule({
-                            code: `
-                                @vertex
-                                fn main(@builtin(vertex_index) vertexIndex : u32) -> @builtin(position) vec4<f32> {
-                                    var positions = array<vec2<f32>, 3>(
-                                        vec2<f32>(0.0, 0.5),
-                                        vec2<f32>(-0.5, -0.5),
-                                        vec2<f32>(0.5, -0.5)
-                                    );
-                                    return vec4<f32>(positions[vertexIndex], 0.0, 1.0);
-                                }
-                            `
-                        }),
-                        entryPoint: 'main'
-                    },
-                    fragment: {
-                        module: device.createShaderModule({
-                            code: `
-                                @fragment
-                                fn main() -> @location(0) vec4<f32> {
-                                    return vec4<f32>(0.2, 0.7, 0.9, 1.0);
-                                }
-                            `
-                        }),
-                        entryPoint: 'main',
-                        targets: [{ format: presentationFormat }]
-                    },
-                    primitive: {
-                        topology: 'triangle-list'
-                    }
-                });
-
-                function render() {
-                    const commandEncoder = device.createCommandEncoder();
-                    const textureView = context.getCurrentTexture().createView();
-                    const renderPassDescriptor = {
-                        colorAttachments: [{
-                            view: textureView,
-                            clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 0.0 },
-                            loadOp: 'clear',
-                            storeOp: 'store'
-                        }]
-                    };
-                    const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
-                    passEncoder.setPipeline(pipeline);
-                    passEncoder.draw(3); // Draw our single triangle.
-                    passEncoder.end();
-                    device.queue.submit([commandEncoder.finish()]);
-                }
-                
-                render();
-                canvas.classList.add('active'); // Animate the canvas in
-            }
-            
-            const webGpuObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        initWebGPU();
-                        webGpuObserver.unobserve(entry.target);
-                    }
-                });
-            });
-            webGpuObserver.observe(document.getElementById('tech'));
 
             // --- BETA FEATURE: DEVICE MOTION API ---
             const vexAiSection = document.getElementById('vex-ai');

@@ -438,7 +438,139 @@
             });
 
             // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
-            const scriptText = "This is the script for Vex.";
+            const scriptText = `--[[
+__     __        ____   ____  
+\ \   / /____  _| ___| |___ \ 
+ \ \ / / _ \ \/ /___ \   __) |
+  \ V /  __/>  < ___) | / __/ 
+   \_/ \___/_/\_\____(_)_____|
+
+	Author: StrikeXRR
+	Version: 5.2.0
+	Script: Vex5.2
+	Description:
+	- Kicks non-exempt players on death.
+	- Provides unbreakable invincibility for whitelisted users.
+	- Case-insensitive username checks.
+	- Prevents instant respawn bypasses.
+	- Debug logging toggle for development.
+--]]
+
+--//========================= SERVICES =========================\\--
+local Players = game:GetService("Players")
+
+--//======================= CONFIGURATION ======================\\--
+
+local DEBUG = false -- Set to true to print debug logs
+
+-- Editable at runtime
+local ExemptPlayers = {
+	[""] = true,
+	[""] = true,
+}
+
+local InvinciblePlayers = {
+	["StrikeXRR"] = true,
+	[12345678] = true
+}
+
+local KickMessage = "You died! Rejoin to try again."
+local AllowNaturalHealthRegen = false
+local InvincibilityRefreshRate = 0.1 -- seconds
+
+--//======================= UTILITIES ==========================\\--
+
+local function LogDebug(...)
+	if DEBUG then
+		print("[Vex5.2 DEBUG]:", ...)
+	end
+end
+
+local function NormalizeName(name: string)
+	return string.lower(name)
+end
+
+local function IsPlayerExempt(player: Player): boolean
+	return ExemptPlayers[NormalizeName(player.Name)] or ExemptPlayers[player.UserId]
+end
+
+local function IsPlayerInvincible(player: Player): boolean
+	return InvinciblePlayers[NormalizeName(player.Name)] or InvinciblePlayers[player.UserId]
+end
+
+local function ApplyInvincibility(humanoid: Humanoid)
+	if not AllowNaturalHealthRegen then
+		local rootPart = humanoid.Parent and humanoid.Parent:FindFirstChild("HumanoidRootPart")
+		if rootPart then
+			rootPart:SetAttribute("Invincible", true)
+		end
+
+		task.spawn(function()
+			while humanoid and humanoid.Parent and humanoid.Health > 0 do
+				if humanoid.Health < humanoid.MaxHealth then
+					humanoid.Health = humanoid.MaxHealth
+				end
+				task.wait(InvincibilityRefreshRate)
+			end
+		end)
+	else
+		humanoid.HealthChanged:Connect(function()
+			if humanoid.Health < humanoid.MaxHealth then
+				humanoid.Health = humanoid.MaxHealth
+			end
+		end)
+	end
+	LogDebug("Invincibility applied to", humanoid.Parent.Name)
+end
+
+local function HandlePlayerDeath(player: Player)
+	if not IsPlayerExempt(player) then
+		LogDebug(player.Name, "is not exempt, kicking...")
+		player:Kick(KickMessage)
+	else
+		LogDebug(player.Name, "is exempt, not kicking.")
+	end
+end
+
+local function OnCharacterAdded(player: Player, character: Model)
+	local humanoid = character:FindFirstChildOfClass("Humanoid") or character:WaitForChild("Humanoid", 5)
+	if not humanoid then return end
+
+	if IsPlayerInvincible(player) then
+		ApplyInvincibility(humanoid)
+	else
+		humanoid.Died:Connect(function()
+			HandlePlayerDeath(player)
+		end)
+	end
+end
+
+local function OnPlayerAdded(player: Player)
+	local lowerName = NormalizeName(player.Name)
+	if ExemptPlayers[player.Name] then
+		ExemptPlayers[lowerName] = true
+	end
+	if InvinciblePlayers[player.Name] then
+		InvinciblePlayers[lowerName] = true
+	end
+
+	player.CharacterAdded:Connect(function(character)
+		OnCharacterAdded(player, character)
+	end)
+
+	if player.Character then
+		OnCharacterAdded(player, player.Character)
+	end
+end
+
+--//====================== INITIALIZATION ======================\\--
+
+for _, player in ipairs(Players:GetPlayers()) do
+	task.spawn(OnPlayerAdded, player)
+end
+Players.PlayerAdded:Connect(OnPlayerAdded)
+
+LogDebug("Vex5.2 initialized successfully")`;
 
             const getScriptBtnNav = document.getElementById('get-script-btn-nav');
             getScriptBtnNav.addEventListener('click', () => {
@@ -517,10 +649,12 @@
                 const productInfo = `
                     You are Vex AI, a helpful assistant for the 'Vex' script.
                     The Vex script is an advanced Roblox script with these features:
-                    - Powerful Module: Instantaneous performance in Roblox.
-                    - Effortless GUI: A clean, simple UI for easy control.
-                    - Always Updated: New features are constantly being added.
-                    - Design: The website showcases a futuristic design with a focus on liquid-glass aesthetics.
+                    - **Kicks on Death:** Automatically kicks non-exempt players when they die.
+                    - **Unbreakable Invincibility:** Provides a health-locking system for whitelisted users, preventing them from dying.
+                    - **Case-Insensitive Checks:** Player names and user IDs are checked in a case-insensitive manner for easier whitelisting.
+                    - **Anti-Respawn Bypass:** Prevents common bypasses that allow players to instantly respawn.
+                    - **Debug Logging:** Includes a toggle to enable or disable debug logs for developers.
+                    - **Design:** The website showcases a futuristic design with a focus on liquid-glass aesthetics.
                     
                     Keep your answers concise, friendly, and focused on the product.
                 `;
@@ -528,7 +662,7 @@
                 const payload = {
                     contents: [{ role: "user", parts: [{ text: `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:` }] }]
                 };
-                const apiKey = "";
+                const apiKey = "AIzaSyDw7AJD2IOGLJ4B7DPIU41lT9A1JQcXe2A";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 try {

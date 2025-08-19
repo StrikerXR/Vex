@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura — The Future of Connection</title>
+    <title>Vex — The Ultimate Roblox Script</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -77,6 +77,36 @@
                 border-color: rgba(120, 150, 255, 0.5);
                 box-shadow: 0 4px 30px rgba(0, 100, 255, 0.3);
                 transform: translateY(-2px);
+            }
+
+            /* New Liquid Glass Icon Button Style */
+            .liquid-glass-icon-btn {
+                background: rgba(4, 98, 255, 0.2);
+                border: 1px solid rgba(120, 150, 255, 0.2);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                color: white;
+                padding: 1.5rem;
+                border-radius: 2rem; /* A bit larger for the app icon look */
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 100, 255, 0.1);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2.5rem; /* Larger icon */
+            }
+
+            .liquid-glass-icon-btn:hover {
+                background: rgba(4, 98, 255, 0.3);
+                border-color: rgba(120, 150, 255, 0.5);
+                box-shadow: 0 4px 30px rgba(0, 100, 255, 0.3);
+                transform: translateY(-4px) scale(1.05); /* More pronounced effect */
+            }
+
+            .get-script-icon {
+                /* A simple script/code icon */
+                width: 1em;
+                height: 1em;
             }
         }
 
@@ -195,14 +225,14 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
-                <span>Aura</span>
+                <span>Vex</span>
             </a>
             <nav class="hidden md:flex space-x-2 items-center">
                 <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Features</a>
                 <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
                 <a href="#tech" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Technology</a>
-                <a href="#aura-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Aura AI</a>
-                <button id="get-script-btn" class="liquid-glass-btn" data-magnetic>Get Script</button>
+                <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Vex AI</a>
+                <button id="get-script-btn-nav" class="liquid-glass-btn" data-magnetic>Get Script</button>
             </nav>
             <button class="md:hidden text-white" data-magnetic>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -215,15 +245,21 @@
             <div class="container mx-auto px-6" id="hero-content">
                 <div class="max-w-4xl mx-auto">
                     <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight mb-6">
-                        Experience <span class="gradient-text">Aura</span>.
+                        Unlock the power of <span class="gradient-text">Vex</span>.
                         <br>
-                        Purely Magical.
+                        Unrivaled control.
                     </h1>
                     <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 text-balance">
-                        The future of personal devices is here. Seamlessly integrated, intuitively designed, and powerfully simple.
+                        The most advanced script for Roblox. Seamlessly integrated, intuitively designed, and powerfully simple.
                     </p>
                     <div>
-                        <a href="#" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-8 py-4 rounded-full text-lg transition-all transform hover:scale-105 inline-block" data-magnetic>Learn More</a>
+                        <button id="get-script-btn-hero" class="liquid-glass-icon-btn" data-magnetic>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="get-script-icon">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </button>
+                        <p id="copy-message" class="mt-4 text-gray-400 opacity-0 transition-opacity duration-300">Click to copy script!</p>
                     </div>
                 </div>
             </div>
@@ -232,8 +268,8 @@
         <div class="relative z-10 bg-black">
             <section class="py-20">
                 <div class="container mx-auto px-6 text-center">
-                    <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Aura+Device" 
-                            alt="Aura Device Showcase" 
+                    <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Vex+Script+Showcase" 
+                            alt="Vex Script Showcase" 
                             class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
                             id="product-image"
                             onerror="this.onerror=null;this.src='https://placehold.co/1200x800/111111/444444?text=Image+Not+Found';">
@@ -250,22 +286,22 @@
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="22" y2="7"></line><line x1="2" y1="17" x2="22" y2="17"></line></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Quantum Core</h3>
-                            <p class="text-gray-400">Our next-generation processor delivers performance that’s not just fast, it’s instantaneous.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Powerful Module</h3>
+                            <p class="text-gray-400">Our script delivers performance that’s not just fast, it’s instantaneous.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">CrystalClear Audio</h3>
-                            <p class="text-gray-400">Spatial audio with dynamic head tracking places sound all around you for a truly immersive experience.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Effortless GUI</h3>
+                            <p class="text-gray-400">Our clean, simple UI makes it easy to control everything with a few clicks.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">All-Day Battery</h3>
-                            <p class="text-gray-400">Engineered for efficiency, Aura lasts from your morning coffee to your late-night playlist.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Always Updated</h3>
+                            <p class="text-gray-400">We work tirelessly to provide updates and new features, so you're always ahead.</p>
                         </div>
                     </div>
                 </div>
@@ -275,14 +311,14 @@
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-16 items-center">
                         <div class="view-animate">
-                            <img src="https://placehold.co/800x800/000000/FFFFFF?text=Sleek+Design" 
-                                    alt="Aura Device Close-up" 
+                            <img src="https://placehold.co/800x800/000000/FFFFFF?text=Vex+UI+Showcase" 
+                                    alt="Vex UI Showcase" 
                                     class="rounded-3xl glass-effect p-2"
                                     onerror="this.onerror=null;this.src='https://placehold.co/800x800/111111/444444?text=Image+Not+Found';">
                         </div>
                         <div class="view-animate" style="animation-delay: 0.2s;">
                             <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">Designed for life.</h2>
-                            <p class="text-lg text-gray-400 mb-4 text-balance">Crafted from aerospace-grade aluminum and fortified ceramic glass, Aura is as durable as it is beautiful. Every curve, every edge, and every pixel is meticulously engineered for a perfect feel and a flawless look.</p>
+                            <p class="text-lg text-gray-400 mb-4 text-balance">Crafted from aerospace-grade aluminum and fortified ceramic glass, Vex is as durable as it is beautiful. Every curve, every edge, and every pixel is meticulously engineered for a perfect feel and a flawless look.</p>
                             <p class="text-lg text-gray-400 text-balance">Available in four stunning finishes: Midnight, Starlight, Nebula, and Rose Gold.</p>
                         </div>
                     </div>
@@ -292,13 +328,13 @@
             <section id="tech" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-4xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate text-balance">Powered by AuraOS.</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate text-balance">Powered by VexOS.</h2>
                         <p class="text-lg md:text-xl text-gray-400 mb-12 view-animate" style="animation-delay: 0.2s;">
                             Our revolutionary operating system anticipates your needs, protects your privacy, and connects your world like never before. It’s not just smart; it’s intuitive.
                         </p>
                         <div class="view-animate" style="animation-delay: 0.4s;">
-                            <img src="https://placehold.co/1200x600/000000/FFFFFF?text=AuraOS+Interface" 
-                                    alt="AuraOS User Interface" 
+                            <img src="https://placehold.co/1200x600/000000/FFFFFF?text=VexOS+Interface" 
+                                    alt="VexOS User Interface" 
                                     class="rounded-2xl shadow-lg glass-effect p-2"
                                     onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
                         </div>
@@ -310,21 +346,21 @@
                 </div>
             </section>
 
-            <section id="aura-ai" class="py-20">
+            <section id="vex-ai" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-3xl mx-auto">
                         <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate text-balance">Have a question?</h2>
                         <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
-                            Ask our AI anything about the Aura device.
+                            Ask our AI anything about the Vex device.
                         </p>
                         <div class="glass-effect p-8 rounded-3xl view-animate motion-bg" style="animation-delay: 0.4s;">
                             <div class="flex flex-col md:flex-row gap-4 mb-6">
                                 <input type="text" id="ai-prompt" placeholder="e.g., How long does the battery last?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
                                 <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
-                                    <span>✨ Ask Aura AI</span>
+                                    <span>✨ Ask Vex AI</span>
                                 </button>
                             </div>
-                            <div id="aura-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300">
+                            <div id="vex-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300">
                                 Ask a question to see the AI's response here.
                             </div>
                         </div>
@@ -338,7 +374,7 @@
         <div class="container mx-auto px-6 py-12">
             <div class="grid md:grid-cols-4 gap-8 text-gray-400">
                 <div>
-                    <h4 class="font-semibold text-white mb-4">Aura</h4>
+                    <h4 class="font-semibold text-white mb-4">Vex</h4>
                     <p>The Future of Connection</p>
                 </div>
                 <div>
@@ -367,7 +403,7 @@
                 </div>
             </div>
             <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2025 Aura Inc. All rights reserved.</p>
+                <p>&copy; 2025 Vex Inc. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -402,29 +438,62 @@
             });
 
             // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
-            const getScriptBtn = document.getElementById('get-script-btn');
-            getScriptBtn.addEventListener('click', () => {
-                const scriptText = "This is the script for Aura.";
+            const scriptText = "This is the script for Vex.";
+
+            const getScriptBtnNav = document.getElementById('get-script-btn-nav');
+            getScriptBtnNav.addEventListener('click', () => {
                 navigator.clipboard.writeText(scriptText).then(() => {
                     console.log('Script copied to clipboard!');
-                    getScriptBtn.textContent = 'Copied!';
+                    getScriptBtnNav.textContent = 'Copied!';
                     setTimeout(() => {
-                        getScriptBtn.textContent = 'Get Script';
+                        getScriptBtnNav.textContent = 'Get Script';
                     }, 2000);
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
-                    getScriptBtn.textContent = 'Failed!';
+                    getScriptBtnNav.textContent = 'Failed!';
                     setTimeout(() => {
-                        getScriptBtn.textContent = 'Get Script';
+                        getScriptBtnNav.textContent = 'Get Script';
                     }, 2000);
                 });
+            });
+
+            const getScriptBtnHero = document.getElementById('get-script-btn-hero');
+            const copyMessage = document.getElementById('copy-message');
+            getScriptBtnHero.addEventListener('click', () => {
+                navigator.clipboard.writeText(scriptText).then(() => {
+                    console.log('Script copied to clipboard!');
+                    copyMessage.textContent = 'Copied!';
+                    copyMessage.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        copyMessage.textContent = 'Click to copy script!';
+                        copyMessage.classList.add('opacity-0');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    copyMessage.textContent = 'Failed to copy!';
+                    copyMessage.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        copyMessage.textContent = 'Click to copy script!';
+                        copyMessage.classList.add('opacity-0');
+                    }, 2000);
+                });
+            });
+
+            // Make message visible on hover
+            getScriptBtnHero.addEventListener('mouseenter', () => {
+                copyMessage.classList.remove('opacity-0');
+            });
+            getScriptBtnHero.addEventListener('mouseleave', () => {
+                if (copyMessage.textContent === 'Click to copy script!') {
+                    copyMessage.classList.add('opacity-0');
+                }
             });
 
 
             // --- GEMINI API INTEGRATION ---
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
-            const aiResponseContainer = document.getElementById('aura-ai-response');
+            const aiResponseContainer = document.getElementById('vex-ai-response');
 
             askAiBtn.addEventListener('click', () => handleAiRequest(aiPromptInput.value.trim()));
             aiPromptInput.addEventListener('keypress', (e) => {
@@ -446,13 +515,12 @@
                 }
 
                 const productInfo = `
-                    You are Aura AI, a helpful assistant for the 'Aura' device.
-                    The Aura device is a futuristic personal gadget with these features:
-                    - Quantum Core Processor: Instantaneous performance.
-                    - CrystalClear Audio: Spatial audio with dynamic head tracking.
-                    - All-Day Battery: Lasts from morning to night.
-                    - Design: Aerospace-grade aluminum and fortified ceramic glass. Available in Midnight, Starlight, Nebula, and Rose Gold.
-                    - OS: Powered by AuraOS, which is intuitive and protects privacy.
+                    You are Vex AI, a helpful assistant for the 'Vex' script.
+                    The Vex script is an advanced Roblox script with these features:
+                    - Powerful Module: Instantaneous performance in Roblox.
+                    - Effortless GUI: A clean, simple UI for easy control.
+                    - Always Updated: New features are constantly being added.
+                    - Design: The website showcases a futuristic design with a focus on liquid-glass aesthetics.
                     
                     Keep your answers concise, friendly, and focused on the product.
                 `;
@@ -494,7 +562,7 @@
                     aiResponseContainer.textContent = 'Sorry, I had trouble connecting to my brain. Please try again in a moment.';
                 } finally {
                     askAiBtn.disabled = false;
-                    askAiBtn.innerHTML = '<span>✨ Ask Aura AI</span>';
+                    askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
                 }
             }
 
@@ -585,15 +653,15 @@
             webGpuObserver.observe(document.getElementById('tech'));
 
             // --- BETA FEATURE: DEVICE MOTION API ---
-            const auraAiSection = document.getElementById('aura-ai');
+            const vexAiSection = document.getElementById('vex-ai');
             if (window.DeviceMotionEvent) {
                 window.addEventListener('devicemotion', event => {
                     const { x, y } = event.accelerationIncludingGravity;
                     const normalizedX = (x / 9.8) * 50 + 50;
                     const normalizedY = (y / 9.8) * 50 + 50;
                     
-                    auraAiSection.style.setProperty('--motion-x', `${normalizedX}%`);
-                    auraAiSection.style.setProperty('--motion-y', `${normalizedY}%`);
+                    vexAiSection.style.setProperty('--motion-x', `${normalizedX}%`);
+                    vexAiSection.style.setProperty('--motion-y', `${normalizedY}%`);
                 });
             }
         });

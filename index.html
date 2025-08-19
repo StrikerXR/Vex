@@ -162,7 +162,7 @@
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
                 <span>Aura</span>
             </a>
             <nav class="hidden md:flex space-x-2 items-center">
@@ -203,7 +203,7 @@
             <!-- Product Image Section -->
             <section class="py-20">
                 <div class="container mx-auto px-6 text-center">
-                     <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Aura+Device" 
+                    <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Aura+Device" 
                          alt="Aura Device Showcase" 
                          class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
                          id="product-image"
@@ -229,7 +229,7 @@
                         <!-- Feature Card 2 -->
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                             </div>
                             <h3 class="text-2xl font-semibold text-white mb-3">CrystalClear Audio</h3>
                             <p class="text-gray-400">Spatial audio with dynamic head tracking places sound all around you for a truly immersive experience.</p>
@@ -251,7 +251,7 @@
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-16 items-center">
                         <div class="view-animate">
-                             <img src="https://placehold.co/800x800/000000/FFFFFF?text=Sleek+Design" 
+                            <img src="https://placehold.co/800x800/000000/FFFFFF?text=Sleek+Design" 
                                  alt="Aura Device Close-up" 
                                  class="rounded-3xl glass-effect p-2"
                                  onerror="this.onerror=null;this.src='https://placehold.co/800x800/111111/444444?text=Image+Not+Found';">
@@ -274,7 +274,7 @@
                             Our revolutionary operating system anticipates your needs, protects your privacy, and connects your world like never before. It’s not just smart; it’s intuitive.
                         </p>
                         <div class="view-animate" style="animation-delay: 0.4s;">
-                             <img src="https://placehold.co/1200x600/000000/FFFFFF?text=AuraOS+Interface" 
+                            <img src="https://placehold.co/1200x600/000000/FFFFFF?text=AuraOS+Interface" 
                                  alt="AuraOS User Interface" 
                                  class="rounded-2xl shadow-lg glass-effect p-2"
                                  onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
@@ -351,6 +351,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- MAGNETIC BUTTONS EFFECT ---
+            // This code block for the magnetic button effect remains unchanged.
             const magneticElements = document.querySelectorAll('[data-magnetic]');
             magneticElements.forEach(el => {
                 el.addEventListener('mousemove', function(e) {
@@ -377,30 +378,34 @@
             });
 
             // --- GEMINI API INTEGRATION ---
+            // This section has been updated to improve reliability.
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseContainer = document.getElementById('aura-ai-response');
 
-            askAiBtn.addEventListener('click', handleAiRequest);
+            askAiBtn.addEventListener('click', () => handleAiRequest(aiPromptInput.value.trim()));
             aiPromptInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
-                    handleAiRequest();
+                    handleAiRequest(aiPromptInput.value.trim());
                 }
             });
 
-            async function handleAiRequest() {
-                const userPrompt = aiPromptInput.value.trim();
+            // Function to handle the AI request with exponential backoff for retries.
+            async function handleAiRequest(userPrompt, retryCount = 0) {
+                // Return if the prompt is empty.
                 if (!userPrompt) {
                     aiResponseContainer.textContent = 'Please enter a question.';
                     return;
                 }
 
-                // Show loading state
+                // Show loading state and disable the button.
                 askAiBtn.disabled = true;
                 askAiBtn.innerHTML = '<span class="loader"></span><span>Thinking...</span>';
-                aiResponseContainer.innerHTML = 'Generating response...';
+                if (retryCount === 0) {
+                    aiResponseContainer.innerHTML = 'Generating response...';
+                }
 
-                // Context for the AI model
+                // API request parameters.
                 const productInfo = `
                     You are Aura AI, a helpful assistant for the 'Aura' device.
                     The Aura device is a futuristic personal gadget with these features:
@@ -412,41 +417,46 @@
                     
                     Keep your answers concise, friendly, and focused on the product.
                 `;
-
-                const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
+                
+                const payload = {
+                    contents: [{ role: "user", parts: [{ text: `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:` }] }]
+                };
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 try {
-                    let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Leave empty
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
                     const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
 
+                    // Check for a non-2xx status code.
                     if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
+                        // If it's a server error, retry with exponential backoff.
+                        if (response.status >= 500 && retryCount < 3) {
+                            const delay = Math.pow(2, retryCount) * 1000;
+                            console.log(`Retrying API call in ${delay / 1000} seconds...`);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            return handleAiRequest(userPrompt, retryCount + 1);
+                        }
+                        throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
                     }
 
                     const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
+                    
+                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content) {
                         const text = result.candidates[0].content.parts[0].text;
                         aiResponseContainer.textContent = text;
                     } else {
-                        throw new Error('Unexpected API response structure.');
+                        throw new Error('Unexpected API response structure or no content.');
                     }
 
                 } catch (error) {
                     console.error("Error calling Gemini API:", error);
                     aiResponseContainer.textContent = 'Sorry, I had trouble connecting to my brain. Please try again in a moment.';
                 } finally {
-                    // Restore button state
+                    // Restore button state after all attempts.
                     askAiBtn.disabled = false;
                     askAiBtn.innerHTML = '<span>✨ Ask Aura AI</span>';
                 }

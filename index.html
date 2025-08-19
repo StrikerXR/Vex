@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura — The Future of Connection (BETA)</title>
+    <title>Aura — The Future of Connection</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -14,13 +14,70 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <style>
-        /* Custom styles to apply the Inter font family */
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background-color: #000;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+        @layer base {
+            body {
+                font-family: 'Inter', sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                background-color: #000;
+                overflow-x: hidden;
+            }
+        }
+        
+        @layer components {
+            .glass-effect {
+                background-color: rgba(17, 17, 17, 0.5);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                position: relative;
+            }
+
+            .feature-card {
+                --glow-color: rgba(79, 70, 229, 0.5);
+                transition: transform 0.3s ease;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-8px);
+            }
+            .feature-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: inherit;
+                box-shadow: 0 0 40px 10px var(--glow-color);
+                opacity: 0;
+                transition: opacity 0.4s ease, box-shadow 0.4s ease;
+                z-index: -1;
+            }
+
+            .feature-card:hover::before {
+                opacity: 1;
+            }
+
+            .liquid-glass-btn {
+                background: rgba(4, 98, 255, 0.2);
+                border: 1px solid rgba(120, 150, 255, 0.2);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                color: white;
+                font-weight: 600;
+                padding: 0.75rem 1.5rem;
+                border-radius: 9999px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 100, 255, 0.1);
+            }
+
+            .liquid-glass-btn:hover {
+                background: rgba(4, 98, 255, 0.3);
+                border-color: rgba(120, 150, 255, 0.5);
+                box-shadow: 0 4px 30px rgba(0, 100, 255, 0.3);
+                transform: translateY(-2px);
+            }
         }
 
         /* BETA FEATURE: CSS @property (Houdini) */
@@ -52,61 +109,23 @@
             100% { transform: rotate(360deg) scale(1.5); }
         }
         
-        /* Enhanced Liquid Glass Effect */
-        .glass-effect {
-            background-color: rgba(17, 17, 17, 0.5);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
-
-        /* Interactive Glow effect for Feature Cards */
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: inherit;
-            box-shadow: 0 0 40px 10px var(--glow-color);
-            opacity: 0;
-            transition: opacity 0.4s ease, box-shadow 0.4s ease;
-            z-index: -1;
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-card {
-            --glow-color: rgba(79, 70, 229, 0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-        }
-
-        /* BETA FEATURE: CSS Scroll-Driven Animations */
+        /* BETA FEATURE: CSS Scroll-Driven Animations (Parallax Hero) */
         #hero-content {
             animation: fade-out-scale-down linear;
             animation-timeline: scroll(root);
             animation-range: 0 50vh;
         }
-
         @keyframes fade-out-scale-down {
             to {
                 opacity: 0;
-                transform: scale(0.9);
+                transform: scale(0.9) translateY(-50px);
             }
         }
-
+        
         .view-animate {
             animation: fade-in-up linear;
-            animation-timeline: view();
-            animation-range: entry 0% cover 40%;
+            animation-timeline: view(block);
+            animation-range: entry 25% cover 50%;
             animation-fill-mode: both;
         }
 
@@ -128,10 +147,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Styling for the new Aura AI section */
-        #aura-ai-response {
-            min-height: 100px;
-        }
+        /* Loader Animation */
         .loader {
             width: 24px;
             height: 24px;
@@ -151,8 +167,13 @@
                 transform: rotate(360deg);
             }
         }
-
-        /* BETA FEATURE: WebGPU Placeholder */
+        
+        /* BETA FEATURE: CSS text-wrap */
+        .text-balance {
+            text-wrap: balance;
+        }
+        
+        /* New WebGPU Section Canvas */
         #webgpu-canvas {
             display: block;
             margin: 2rem auto;
@@ -166,35 +187,6 @@
             opacity: 1;
             transform: scale(1);
         }
-
-        /* BETA FEATURE: Pop-up API */
-        #quick-buy-modal {
-            background-color: rgba(17, 17, 17, 0.95);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            max-width: 90%;
-            z-index: 100;
-        }
-        
-        /* BETA FEATURE: Text Wrap */
-        .text-balance {
-            text-wrap: balance;
-        }
-
-        /* BETA FEATURE: Motion Sensor CSS variable */
-        .motion-bg {
-            background-position: var(--motion-x) var(--motion-y);
-            background-size: 200% 200%;
-            transition: background-position 0.2s ease-out;
-        }
-
     </style>
 </head>
 <body class="bg-black text-gray-300">
@@ -210,7 +202,7 @@
                 <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
                 <a href="#tech" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Technology</a>
                 <a href="#aura-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Aura AI</a>
-                <button id="buy-now-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2 rounded-full transition-colors" data-magnetic popovertarget="quick-buy-modal">Buy Now</button>
+                <button id="get-script-btn" class="liquid-glass-btn" data-magnetic>Get Script</button>
             </nav>
             <button class="md:hidden text-white" data-magnetic>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -339,28 +331,8 @@
                     </div>
                 </div>
             </section>
-
-            <section id="passkey-login" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-xl mx-auto glass-effect p-12 rounded-3xl view-animate">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 text-balance">Experience passwordless login.</h2>
-                        <p class="text-lg text-gray-400 mb-8 text-balance">Securely log in with a Passkey. No passwords, no compromises.</p>
-                        <button id="passkey-login-btn" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-full transition-colors flex items-center justify-center space-x-2 mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="19" y1="11" x2="19" y2="17"/><line x1="22" y1="14" x2="16" y2="14"/></svg>
-                            <span>Sign in with Passkey</span>
-                        </button>
-                    </div>
-                </div>
-            </section>
         </div>
     </main>
-
-    <div id="quick-buy-modal" popover class="glass-effect p-8 rounded-3xl max-w-sm text-center">
-        <h3 class="text-3xl font-bold text-white mb-4 text-balance">Aura is now available!</h3>
-        <p class="text-gray-400 mb-6 text-balance">Get the Aura device and experience the future of personal technology today. Limited stock available.</p>
-        <button onclick="document.getElementById('quick-buy-modal').hidePopover()" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-full transition-colors w-full mb-4">Close</button>
-        <a href="#" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-full transition-colors block w-full">Order Now</a>
-    </div>
 
     <footer class="glass-effect border-t-0 mt-20">
         <div class="container mx-auto px-6 py-12">
@@ -428,6 +400,26 @@
                     });
                 });
             });
+
+            // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
+            const getScriptBtn = document.getElementById('get-script-btn');
+            getScriptBtn.addEventListener('click', () => {
+                const scriptText = "This is the script for Aura.";
+                navigator.clipboard.writeText(scriptText).then(() => {
+                    console.log('Script copied to clipboard!');
+                    getScriptBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        getScriptBtn.textContent = 'Get Script';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    getScriptBtn.textContent = 'Failed!';
+                    setTimeout(() => {
+                        getScriptBtn.textContent = 'Get Script';
+                    }, 2000);
+                });
+            });
+
 
             // --- GEMINI API INTEGRATION ---
             const askAiBtn = document.getElementById('ask-ai-btn');
@@ -582,7 +574,6 @@
                 canvas.classList.add('active'); // Animate the canvas in
             }
             
-            // Only attempt to initialize WebGPU when the section comes into view.
             const webGpuObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -593,42 +584,12 @@
             });
             webGpuObserver.observe(document.getElementById('tech'));
 
-            // --- BETA FEATURE: WEB AUTHENTICATION API (PASSKEYS) ---
-            const passkeyLoginBtn = document.getElementById('passkey-login-btn');
-            passkeyLoginBtn.addEventListener('click', async () => {
-                const username = "aura-user-" + Math.random().toString(36).substr(2, 9); // Placeholder username
-                const challenge = new Uint8Array(32); // In a real app, this comes from the server
-                window.crypto.getRandomValues(challenge);
-                const publicKeyCredentialCreationOptions = {
-                    challenge: challenge,
-                    rp: { name: "Aura Inc.", id: window.location.hostname },
-                    user: {
-                        id: new Uint8Array(16), // In a real app, this is a unique ID from your server
-                        name: username,
-                        displayName: "Aura User"
-                    },
-                    pubKeyCredParams: [{ type: "public-key", alg: -7 }] // ECDSA with P-256 and SHA-256
-                };
-                
-                try {
-                    // This is a simplified example. In a real app, you'd send this to your server.
-                    const credential = await navigator.credentials.create({
-                        publicKey: publicKeyCredentialCreationOptions
-                    });
-                    console.log("Passkey created successfully!", credential);
-                    alert("Passkey created! This demonstrates a passwordless login. Check the console for details.");
-                } catch (error) {
-                    console.error("Passkey creation failed:", error);
-                    alert("Passkey creation failed. See console for details.");
-                }
-            });
-
             // --- BETA FEATURE: DEVICE MOTION API ---
             const auraAiSection = document.getElementById('aura-ai');
             if (window.DeviceMotionEvent) {
                 window.addEventListener('devicemotion', event => {
                     const { x, y } = event.accelerationIncludingGravity;
-                    const normalizedX = (x / 9.8) * 50 + 50; // Normalize between 0 and 100
+                    const normalizedX = (x / 9.8) * 50 + 50;
                     const normalizedY = (y / 9.8) * 50 + 50;
                     
                     auraAiSection.style.setProperty('--motion-x', `${normalizedX}%`);

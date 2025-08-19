@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura — The Future of Connection</title>
+    <title>Aura — The Future of Connection (BETA)</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- GSAP for advanced animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <style>
@@ -154,11 +151,54 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* BETA FEATURE: WebGPU Placeholder */
+        #webgpu-canvas {
+            display: block;
+            margin: 2rem auto;
+            border-radius: 1rem;
+            box-shadow: 0 0 30px rgba(100, 200, 255, 0.2);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        #webgpu-canvas.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* BETA FEATURE: Pop-up API */
+        #quick-buy-modal {
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 90%;
+            z-index: 100;
+        }
+        
+        /* BETA FEATURE: Text Wrap */
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        /* BETA FEATURE: Motion Sensor CSS variable */
+        .motion-bg {
+            background-position: var(--motion-x) var(--motion-y);
+            background-size: 200% 200%;
+            transition: background-position 0.2s ease-out;
+        }
+
     </style>
 </head>
 <body class="bg-black text-gray-300">
 
-    <!-- Header & Navigation -->
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
@@ -170,7 +210,7 @@
                 <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
                 <a href="#tech" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Technology</a>
                 <a href="#aura-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Aura AI</a>
-                <a href="#" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2 rounded-full transition-colors" data-magnetic>Buy Now</a>
+                <button id="buy-now-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-5 py-2 rounded-full transition-colors" data-magnetic popovertarget="quick-buy-modal">Buy Now</button>
             </nav>
             <button class="md:hidden text-white" data-magnetic>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -179,7 +219,6 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="h-[150vh] flex items-start justify-center text-center bg-transparent pt-48 sticky top-0">
             <div class="container mx-auto px-6" id="hero-content">
                 <div class="max-w-4xl mx-auto">
@@ -188,7 +227,7 @@
                         <br>
                         Purely Magical.
                     </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 text-balance">
                         The future of personal devices is here. Seamlessly integrated, intuitively designed, and powerfully simple.
                     </p>
                     <div>
@@ -198,100 +237,95 @@
             </div>
         </section>
 
-        <!-- Content sections container to scroll over the sticky hero -->
         <div class="relative z-10 bg-black">
-            <!-- Product Image Section -->
             <section class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <img src="https://placehold.co/1200x800/000000/FFFFFF?text=Aura+Device" 
-                         alt="Aura Device Showcase" 
-                         class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
-                         id="product-image"
-                         onerror="this.onerror=null;this.src='https://placehold.co/1200x800/111111/444444?text=Image+Not+Found';">
+                            alt="Aura Device Showcase" 
+                            class="rounded-3xl mx-auto shadow-2xl shadow-indigo-500/20 view-animate"
+                            id="product-image"
+                            onerror="this.onerror=null;this.src='https://placehold.co/1200x800/111111/444444?text=Image+Not+Found';">
                 </div>
             </section>
 
-            <!-- Features Section -->
             <section id="features" class="py-20">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate">Everything you need. <br>And then some.</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">Everything you need. <br>And then some.</h2>
                     </div>
                     <div class="grid md:grid-cols-3 gap-8">
-                        <!-- Feature Card 1 -->
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="22" y2="7"></line><line x1="2" y1="17" x2="22" y2="17"></line></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3">Quantum Core</h3>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Quantum Core</h3>
                             <p class="text-gray-400">Our next-generation processor delivers performance that’s not just fast, it’s instantaneous.</p>
                         </div>
-                        <!-- Feature Card 2 -->
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3">CrystalClear Audio</h3>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">CrystalClear Audio</h3>
                             <p class="text-gray-400">Spatial audio with dynamic head tracking places sound all around you for a truly immersive experience.</p>
                         </div>
-                        <!-- Feature Card 3 -->
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3">All-Day Battery</h3>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">All-Day Battery</h3>
                             <p class="text-gray-400">Engineered for efficiency, Aura lasts from your morning coffee to your late-night playlist.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Design Section -->
             <section id="design" class="py-20">
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-16 items-center">
                         <div class="view-animate">
                             <img src="https://placehold.co/800x800/000000/FFFFFF?text=Sleek+Design" 
-                                 alt="Aura Device Close-up" 
-                                 class="rounded-3xl glass-effect p-2"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x800/111111/444444?text=Image+Not+Found';">
+                                    alt="Aura Device Close-up" 
+                                    class="rounded-3xl glass-effect p-2"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/800x800/111111/444444?text=Image+Not+Found';">
                         </div>
                         <div class="view-animate" style="animation-delay: 0.2s;">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Designed for life.</h2>
-                            <p class="text-lg text-gray-400 mb-4">Crafted from aerospace-grade aluminum and fortified ceramic glass, Aura is as durable as it is beautiful. Every curve, every edge, and every pixel is meticulously engineered for a perfect feel and a flawless look.</p>
-                            <p class="text-lg text-gray-400">Available in four stunning finishes: Midnight, Starlight, Nebula, and Rose Gold.</p>
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">Designed for life.</h2>
+                            <p class="text-lg text-gray-400 mb-4 text-balance">Crafted from aerospace-grade aluminum and fortified ceramic glass, Aura is as durable as it is beautiful. Every curve, every edge, and every pixel is meticulously engineered for a perfect feel and a flawless look.</p>
+                            <p class="text-lg text-gray-400 text-balance">Available in four stunning finishes: Midnight, Starlight, Nebula, and Rose Gold.</p>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <!-- Technology Section -->
             <section id="tech" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-4xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate">Powered by AuraOS.</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate text-balance">Powered by AuraOS.</h2>
                         <p class="text-lg md:text-xl text-gray-400 mb-12 view-animate" style="animation-delay: 0.2s;">
                             Our revolutionary operating system anticipates your needs, protects your privacy, and connects your world like never before. It’s not just smart; it’s intuitive.
                         </p>
                         <div class="view-animate" style="animation-delay: 0.4s;">
                             <img src="https://placehold.co/1200x600/000000/FFFFFF?text=AuraOS+Interface" 
-                                 alt="AuraOS User Interface" 
-                                 class="rounded-2xl shadow-lg glass-effect p-2"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
+                                    alt="AuraOS User Interface" 
+                                    class="rounded-2xl shadow-lg glass-effect p-2"
+                                    onerror="this.onerror=null;this.src='https://placehold.co/1200x600/111111/444444?text=Image+Not+Found';">
+                        </div>
+                        <div class="mt-12 view-animate" style="animation-delay: 0.6s;">
+                            <h3 class="text-2xl font-bold text-white mb-4 text-balance">A Glimpse of the Future: WebGPU</h3>
+                            <canvas id="webgpu-canvas" width="600" height="400"></canvas>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Aura AI Section (Powered by Gemini) -->
             <section id="aura-ai" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-3xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate">Have a question?</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate text-balance">Have a question?</h2>
                         <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
                             Ask our AI anything about the Aura device.
                         </p>
-                        <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
+                        <div class="glass-effect p-8 rounded-3xl view-animate motion-bg" style="animation-delay: 0.4s;">
                             <div class="flex flex-col md:flex-row gap-4 mb-6">
                                 <input type="text" id="ai-prompt" placeholder="e.g., How long does the battery last?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
                                 <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
@@ -305,10 +339,29 @@
                     </div>
                 </div>
             </section>
+
+            <section id="passkey-login" class="py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <div class="max-w-xl mx-auto glass-effect p-12 rounded-3xl view-animate">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 text-balance">Experience passwordless login.</h2>
+                        <p class="text-lg text-gray-400 mb-8 text-balance">Securely log in with a Passkey. No passwords, no compromises.</p>
+                        <button id="passkey-login-btn" class="bg-green-600 hover:bg-green-500 text-white font-semibold px-8 py-4 rounded-full transition-colors flex items-center justify-center space-x-2 mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="19" y1="11" x2="19" y2="17"/><line x1="22" y1="14" x2="16" y2="14"/></svg>
+                            <span>Sign in with Passkey</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
     </main>
 
-    <!-- Footer -->
+    <div id="quick-buy-modal" popover class="glass-effect p-8 rounded-3xl max-w-sm text-center">
+        <h3 class="text-3xl font-bold text-white mb-4 text-balance">Aura is now available!</h3>
+        <p class="text-gray-400 mb-6 text-balance">Get the Aura device and experience the future of personal technology today. Limited stock available.</p>
+        <button onclick="document.getElementById('quick-buy-modal').hidePopover()" class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-full transition-colors w-full mb-4">Close</button>
+        <a href="#" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-full transition-colors block w-full">Order Now</a>
+    </div>
+
     <footer class="glass-effect border-t-0 mt-20">
         <div class="container mx-auto px-6 py-12">
             <div class="grid md:grid-cols-4 gap-8 text-gray-400">
@@ -351,7 +404,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- MAGNETIC BUTTONS EFFECT ---
-            // This code block for the magnetic button effect remains unchanged.
             const magneticElements = document.querySelectorAll('[data-magnetic]');
             magneticElements.forEach(el => {
                 el.addEventListener('mousemove', function(e) {
@@ -378,7 +430,6 @@
             });
 
             // --- GEMINI API INTEGRATION ---
-            // This section has been updated to improve reliability.
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseContainer = document.getElementById('aura-ai-response');
@@ -390,22 +441,18 @@
                 }
             });
 
-            // Function to handle the AI request with exponential backoff for retries.
             async function handleAiRequest(userPrompt, retryCount = 0) {
-                // Return if the prompt is empty.
                 if (!userPrompt) {
                     aiResponseContainer.textContent = 'Please enter a question.';
                     return;
                 }
 
-                // Show loading state and disable the button.
                 askAiBtn.disabled = true;
                 askAiBtn.innerHTML = '<span class="loader"></span><span>Thinking...</span>';
                 if (retryCount === 0) {
                     aiResponseContainer.innerHTML = 'Generating response...';
                 }
 
-                // API request parameters.
                 const productInfo = `
                     You are Aura AI, a helpful assistant for the 'Aura' device.
                     The Aura device is a futuristic personal gadget with these features:
@@ -421,7 +468,7 @@
                 const payload = {
                     contents: [{ role: "user", parts: [{ text: `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:` }] }]
                 };
-                const apiKey = ""; 
+                const apiKey = "";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                 try {
@@ -431,9 +478,7 @@
                         body: JSON.stringify(payload)
                     });
 
-                    // Check for a non-2xx status code.
                     if (!response.ok) {
-                        // If it's a server error, retry with exponential backoff.
                         if (response.status >= 500 && retryCount < 3) {
                             const delay = Math.pow(2, retryCount) * 1000;
                             console.log(`Retrying API call in ${delay / 1000} seconds...`);
@@ -456,10 +501,139 @@
                     console.error("Error calling Gemini API:", error);
                     aiResponseContainer.textContent = 'Sorry, I had trouble connecting to my brain. Please try again in a moment.';
                 } finally {
-                    // Restore button state after all attempts.
                     askAiBtn.disabled = false;
                     askAiBtn.innerHTML = '<span>✨ Ask Aura AI</span>';
                 }
+            }
+
+            // --- BETA FEATURE: WEBGPU API ---
+            async function initWebGPU() {
+                if (!navigator.gpu) {
+                    console.log("WebGPU not supported on this browser.");
+                    return;
+                }
+                
+                const adapter = await navigator.gpu.requestAdapter();
+                const device = await adapter.requestDevice();
+                const canvas = document.getElementById('webgpu-canvas');
+                const context = canvas.getContext('webgpu');
+                
+                const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
+                context.configure({
+                    device: device,
+                    format: presentationFormat,
+                    alphaMode: 'premultiplied'
+                });
+                
+                const pipeline = device.createRenderPipeline({
+                    layout: 'auto',
+                    vertex: {
+                        module: device.createShaderModule({
+                            code: `
+                                @vertex
+                                fn main(@builtin(vertex_index) vertexIndex : u32) -> @builtin(position) vec4<f32> {
+                                    var positions = array<vec2<f32>, 3>(
+                                        vec2<f32>(0.0, 0.5),
+                                        vec2<f32>(-0.5, -0.5),
+                                        vec2<f32>(0.5, -0.5)
+                                    );
+                                    return vec4<f32>(positions[vertexIndex], 0.0, 1.0);
+                                }
+                            `
+                        }),
+                        entryPoint: 'main'
+                    },
+                    fragment: {
+                        module: device.createShaderModule({
+                            code: `
+                                @fragment
+                                fn main() -> @location(0) vec4<f32> {
+                                    return vec4<f32>(0.2, 0.7, 0.9, 1.0);
+                                }
+                            `
+                        }),
+                        entryPoint: 'main',
+                        targets: [{ format: presentationFormat }]
+                    },
+                    primitive: {
+                        topology: 'triangle-list'
+                    }
+                });
+
+                function render() {
+                    const commandEncoder = device.createCommandEncoder();
+                    const textureView = context.getCurrentTexture().createView();
+                    const renderPassDescriptor = {
+                        colorAttachments: [{
+                            view: textureView,
+                            clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 0.0 },
+                            loadOp: 'clear',
+                            storeOp: 'store'
+                        }]
+                    };
+                    const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
+                    passEncoder.setPipeline(pipeline);
+                    passEncoder.draw(3); // Draw our single triangle.
+                    passEncoder.end();
+                    device.queue.submit([commandEncoder.finish()]);
+                }
+                
+                render();
+                canvas.classList.add('active'); // Animate the canvas in
+            }
+            
+            // Only attempt to initialize WebGPU when the section comes into view.
+            const webGpuObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        initWebGPU();
+                        webGpuObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            webGpuObserver.observe(document.getElementById('tech'));
+
+            // --- BETA FEATURE: WEB AUTHENTICATION API (PASSKEYS) ---
+            const passkeyLoginBtn = document.getElementById('passkey-login-btn');
+            passkeyLoginBtn.addEventListener('click', async () => {
+                const username = "aura-user-" + Math.random().toString(36).substr(2, 9); // Placeholder username
+                const challenge = new Uint8Array(32); // In a real app, this comes from the server
+                window.crypto.getRandomValues(challenge);
+                const publicKeyCredentialCreationOptions = {
+                    challenge: challenge,
+                    rp: { name: "Aura Inc.", id: window.location.hostname },
+                    user: {
+                        id: new Uint8Array(16), // In a real app, this is a unique ID from your server
+                        name: username,
+                        displayName: "Aura User"
+                    },
+                    pubKeyCredParams: [{ type: "public-key", alg: -7 }] // ECDSA with P-256 and SHA-256
+                };
+                
+                try {
+                    // This is a simplified example. In a real app, you'd send this to your server.
+                    const credential = await navigator.credentials.create({
+                        publicKey: publicKeyCredentialCreationOptions
+                    });
+                    console.log("Passkey created successfully!", credential);
+                    alert("Passkey created! This demonstrates a passwordless login. Check the console for details.");
+                } catch (error) {
+                    console.error("Passkey creation failed:", error);
+                    alert("Passkey creation failed. See console for details.");
+                }
+            });
+
+            // --- BETA FEATURE: DEVICE MOTION API ---
+            const auraAiSection = document.getElementById('aura-ai');
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', event => {
+                    const { x, y } = event.accelerationIncludingGravity;
+                    const normalizedX = (x / 9.8) * 50 + 50; // Normalize between 0 and 100
+                    const normalizedY = (y / 9.8) * 50 + 50;
+                    
+                    auraAiSection.style.setProperty('--motion-x', `${normalizedX}%`);
+                    auraAiSection.style.setProperty('--motion-y', `${normalizedY}%`);
+                });
             }
         });
     </script>

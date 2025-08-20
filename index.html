@@ -14,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <style>
+        /* Using @layer for better CSS organization */
         @layer base {
             body {
                 font-family: 'Inter', sans-serif;
@@ -59,47 +60,26 @@
                 opacity: 1;
             }
             
-            .liquid-glass-btn {
-                background: rgba(4, 98, 255, 0.2);
-                border: 1px solid rgba(120, 150, 255, 0.2);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
+            /* NEW: Big blue 'Get Script' button style */
+            .get-script-btn-hero {
+                background: linear-gradient(135deg, #0052FF, #00A3FF);
+                border: 1px solid rgba(120, 150, 255, 0.3);
                 color: white;
-                font-weight: 600;
-                padding: 0.75rem 1.5rem;
-                border-radius: 9999px;
+                padding: 1.5rem; /* Increased padding */
+                border-radius: 2rem; /* More rounded */
                 transition: all 0.3s ease;
-                box-shadow: 0 4px 20px rgba(0, 100, 255, 0.1);
-            }
-
-            .liquid-glass-btn:hover {
-                background: rgba(4, 98, 255, 0.3);
-                border-color: rgba(120, 150, 255, 0.5);
-                box-shadow: 0 4px 30px rgba(0, 100, 255, 0.3);
-                transform: translateY(-2px);
-            }
-
-            .liquid-glass-icon-btn {
-                background: rgba(4, 98, 255, 0.2);
-                border: 1px solid rgba(120, 150, 255, 0.2);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                color: white;
-                padding: 1.5rem;
-                border-radius: 2rem;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 20px rgba(0, 100, 255, 0.1);
+                box-shadow: 0 8px 30px rgba(0, 120, 255, 0.3);
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 2.5rem;
+                font-size: 2.5rem; /* Larger icon */
+                width: 120px; /* Set fixed size */
+                height: 120px;
             }
 
-            .liquid-glass-icon-btn:hover {
-                background: rgba(4, 98, 255, 0.3);
-                border-color: rgba(120, 150, 255, 0.5);
-                box-shadow: 0 4px 30px rgba(0, 100, 255, 0.3);
-                transform: translateY(-4px) scale(1.05);
+            .get-script-btn-hero:hover {
+                box-shadow: 0 12px 40px rgba(0, 120, 255, 0.5);
+                transform: translateY(-6px) scale(1.05);
             }
 
             .get-script-icon {
@@ -107,43 +87,25 @@
                 height: 1em;
             }
             
-            /* New Header Button Style */
-            .header-btn-glow {
-                position: relative;
+            /* NEW: Standard blue button */
+            .blue-btn {
+                background: #0071e3;
                 color: white;
                 font-weight: 600;
                 padding: 0.75rem 1.5rem;
                 border-radius: 9999px;
-                overflow: hidden;
-                transition: color 0.3s ease;
+                transition: all 0.3s ease;
+            }
+            .blue-btn:hover {
+                background: #147ce5;
+                transform: translateY(-2px);
             }
 
-            .header-btn-glow::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-                transform: rotate(45deg);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                z-index: 1;
-            }
-
-            .header-btn-glow:hover::before {
-                opacity: 1;
-            }
-
-            .header-btn-glow span {
-                position: relative;
-                z-index: 2;
-            }
-            
             .code-text {
-                font-family: monospace;
+                font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
                 white-space: pre;
+                font-size: 0.8rem;
+                line-height: 1.6;
             }
         }
         
@@ -155,9 +117,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 15% 50%, #4f46e5 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 85% 30%, #d946ef 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 50% 80%, #10b981 0%, rgba(0,0,0,0) 20%);
+            background: radial-gradient(circle at 15% 50%, #0052FF 0%, rgba(0,0,0,0) 25%),
+                        radial-gradient(circle at 85% 30%, #5800FF 0%, rgba(0,0,0,0) 25%),
+                        radial-gradient(circle at 50% 80%, #00A3FF 0%, rgba(0,0,0,0) 20%);
             z-index: -1;
             animation: animateAurora 20s infinite linear;
             opacity: 0.3;
@@ -200,7 +162,7 @@
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #a5b4fc, #f9a8d4);
+            background: linear-gradient(90deg, #87CEEB, #ADD8E6); /* Softer blue gradient */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -217,12 +179,8 @@
         }
 
         @keyframes rotation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .text-balance {
@@ -235,15 +193,14 @@
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z"/><path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 <span>Vex</span>
             </a>
-            <nav class="hidden md:flex space-x-2 items-center">
-                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Features</a>
-                <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Backend</a>
-                <a href="#scripting" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Scripting</a>
-                <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Vex AI</a>
-                <button id="get-script-btn-nav" class="header-btn-glow" data-magnetic>
+            <nav class="hidden md:flex space-x-4 items-center">
+                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Features</a>
+                <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Backend</a>
+                <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Vex AI</a>
+                <button id="get-script-btn-nav" class="blue-btn" data-magnetic>
                     <span>Get Script</span>
                 </button>
             </nav>
@@ -263,17 +220,15 @@
                         Unrivaled control.
                     </h1>
                     <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 text-balance">
-                        The most advanced script for Roblox. Seamlessly integrated, intuitively designed, and powerfully simple.
+                        The most advanced open-source script for Roblox. Seamlessly integrated, intuitively designed, and powerfully simple.
                     </p>
-                    <div>
-                        <button id="get-script-btn-hero" class="liquid-glass-icon-btn" data-magnetic>
+                    <div class="flex flex-col items-center">
+                        <button id="get-script-btn-hero" class="get-script-btn-hero" data-magnetic>
                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="get-script-icon">
-                                <polyline points="16 18 22 12 16 6"></polyline>
-                                <polyline points="8 6 2 12 8 18"></polyline>
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
                             </svg>
                         </button>
-                        <p id="copy-message" class="mt-4 text-gray-400 opacity-0 transition-opacity duration-300">Click to copy script!</p>
-                        <p class="mt-2 text-sm text-gray-500">NOTE: This script should be placed inside **ServerScriptService**.</p>
+                        <p id="copy-message" class="mt-6 text-gray-400 opacity-0 transition-opacity duration-300">Click to copy script!</p>
                     </div>
                 </div>
             </div>
@@ -283,8 +238,8 @@
             <section class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-4xl mx-auto glass-effect rounded-3xl p-10 view-animate">
-                        <h2 class="text-3xl font-bold text-white mb-4">Unleash the Power of Vex</h2>
-                        <p class="text-gray-400 text-lg">
+                        <h2 class="text-3xl font-bold text-white mb-4 text-balance">Unleash the True Potential of Roblox</h2>
+                        <p class="text-gray-400 text-lg text-balance">
                             The Vex script provides a comprehensive suite of powerful features designed to give you ultimate control in any Roblox experience. It offers seamless integration and an intuitive interface, making it easy to master your gameplay. With built-in anti-cheat measures and performance optimizations, Vex ensures a smooth and reliable experience.
                         </p>
                     </div>
@@ -299,21 +254,21 @@
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="22" y2="7"></line><line x1="2" y1="17" x2="22" y2="17"></line></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             </div>
                             <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Powerful Module</h3>
                             <p class="text-gray-400">Our script delivers performance that’s not just fast, it’s instantaneous.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M14.5 17.5L12 20l-2.5-2.5"/><path d="M12 4v12"/></svg>
                             </div>
                             <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Effortless Invincibility</h3>
                             <p class="text-gray-400">Our unbreakable invincibility keeps you safe from all threats.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M20 12V8l-6-4-6 4v4"/><path d="M14 22V12l-6-4-6 4v8"/><path d="M2 12l6 4 6-4 6-4"/></svg>
                             </div>
                             <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Always Updated</h3>
                             <p class="text-gray-400">We work tirelessly to provide updates and new features, so you're always ahead.</p>
@@ -325,16 +280,23 @@
             <section id="backend" class="py-20">
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-16 items-center">
-                        <div class="view-animate glass-effect p-10 rounded-3xl">
-                            <h2 class="text-3xl font-bold text-white mb-4">A Backend Built for Speed and Security</h2>
-                            <p class="text-gray-400 text-lg">
+                        <div class="view-animate">
+                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">A Backend Built for Speed and Security.</h2>
+                            <p class="text-gray-400 text-lg mb-8 text-balance">
                                 The Vex script is engineered with a powerful backend that prioritizes performance and security. Our advanced Lua framework ensures lightning-fast execution of commands and robust anti-exploit measures to keep you safe and ahead of the competition.
                             </p>
-                            <button id="get-script-btn-bottom" class="liquid-glass-btn mt-6" data-magnetic>Get Script</button>
+                            <button id="get-script-btn-bottom" class="blue-btn" data-magnetic>Get Script</button>
                         </div>
                         <div class="view-animate" style="animation-delay: 0.2s;">
                             <div class="bg-gray-900/50 p-6 rounded-2xl glass-effect">
-                                <h3 class="text-xl font-semibold text-white mb-4">Core Functions</h3>
+                                <div class="flex items-center mb-4">
+                                    <div class="flex space-x-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
+                                    <span class="ml-auto text-gray-500 text-sm">Vex.lua</span>
+                                </div>
                                 <pre id="backend-code" class="text-sm text-gray-400 code-text overflow-x-auto"></pre>
                             </div>
                         </div>
@@ -342,23 +304,6 @@
                 </div>
             </section>
             
-            <section id="scripting" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-4xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 view-animate text-balance">Scripted with Lua.</h2>
-                        <p class="text-lg md:text-xl text-gray-400 mb-12 view-animate" style="animation-delay: 0.2s;">
-                            The Vex script is written in Lua, the powerful and lightweight scripting language used by Roblox. This ensures maximum compatibility, performance, and stability within the Roblox engine. Every line of code is optimized for speed and efficiency, giving you an edge without sacrificing performance.
-                        </p>
-                        <div class="view-animate glass-effect p-10 rounded-3xl" style="animation-delay: 0.4s;">
-                            <h3 class="text-3xl font-bold text-white mb-4">Under the Hood</h3>
-                            <p class="text-gray-400 text-lg">
-                                Our robust Lua scripting guarantees a smooth and stable performance. Vex is built to handle complex tasks with minimal latency, ensuring that every command is executed precisely and instantly. With its clean architecture, it's a script that's powerful and a pleasure to use.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <section id="vex-ai" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-3xl mx-auto">
@@ -368,12 +313,12 @@
                         </p>
                         <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
                             <div class="flex flex-col md:flex-row gap-4 mb-6">
-                                <input type="text" id="ai-prompt" placeholder="e.g., How does the invincibility work?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
-                                <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
+                                <input type="text" id="ai-prompt" placeholder="e.g., How does the invincibility work?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-blue-500 focus:ring-0 transition-all">
+                                <button id="ask-ai-btn" class="blue-btn px-8 py-3 flex items-center justify-center space-x-2">
                                     <span>✨ Ask Vex AI</span>
                                 </button>
                             </div>
-                            <div id="vex-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300">
+                            <div id="vex-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300 min-h-[100px]">
                                 Ask a question to see the AI's response here.
                             </div>
                         </div>
@@ -388,21 +333,21 @@
             <div class="grid md:grid-cols-4 gap-8 text-gray-400">
                 <div>
                     <h4 class="font-semibold text-white mb-4">Vex</h4>
-                    <p>The Future of Connection</p>
+                    <p>The Ultimate Roblox Script</p>
                 </div>
                 <div>
                     <h4 class="font-semibold text-white mb-4">Product</h4>
                     <ul>
-                        <li class="mb-2"><a href="#features" class="hover:text-white">Overview</a></li>
                         <li class="mb-2"><a href="#features" class="hover:text-white">Features</a></li>
-                        <li class="mb-2"><a href="#scripting" class="hover:text-white">Tech Specs</a></li>
+                        <li class="mb-2"><a href="#backend" class="hover:text-white">Backend</a></li>
+                        <li class="mb-2"><a href="#vex-ai" class="hover:text-white">Vex AI</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold text-white mb-4">Company</h4>
+                    <h4 class="font-semibold text-white mb-4">Community</h4>
                     <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">About</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-white">Discord</a></li>
+                        <li class="mb-2"><a href="#" class="hover:text-white">GitHub</a></li>
                         <li class="mb-2"><a href="#" class="hover:text-white">Press</a></li>
                     </ul>
                 </div>
@@ -425,12 +370,11 @@
         document.addEventListener("DOMContentLoaded", function() {
             // --- DYNAMIC CODE DISPLAY ---
             const codeEl = document.getElementById('backend-code');
-            // This is a simplified Lua-looking script for the animation
             const codeLines = [
                 `-- Services`,
                 `local Players = game:GetService("Players")`,
                 ``,
-                `-- Configuration`,
+                `-- Vex Configuration`,
                 `local Admins = {`,
                 `  [12345678] = {Exempt = true, Invincible = true}`,
                 `}`,
@@ -440,49 +384,35 @@
                 `  local admin = Admins[player.UserId]`,
                 `  return admin and admin.Invincible`,
                 `end`,
-                ``,
-                `local function onCharacterAdded(player, character)`,
-                `  local humanoid = character:WaitForChild("Humanoid")`,
-                `  if isPlayerInvincible(player) then`,
-                `    -- Apply invincibility`,
-                `  else`,
-                `    humanoid.Died:Connect(function()`,
-                `      -- Handle death`,
-                `    end)`,
-                `  end`,
-                `end`,
             ];
             let lineIndex = 0;
             let charIndex = 0;
-            let isTyping = true;
             
             function typeLine() {
+                if (!codeEl) return;
                 if (lineIndex < codeLines.length) {
                     const line = codeLines[lineIndex];
-                    if (charIndex <= line.length) {
-                        codeEl.textContent = codeEl.textContent.slice(0, -1) + line.substring(0, charIndex) + (isTyping ? "|" : "");
+                    if (charIndex < line.length) {
+                        codeEl.textContent += line.charAt(charIndex);
                         charIndex++;
-                        setTimeout(typeLine, 15);
+                        setTimeout(typeLine, 20);
                     } else {
-                        codeEl.textContent = codeEl.textContent.slice(0, -1) + line;
+                        codeEl.textContent += '\n';
                         lineIndex++;
                         charIndex = 0;
-                        isTyping = true;
-                        if (lineIndex < codeLines.length) {
-                            codeEl.textContent += "\n";
-                        }
-                        setTimeout(typeLine, 800);
+                        setTimeout(typeLine, 100);
                     }
                 } else {
-                    lineIndex = 0;
-                    charIndex = 0;
-                    isTyping = true;
-                    codeEl.textContent = "";
-                    setTimeout(typeLine, 5000);
+                    // Loop the animation
+                    setTimeout(() => {
+                        codeEl.textContent = '';
+                        lineIndex = 0;
+                        charIndex = 0;
+                        typeLine();
+                    }, 5000);
                 }
             }
 
-            // Start the animation when the element is in view
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -490,8 +420,8 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            });
-            observer.observe(codeEl);
+            }, { threshold: 0.5 });
+            if (codeEl) observer.observe(codeEl);
 
             // --- MAGNETIC BUTTONS EFFECT ---
             const magneticElements = document.querySelectorAll('[data-magnetic]');
@@ -500,203 +430,96 @@
                     const position = el.getBoundingClientRect();
                     const x = e.clientX - position.left - position.width / 2;
                     const y = e.clientY - position.top - position.height / 2;
-
-                    gsap.to(el, {
-                        x: x * 0.3,
-                        y: y * 0.3,
-                        duration: 0.7,
-                        ease: "elastic.out(1, 0.3)"
-                    });
+                    gsap.to(el, { x: x * 0.3, y: y * 0.3, duration: 0.7, ease: "elastic.out(1, 0.3)" });
                 });
-
                 el.addEventListener('mouseleave', function() {
-                    gsap.to(el, {
-                        x: 0,
-                        y: 0,
-                        duration: 0.7,
-                        ease: "elastic.out(1, 0.3)"
-                    });
+                    gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
                 });
             });
 
             // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
-            const scriptText = `--[[
-__     __         __    ____  
-\\ \\   / /____  __/ /_  | ___| 
- \\ \\ / / _ \\ \\/ / '_ \\ |___ \\ 
-  \\ V /  __/>  <| (_) | ___) |
-   \\_/ \\___/_/\\_\\___(_)____/ 
-
-	Author: StrikeXRR
-	Version: 6.6
-	Script: Vex6.6
-	Description:
-	- Kicks non-exempt players on death.
-	- Provides unbreakable invincibility for whitelisted users.
-	- Case-insensitive username and UserId checks.
-	- Prevents instant respawn bypasses.
-	- Centralized admin configuration.
-	- Debug logging toggle for development.
---]]
-
---//========================= SERVICES =========================\\--
-local Players = game:GetService("Players")
-
---//======================= CONFIGURATION ======================\\--
-
-local DEBUG = false -- Set to true to print debug logs
-local ScriptVersion = "6.6" -- Used for logging and identification
-
--- Centralized configuration for admin users.
--- To add a user, use their UserId as the key.
--- Permissions can be set by changing 'Exempt' and 'Invincible' to true or false.
-local Admins = {
-	-- Example: Adding an admin with all permissions
-	[12345678] = {
-		Exempt = true,
-		Invincible = true,
-	},
-}
-
-local KickMessage = "You died! Rejoin to try again."
-local InvincibilityRefreshRate = 0.1 -- Refresh rate for health checks in seconds
-
---//======================= UTILITIES ==========================\\--
-
-local function LogDebug(...)
-	if DEBUG then
-		print("[Vex v" .. ScriptVersion .. " DEBUG]:", ...)
-	end
-end
-
-local function NormalizeId(id: number | string): number | string
-	if typeof(id) == "string" then
-		return string.lower(id)
-	end
-	return id
-end
-
-local function IsAdmin(player: Player): boolean
-	local id = NormalizeId(player.UserId)
-	return Admins[id] ~= nil
-end
-
-local function IsPlayerExempt(player: Player): boolean
-	local id = NormalizeId(player.UserId)
-	local admin = Admins[id]
-	return admin and admin.Exempt
-end
-
-local function IsPlayerInvincible(player: Player): boolean
-	local id = NormalizeId(player.UserId)
-	local admin = Admins[id]
-	return admin and admin.Invincible
-end
-
-local function ApplyInvincibility(humanoid: Humanoid)
-	-- Prevents health from decreasing by resetting it constantly.
-	task.spawn(function()
-		while humanoid and humanoid.Parent and humanoid.Health > 0 do
-			if humanoid.Health < humanoid.MaxHealth then
-				humanoid.Health = humanoid.MaxHealth
-			end
-			task.wait(InvincibilityRefreshRate)
-		end
-	end)
-	LogDebug("Invincibility applied to", humanoid.Parent.Name)
-end
-
-local function HandlePlayerDeath(player: Player)
-	if not IsPlayerExempt(player) then
-		LogDebug(player.Name, "is not exempt; kicking.")
-		player:Kick(KickMessage)
-	else
-		LogDebug(player.Name, "is exempt; not kicking.")
-	end
-end
-
-local function OnCharacterAdded(player: Player, character: Model)
-	local humanoid = character:FindFirstChildOfClass("Humanoid") or character:WaitForChild("Humanoid", 5)
-	if not humanoid then return end
-
-	if IsPlayerInvincible(player) then
-		ApplyInvincibility(humanoid)
-	else
-		humanoid.Died:Connect(function()
-			HandlePlayerDeath(player)
-		end)
-	end
-end
-
-local function OnPlayerAdded(player: Player)
-	player.CharacterAdded:Connect(function(character)
-		OnCharacterAdded(player, character)
-	end)
-
-	if player.Character then
-		OnCharacterAdded(player, player.Character)
-	end
-end
-
---//====================== INITIALIZATION ======================\\--
-
--- Process any players already in the game when the script starts
-for _, player in ipairs(Players:GetPlayers()) do
-	task.spawn(OnPlayerAdded, player)
-end
-
--- Connect to new player events
-Players.PlayerAdded:Connect(OnPlayerAdded)
-
-LogDebug("Vex script v" .. ScriptVersion .. " initialized successfully.")`;
-
-            const copyToClipboard = (btnElement, successMessage, failureMessage) => {
+            const scriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/your-username/your-repo/main/vex-script.lua"))()`;
+            const copyMessage = document.getElementById('copy-message');
+            
+            const copyHandler = (btnElement, isIconBtn = false) => {
+                const originalContent = btnElement.innerHTML;
                 navigator.clipboard.writeText(scriptText).then(() => {
-                    btnElement.textContent = successMessage;
-                    setTimeout(() => {
-                        btnElement.textContent = "Get Script";
-                    }, 2000);
+                    if (isIconBtn) {
+                        copyMessage.textContent = 'Copied!';
+                        copyMessage.classList.remove('opacity-0');
+                        setTimeout(() => copyMessage.classList.add('opacity-0'), 2000);
+                    } else {
+                        btnElement.innerHTML = '<span>Copied!</span>';
+                        setTimeout(() => { btnElement.innerHTML = originalContent; }, 2000);
+                    }
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
-                    btnElement.textContent = failureMessage;
-                    setTimeout(() => {
-                        btnElement.textContent = "Get Script";
-                    }, 2000);
+                    if (isIconBtn) {
+                        copyMessage.textContent = 'Failed to copy!';
+                        copyMessage.classList.remove('opacity-0');
+                        setTimeout(() => copyMessage.classList.add('opacity-0'), 2000);
+                    } else {
+                        btnElement.innerHTML = '<span>Failed!</span>';
+                        setTimeout(() => { btnElement.innerHTML = originalContent; }, 2000);
+                    }
                 });
             };
 
-            const getScriptBtnNav = document.getElementById('get-script-btn-nav');
-            const getScriptBtnBottom = document.getElementById('get-script-btn-bottom');
-            const getScriptBtnHero = document.getElementById('get-script-btn-hero');
-            const copyMessage = document.getElementById('copy-message');
+            document.getElementById('get-script-btn-nav').addEventListener('click', (e) => copyHandler(e.currentTarget));
+            document.getElementById('get-script-btn-bottom').addEventListener('click', (e) => copyHandler(e.currentTarget));
+            document.getElementById('get-script-btn-hero').addEventListener('click', (e) => copyHandler(e.currentTarget, true));
 
-            getScriptBtnNav.addEventListener('click', () => {
-                copyToClipboard(getScriptBtnNav, 'Copied!', 'Failed!');
-            });
-            
-            getScriptBtnBottom.addEventListener('click', () => {
-                copyToClipboard(getScriptBtnBottom, 'Copied!', 'Failed!');
-            });
+            // --- GEMINI API INTEGRATION ---
+            const askAiBtn = document.getElementById('ask-ai-btn');
+            const aiPromptInput = document.getElementById('ai-prompt');
+            const aiResponseContainer = document.getElementById('vex-ai-response');
 
-            getScriptBtnHero.addEventListener('click', () => {
-                navigator.clipboard.writeText(scriptText).then(() => {
-                    console.log('Script copied to clipboard!');
-                    copyMessage.textContent = 'Copied!';
-                    copyMessage.classList.remove('opacity-0');
-                    setTimeout(() => {
-                        copyMessage.textContent = 'Click to copy script!';
-                        copyMessage.classList.add('opacity-0');
-                    }, 2000);
-                }).catch(err => {
-                    console.error('Failed to copy text: ', err);
-                    copyMessage.textContent = 'Failed to copy!';
-                    copyMessage.classList.remove('opacity-0');
-                    setTimeout(() => {
-                        copyMessage.textContent = 'Click to copy script!';
-                        copyMessage.classList.add('opacity-0');
-                    }, 2000);
-                });
-            });
+            const handleAiRequest = async () => {
+                const userPrompt = aiPromptInput.value.trim();
+                if (!userPrompt) {
+                    aiResponseContainer.textContent = 'Please enter a question.';
+                    return;
+                }
+
+                askAiBtn.disabled = true;
+                askAiBtn.innerHTML = '<span class="loader"></span>';
+                aiResponseContainer.innerHTML = 'Generating response...';
+
+                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script. Vex is an open-source script with features like invincibility, anti-cheat, performance optimization, and is written in Lua. Keep answers concise, friendly, and focused on the script's capabilities.`;
+                const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
+
+                try {
+                    let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Leave empty
+                    const apiUrl = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=\${apiKey}\`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(\`API request failed with status \${response.status}\`);
+                    
+                    const result = await response.json();
+                    
+                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        aiResponseContainer.textContent = result.candidates[0].content.parts[0].text;
+                    } else {
+                        throw new Error('Unexpected API response structure.');
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    aiResponseContainer.textContent = 'Sorry, I had trouble connecting. Please try again.';
+                } finally {
+                    askAiBtn.disabled = false;
+                    askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
+                }
+            };
+
+            askAiBtn.addEventListener('click', handleAiRequest);
+            aiPromptInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleAiRequest());
         });
     </script>
 </body>

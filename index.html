@@ -14,7 +14,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <style>
-        /* Using @layer for better CSS organization */
         @layer base {
             body {
                 font-family: 'Inter', sans-serif;
@@ -23,7 +22,7 @@
                 background-color: #000;
                 overflow-x: hidden;
             }
-        }b
+        }
         
         @layer components {
             .glass-effect {
@@ -35,24 +34,22 @@
             }
 
             .feature-card {
-                --glow-color: rga(79, 70, 229, 0.5);
-                transition: transform 0.3s ease;
+                --glow-color: rgba(0, 113, 227, 0.5);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
 
             .feature-card:hover {
                 transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.2);
             }
             .feature-card::before {
                 content: '';
                 position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
+                top: 0; left: 0; right: 0; bottom: 0;
                 border-radius: inherit;
-                box-shadow: 0 0 40px 10px var(--glow-color);
+                box-shadow: 0 0 60px 15px var(--glow-color);
                 opacity: 0;
-                transition: opacity 0.4s ease, box-shadow 0.4s ease;
+                transition: opacity 0.4s ease;
                 z-index: -1;
             }
 
@@ -60,21 +57,20 @@
                 opacity: 1;
             }
             
-            /* NEW: Big blue 'Get Script' button style */
             .get-script-btn-hero {
-                background: linear-gradient(135deg, #0052FF, #00A3FF);
+                background: linear-gradient(135deg, #0071e3, #00a3ff);
                 border: 1px solid rgba(120, 150, 255, 0.3);
                 color: white;
-                padding: 1.5rem; /* Increased padding */
-                border-radius: 2rem; /* More rounded */
+                padding: 1.5rem;
+                border-radius: 1.75rem;
                 transition: all 0.3s ease;
                 box-shadow: 0 8px 30px rgba(0, 120, 255, 0.3);
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 2.5rem; /* Larger icon */
-                width: 120px; /* Set fixed size */
-                height: 120px;
+                font-size: 3rem;
+                width: 140px; 
+                height: 140px;
             }
 
             .get-script-btn-hero:hover {
@@ -87,7 +83,6 @@
                 height: 1em;
             }
             
-            /* NEW: Standard blue button */
             .blue-btn {
                 background: #0071e3;
                 color: white;
@@ -103,20 +98,21 @@
 
             .code-text {
                 font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
-                white-space: pre;
+                white-space: pre-wrap;
                 font-size: 0.8rem;
                 line-height: 1.6;
+                background-color: rgba(0,0,0,0.3);
+                padding: 1rem;
+                border-radius: 0.75rem;
+                max-height: 400px;
+                overflow-y: auto;
             }
         }
         
-        /* Aurora Background Effect */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 15% 50%, #0052FF 0%, rgba(0,0,0,0) 25%),
                         radial-gradient(circle at 85% 30%, #5800FF 0%, rgba(0,0,0,0) 25%),
                         radial-gradient(circle at 50% 80%, #00A3FF 0%, rgba(0,0,0,0) 20%);
@@ -137,10 +133,7 @@
             animation-range: 0 50vh;
         }
         @keyframes fade-out-scale-down {
-            to {
-                opacity: 0;
-                transform: scale(0.9) translateY(-50px);
-            }
+            to { opacity: 0; transform: scale(0.9) translateY(-50px); }
         }
         
         .view-animate {
@@ -151,25 +144,18 @@
         }
 
         @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #87CEEB, #ADD8E6); /* Softer blue gradient */
+            background: linear-gradient(90deg, #87CEEB, #ADD8E6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .loader {
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             border: 3px solid #FFF;
             border-bottom-color: transparent;
             border-radius: 50%;
@@ -183,9 +169,7 @@
             100% { transform: rotate(360deg); }
         }
         
-        .text-balance {
-            text-wrap: balance;
-        }
+        .text-balance { text-wrap: balance; }
     </style>
 </head>
 <body class="bg-black text-gray-300">
@@ -198,7 +182,7 @@
             </a>
             <nav class="hidden md:flex space-x-4 items-center">
                 <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Features</a>
-                <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Backend</a>
+                <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>The Script</a>
                 <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Vex AI</a>
                 <button id="get-script-btn-nav" class="blue-btn" data-magnetic>
                     <span>Get Script</span>
@@ -240,7 +224,7 @@
                     <div class="max-w-4xl mx-auto glass-effect rounded-3xl p-10 view-animate">
                         <h2 class="text-3xl font-bold text-white mb-4 text-balance">Unleash the True Potential of Roblox</h2>
                         <p class="text-gray-400 text-lg text-balance">
-                            The Vex script provides a comprehensive suite of powerful features designed to give you ultimate control in any Roblox experience. It offers seamless integration and an intuitive interface, making it easy to master your gameplay. With built-in anti-cheat measures and performance optimizations, Vex ensures a smooth and reliable experience.
+                            Vex provides a comprehensive suite of powerful features designed to give you ultimate control in any Roblox experience. It offers seamless integration and an intuitive interface, making it easy to master your gameplay. With built-in anti-cheat measures and performance optimizations, Vex ensures a smooth and reliable experience.
                         </p>
                     </div>
                 </div>
@@ -249,29 +233,29 @@
             <section id="features" class="py-20">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">Everything you need. <br>And then some.</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">Engineered for Excellence.</h2>
                     </div>
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Powerful Module</h3>
-                            <p class="text-gray-400">Our script delivers performance that’s not just fast, it’s instantaneous.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Modular Architecture</h3>
+                            <p class="text-gray-400">Clean, organized code with separate modules for core logic, ensuring stability and easy updates.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M14.5 17.5L12 20l-2.5-2.5"/><path d="M12 4v12"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Effortless Invincibility</h3>
-                            <p class="text-gray-400">Our unbreakable invincibility keeps you safe from all threats.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Dynamic Configuration</h3>
+                            <p class="text-gray-400">Easily manage exemptions and invincibility with a centralized configuration table. No code-digging required.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M20 12V8l-6-4-6 4v4"/><path d="M14 22V12l-6-4-6 4v8"/><path d="M2 12l6 4 6-4 6-4"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Always Updated</h3>
-                            <p class="text-gray-400">We work tirelessly to provide updates and new features, so you're always ahead.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Robust Performance</h3>
+                            <p class="text-gray-400">Built with modern, efficient practices to ensure minimal performance impact on any game.</p>
                         </div>
                     </div>
                 </div>
@@ -279,26 +263,23 @@
 
             <section id="backend" class="py-20">
                 <div class="container mx-auto px-6">
-                    <div class="grid md:grid-cols-2 gap-16 items-center">
-                        <div class="view-animate">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">A Backend Built for Speed and Security.</h2>
-                            <p class="text-gray-400 text-lg mb-8 text-balance">
-                                The Vex script is engineered with a powerful backend that prioritizes performance and security. Our advanced Lua framework ensures lightning-fast execution of commands and robust anti-exploit measures to keep you safe and ahead of the competition.
-                            </p>
-                            <button id="get-script-btn-bottom" class="blue-btn" data-magnetic>Get Script</button>
-                        </div>
-                        <div class="view-animate" style="animation-delay: 0.2s;">
-                            <div class="bg-gray-900/50 p-6 rounded-2xl glass-effect">
-                                <div class="flex items-center mb-4">
-                                    <div class="flex space-x-2">
-                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                                    </div>
-                                    <span class="ml-auto text-gray-500 text-sm">Vex.lua</span>
+                     <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">The Complete Script.</h2>
+                        <p class="text-lg md:text-xl text-gray-400 mt-4 max-w-3xl mx-auto text-balance view-animate" style="animation-delay: 0.2s;">
+                            Vex is fully open-source. Below is the complete, un-obfuscated code. What you see is what you get—powerful, clean, and ready to run.
+                        </p>
+                    </div>
+                    <div class="max-w-4xl mx-auto view-animate" style="animation-delay: 0.4s;">
+                        <div class="bg-gray-900/50 p-2 rounded-2xl glass-effect">
+                            <div class="flex items-center p-4">
+                                <div class="flex space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
                                 </div>
-                                <pre id="backend-code" class="text-sm text-gray-400 code-text overflow-x-auto"></pre>
+                                <span class="ml-auto text-gray-500 text-sm">Vex.lua</span>
                             </div>
+                            <pre id="vex-script-display" class="code-text"></pre>
                         </div>
                     </div>
                 </div>
@@ -313,7 +294,7 @@
                         </p>
                         <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
                             <div class="flex flex-col md:flex-row gap-4 mb-6">
-                                <input type="text" id="ai-prompt" placeholder="e.g., How does the invincibility work?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-blue-500 focus:ring-0 transition-all">
+                                <input type="text" id="ai-prompt" placeholder="e.g., How do I add a new admin?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-blue-500 focus:ring-0 transition-all">
                                 <button id="ask-ai-btn" class="blue-btn px-8 py-3 flex items-center justify-center space-x-2">
                                     <span>✨ Ask Vex AI</span>
                                 </button>
@@ -339,7 +320,7 @@
                     <h4 class="font-semibold text-white mb-4">Product</h4>
                     <ul>
                         <li class="mb-2"><a href="#features" class="hover:text-white">Features</a></li>
-                        <li class="mb-2"><a href="#backend" class="hover:text-white">Backend</a></li>
+                        <li class="mb-2"><a href="#backend" class="hover:text-white">The Script</a></li>
                         <li class="mb-2"><a href="#vex-ai" class="hover:text-white">Vex AI</a></li>
                     </ul>
                 </div>
@@ -354,8 +335,8 @@
                 <div>
                     <h4 class="font-semibold text-white mb-4">Legal</h4>
                     <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#" id="privacy-policy-link" class="hover:text-white cursor-pointer">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" id="tos-link" class="hover:text-white cursor-pointer">Terms of Service</a></li>
                     </ul>
                 </div>
             </div>
@@ -365,67 +346,215 @@
         </div>
     </footer>
 
+    <!-- Legal Modal -->
+    <div id="legal-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden transition-opacity duration-300 opacity-0">
+        <div id="legal-modal-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div id="legal-modal-panel" class="relative w-full max-w-3xl glass-effect rounded-2xl p-8 text-gray-300 transform transition-all opacity-0 scale-95 duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="legal-modal-title" class="text-2xl font-bold text-white"></h3>
+                <button id="legal-modal-close" class="text-gray-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div id="legal-modal-content" class="prose prose-invert prose-p:text-gray-400 prose-headings:text-white max-h-[70vh] overflow-y-auto pr-4">
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- DYNAMIC CODE DISPLAY ---
-            const codeEl = document.getElementById('backend-code');
-            const codeLines = [
-                `-- Services`,
-                `local Players = game:GetService("Players")`,
-                ``,
-                `-- Vex Configuration`,
-                `local Admins = {`,
-                `  [12345678] = {Exempt = true, Invincible = true}`,
-                `}`,
-                ``,
-                `-- Utility Functions`,
-                `local function isPlayerInvincible(player)`,
-                `  local admin = Admins[player.UserId]`,
-                `  return admin and admin.Invincible`,
-                `end`,
-            ];
-            let lineIndex = 0;
-            let charIndex = 0;
+            // --- THE FULL VEX SCRIPT FOR DISPLAY AND COPYING ---
+            const vexScriptText = `--[[
+__     __        ___  
+\\ \\   / /____  _( _ ) 
+ \\ \\ / / _ \\ \\/ / _ \\ 
+  \\ V /  __/>  < (_) |
+   \\_/ \\___/_/\\_\\___/   
+	Project: Vex8 - Universal Anti-Death & Player Management
+	Author: StrikeXRR
+	Version: 8.0
+	Description:
+	- A modular system for handling player invincibility and death behavior.
+	- Players who are not exempted will be kicked upon death.
+	- Whitelisted players can be granted unbreakable invincibility.
+	- Uses robust, modern coding practices for efficiency and readability.
+--]]
+
+--//========================= SERVICES =========================\\--
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local HttpService = game:GetService("HttpService")
+
+--//===================== CONFIGURATION ======================\\--
+-- Configuration values for customizing script behavior.
+-- All values can be modified at runtime.
+
+local Config = {
+	-- Toggles debug logging for development and troubleshooting.
+	DebugMode = false,
+	-- The message displayed to players who are kicked upon death.
+	KickMessage = "You died! Rejoin to try again.",
+
+	-- Players in this table will NOT be kicked upon death.
+	-- Add UserIds or lowercase usernames.
+	Exemptions = {
+		-- Example UserIds
+		[12345678] = true,
+		-- Example Usernames
+		["bigcupcakelol5"] = true,
+		["strikexrr"] = true,
+	},
+
+	-- Players in this table will be granted unbreakable invincibility.
+	-- Add UserIds or lowercase usernames.
+	InvincibilityWhitelist = {
+		-- Example UserIds
+		[12345678] = true,
+		-- Example Usernames
+		["strikexrr"] = true,
+	},
+}
+
+--//====================== CORE MODULES ======================\\--
+-- Separating core logic into modules for better organization.
+
+local InvincibilityModule = {}
+
+-- Applies invincibility to a character's humanoid.
+-- A continuous loop is used to keep the player's health at maximum.
+function InvincibilityModule.Apply(humanoid: Humanoid)
+	-- A unique ID for the loop, preventing multiple loops from running.
+	local loopId = HttpService:GenerateGUID(false)
+	-- Attach the loop ID as an attribute to the root part.
+	local rootPart = humanoid.Parent and humanoid.Parent:FindFirstChild("HumanoidRootPart")
+	if rootPart then
+		rootPart:SetAttribute("InvincibilityLoopId", loopId)
+	end
+
+	-- Start a new invincibility loop on a separate thread.
+	-- This loop will continuously restore the player's health.
+	task.spawn(function()
+		while true do
+			if not humanoid or humanoid.Health <= 0 then break end
+			-- Check if this is the currently active invincibility loop.
+			if rootPart and rootPart:GetAttribute("InvincibilityLoopId") ~= loopId then
+				break -- Stop if a new loop has been started.
+			end
+
+			-- Restore health if it's not at maximum.
+			if humanoid.Health < humanoid.MaxHealth then
+				humanoid.Health = humanoid.MaxHealth
+			end
+
+			task.wait(0.1) -- Refresh rate, can be adjusted.
+		end
+		-- Clean up the attribute when the loop ends.
+		if rootPart then
+			rootPart:SetAttribute("InvincibilityLoopId", nil)
+		end
+	end)
+end
+
+--//====================== UTILITY FUNCTIONS ======================\\--
+-- Helper functions for common operations.
+
+-- Prints a message to the console only if DebugMode is enabled.
+local function LogDebug(...)
+	if Config.DebugMode then
+		print("[Vex7 DEBUG]:", ...)
+	end
+end
+
+-- Normalizes a player's name for case-insensitive checks.
+local function NormalizeName(name: string): string
+	return string.lower(name)
+end
+
+-- Checks if a player is in the exemptions table.
+local function IsExempt(player: Player): boolean
+	return Config.Exemptions[player.UserId] or Config.Exemptions[NormalizeName(player.Name)]
+end
+
+-- Checks if a player is in the invincibility whitelist.
+local function IsInvincible(player: Player): boolean
+	return Config.InvincibilityWhitelist[player.UserId] or Config.InvincibilityWhitelist[NormalizeName(player.Name)]
+end
+
+-- Handles the logic for a player's death.
+local function HandlePlayerDeath(player: Player)
+	if not IsExempt(player) then
+		LogDebug(player.Name, "is not exempt, kicking...")
+		player:Kick(Config.KickMessage)
+	else
+		LogDebug(player.Name, "is exempt, not kicking.")
+	end
+end
+
+--//===================== PLAYER MANAGEMENT ======================\\--
+-- Manages player-related events like character loading and death.
+
+-- Handles events when a player's character is added.
+local function OnCharacterAdded(player: Player, character: Model)
+	local humanoid = character:WaitForChild("Humanoid", 5)
+	if not humanoid then return end
+
+	-- Check for invincibility first.
+	if IsInvincible(player) then
+		InvincibilityModule.Apply(humanoid)
+		LogDebug("Invincibility applied to", player.Name)
+	end
+
+	-- Connect the death handler.
+	humanoid.Died:Connect(function()
+		HandlePlayerDeath(player)
+	end)
+end
+
+-- Handles events when a new player joins the game.
+local function OnPlayerAdded(player: Player)
+	-- Normalize names in the config tables to ensure consistency.
+	local lowerName = NormalizeName(player.Name)
+	if Config.Exemptions[player.Name] then
+		Config.Exemptions[lowerName] = true
+	end
+	if Config.InvincibilityWhitelist[player.Name] then
+		Config.InvincibilityWhitelist[lowerName] = true
+	end
+
+	-- Connect to the CharacterAdded event.
+	player.CharacterAdded:Connect(function(character)
+		OnCharacterAdded(player, character)
+	end)
+
+	-- Handle cases where the character already exists on join.
+	if player.Character then
+		OnCharacterAdded(player, player.Character)
+	end
+end
+
+--//======================= INITIALIZATION =======================\\--
+-- The main entry point of the script.
+
+-- Process any players already in the game when the script starts.
+for _, player in ipairs(Players:GetPlayers()) do
+	OnPlayerAdded(player)
+end
+
+-- Connect to the PlayerAdded event to handle new joins.
+Players.PlayerAdded:Connect(OnPlayerAdded)
+
+LogDebug("Vex8 script initialized successfully.")`;
             
-            function typeLine() {
-                if (!codeEl) return;
-                if (lineIndex < codeLines.length) {
-                    const line = codeLines[lineIndex];
-                    if (charIndex < line.length) {
-                        codeEl.textContent += line.charAt(charIndex);
-                        charIndex++;
-                        setTimeout(typeLine, 20);
-                    } else {
-                        codeEl.textContent += '\n';
-                        lineIndex++;
-                        charIndex = 0;
-                        setTimeout(typeLine, 100);
-                    }
-                } else {
-                    // Loop the animation
-                    setTimeout(() => {
-                        codeEl.textContent = '';
-                        lineIndex = 0;
-                        charIndex = 0;
-                        typeLine();
-                    }, 5000);
-                }
+            // FIX: Populate script display directly.
+            const scriptDisplayEl = document.getElementById('vex-script-display');
+            if(scriptDisplayEl) {
+                scriptDisplayEl.textContent = vexScriptText;
             }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        typeLine();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            if (codeEl) observer.observe(codeEl);
-
             // --- MAGNETIC BUTTONS EFFECT ---
-            const magneticElements = document.querySelectorAll('[data-magnetic]');
-            magneticElements.forEach(el => {
+            document.querySelectorAll('[data-magnetic]').forEach(el => {
                 el.addEventListener('mousemove', function(e) {
                     const position = el.getBoundingClientRect();
                     const x = e.clientX - position.left - position.width / 2;
@@ -438,12 +567,10 @@
             });
 
             // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
-            const scriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/your-username/your-repo/main/vex-script.lua"))()`;
             const copyMessage = document.getElementById('copy-message');
-            
             const copyHandler = (btnElement, isIconBtn = false) => {
                 const originalContent = btnElement.innerHTML;
-                navigator.clipboard.writeText(scriptText).then(() => {
+                navigator.clipboard.writeText(vexScriptText).then(() => {
                     if (isIconBtn) {
                         copyMessage.textContent = 'Copied!';
                         copyMessage.classList.remove('opacity-0');
@@ -456,18 +583,54 @@
                     console.error('Failed to copy text: ', err);
                     if (isIconBtn) {
                         copyMessage.textContent = 'Failed to copy!';
-                        copyMessage.classList.remove('opacity-0');
-                        setTimeout(() => copyMessage.classList.add('opacity-0'), 2000);
                     } else {
                         btnElement.innerHTML = '<span>Failed!</span>';
-                        setTimeout(() => { btnElement.innerHTML = originalContent; }, 2000);
                     }
                 });
             };
 
             document.getElementById('get-script-btn-nav').addEventListener('click', (e) => copyHandler(e.currentTarget));
-            document.getElementById('get-script-btn-bottom').addEventListener('click', (e) => copyHandler(e.currentTarget));
             document.getElementById('get-script-btn-hero').addEventListener('click', (e) => copyHandler(e.currentTarget, true));
+
+            // --- LEGAL MODAL LOGIC ---
+            const modal = document.getElementById('legal-modal');
+            const modalOverlay = document.getElementById('legal-modal-overlay');
+            const modalTitle = document.getElementById('legal-modal-title');
+            const modalContent = document.getElementById('legal-modal-content');
+            const modalCloseBtn = document.getElementById('legal-modal-close');
+            const modalPanel = document.getElementById('legal-modal-panel');
+
+            const tosText = `<h2>Terms of Service</h2><p>Welcome to Vex! These terms and conditions outline the rules and regulations for the use of Vex's Script and Website.</p><p>By accessing this website and using our script, we assume you accept these terms and conditions. Do not continue to use Vex if you do not agree to all of the terms and conditions stated on this page.</p><h4>License</h4><p>Unless otherwise stated, Vex and/or its licensors own the intellectual property rights for all material on Vex. The script is provided as open-source software. You may view and/or print pages from vex.com for your own personal use subject to restrictions set in these terms and conditions.</p><p>You must not: Republish material from Vex, sell, rent or sub-license material from Vex, reproduce, duplicate or copy material from Vex, or redistribute content from Vex.</p><h4>Disclaimer</h4><p>The use of this script is at your own risk. Vex is provided "as is" without any warranties, express or implied. We are not responsible for any actions taken against your Roblox account as a result of using this script. Use responsibly.</p>`;
+            const privacyPolicyText = `<h2>Privacy Policy</h2><p>Your privacy is important to us. It is Vex's policy to respect your privacy regarding any information we may collect from you across our website.</p><p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p><p>We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.</p><p>We don’t share any personally identifying information publicly or with third-parties, except when required to by law.</p><p>Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.</p>`;
+
+            function openModal(title, content) {
+                modalTitle.textContent = title;
+                modalContent.innerHTML = content;
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modalPanel.classList.remove('opacity-0', 'scale-95');
+                }, 10);
+            }
+
+            function closeModal() {
+                modalPanel.classList.add('opacity-0', 'scale-95');
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+
+            document.getElementById('tos-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal('Terms of Service', tosText);
+            });
+            document.getElementById('privacy-policy-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal('Privacy Policy', privacyPolicyText);
+            });
+            modalCloseBtn.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', closeModal);
 
             // --- GEMINI API INTEGRATION ---
             const askAiBtn = document.getElementById('ask-ai-btn');
@@ -476,23 +639,19 @@
 
             const handleAiRequest = async () => {
                 const userPrompt = aiPromptInput.value.trim();
-                if (!userPrompt) {
-                    aiResponseContainer.textContent = 'Please enter a question.';
-                    return;
-                }
+                if (!userPrompt) return;
 
                 askAiBtn.disabled = true;
                 askAiBtn.innerHTML = '<span class="loader"></span>';
                 aiResponseContainer.innerHTML = 'Generating response...';
 
-                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script. Vex is an open-source script with features like invincibility, anti-cheat, performance optimization, and is written in Lua. Keep answers concise, friendly, and focused on the script's capabilities.`;
+                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script (Version 8.0). Vex is an open-source script with features like a modular system for invincibility and anti-death, a dynamic configuration for exemptions and whitelists, and is written in modern, efficient Lua. Key features include kicking non-exempt players on death and providing unbreakable invincibility. Be concise, friendly, and focus on the script's capabilities.`;
                 const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
 
                 try {
-                    let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Leave empty
-                    const apiUrl = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=\${apiKey}\`;
+                    const payload = { contents: [{ role: "user", parts: [{ text: fullPrompt }] }] };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
                     const response = await fetch(apiUrl, {
                         method: 'POST',
@@ -500,17 +659,17 @@
                         body: JSON.stringify(payload)
                     });
 
-                    if (!response.ok) throw new Error(\`API request failed with status \${response.status}\`);
+                    if (!response.ok) throw new Error(`API error: ${response.status}`);
                     
                     const result = await response.json();
                     
                     if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
                         aiResponseContainer.textContent = result.candidates[0].content.parts[0].text;
                     } else {
-                        throw new Error('Unexpected API response structure.');
+                        throw new Error('Invalid API response.');
                     }
                 } catch (error) {
-                    console.error("Error calling Gemini API:", error);
+                    console.error("Gemini API Error:", error);
                     aiResponseContainer.textContent = 'Sorry, I had trouble connecting. Please try again.';
                 } finally {
                     askAiBtn.disabled = false;
@@ -519,7 +678,11 @@
             };
 
             askAiBtn.addEventListener('click', handleAiRequest);
-            aiPromptInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleAiRequest());
+            aiPromptInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleAiRequest();
+                }
+            });
         });
     </script>
 </body>

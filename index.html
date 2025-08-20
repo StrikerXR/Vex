@@ -13,45 +13,6 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
-    <script id="shader-vertex" type="x-shader/x-vertex">
-        attribute vec2 a_position;
-        void main() {
-            gl_Position = vec4(a_position, 0.0, 1.0);
-        }
-    </script>
-    <script id="shader-fragment" type="x-shader/x-fragment">
-        precision mediump float;
-        uniform vec2 u_resolution;
-        uniform float u_time;
-        uniform vec2 u_mouse;
-        void main() {
-            vec2 st = gl_FragCoord.xy / u_resolution.xy;
-            vec3 color = vec3(0.0);
-
-            // Create a flowing noise pattern
-            vec2 pos = st * 3.0;
-            float n = 
-                fract(sin(dot(floor(pos), vec2(12.9898, 78.233))) * 43758.5453) * 2.0 - 1.0;
-            pos.x += n * 0.1 * sin(u_time * 0.5);
-            pos.y += n * 0.1 * cos(u_time * 0.5);
-            
-            vec2 mouse_norm = u_mouse / u_resolution.xy;
-            float dist_to_mouse = distance(st, mouse_norm);
-            
-            float liquid_effect = sin(u_time + (pos.x * 2.0) + (pos.y * 3.0)) * 0.5 + 0.5;
-            liquid_effect += sin(u_time * 0.5 + (pos.x * 4.0) - (pos.y * 2.0)) * 0.5 + 0.5;
-
-            float metallic_glint = (liquid_effect + dist_to_mouse) / 2.0;
-
-            vec3 base_color = vec3(0.04, 0.04, 0.08);
-            vec3 accent_color = vec3(0.2, 0.8, 1.0);
-            
-            color = mix(base_color, accent_color, metallic_glint);
-
-            gl_FragColor = vec4(color, 1.0);
-        }
-    </script>
-    
     <style>
         @layer base {
             body {
@@ -97,7 +58,7 @@
             .feature-card:hover::before {
                 opacity: 1;
             }
-
+            
             .liquid-glass-btn {
                 background: rgba(4, 98, 255, 0.2);
                 border: 1px solid rgba(120, 150, 255, 0.2);
@@ -145,24 +106,43 @@
                 width: 1em;
                 height: 1em;
             }
-        }
-        
-        #shader-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -2;
-            width: 100vw;
-            height: 100vh;
-        }
+            
+            /* New Header Button Style */
+            .header-btn-glow {
+                position: relative;
+                color: white;
+                font-weight: 600;
+                padding: 0.75rem 1.5rem;
+                border-radius: 9999px;
+                overflow: hidden;
+                transition: color 0.3s ease;
+            }
 
-        @property --glow-color {
-            syntax: '<color>';
-            inherits: false;
-            initial-value: rgba(79, 70, 229, 0);
+            .header-btn-glow::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+                transform: rotate(45deg);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 1;
+            }
+
+            .header-btn-glow:hover::before {
+                opacity: 1;
+            }
+
+            .header-btn-glow span {
+                position: relative;
+                z-index: 2;
+            }
         }
         
-        /* Aurora Background Effect (Kept as fallback/secondary effect) */
+        /* Aurora Background Effect */
         body::before {
             content: '';
             position: fixed;
@@ -247,8 +227,6 @@
 </head>
 <body class="bg-black text-gray-300">
 
-    <canvas id="shader-canvas"></canvas>
-
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
@@ -260,7 +238,9 @@
                 <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
                 <a href="#scripting" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Scripting</a>
                 <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Vex AI</a>
-                <button id="get-script-btn-nav" class="liquid-glass-btn" data-magnetic>Get Script</button>
+                <button id="get-script-btn-nav" class="header-btn-glow" data-magnetic>
+                    <span>Get Script</span>
+                </button>
             </nav>
             <button class="md:hidden text-white" data-magnetic>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -344,6 +324,7 @@
                             <p class="text-gray-400 text-lg">
                                 The Vex GUI is meticulously crafted for an intuitive user experience. Its clean, liquid-glass aesthetic is not only visually stunning but also highly functional. The minimalist layout ensures you can access every feature effortlessly, giving you complete control with a few simple clicks.
                             </p>
+                            <button id="get-script-btn-bottom" class="liquid-glass-btn mt-6" data-magnetic>Get Script</button>
                         </div>
                         <div class="view-animate" style="animation-delay: 0.2s;">
                             <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">Designed for life.</h2>
@@ -378,7 +359,7 @@
                         <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
                             Ask our AI anything about the Vex script.
                         </p>
-                        <div class="glass-effect p-8 rounded-3xl view-animate motion-bg" style="animation-delay: 0.4s;">
+                        <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
                             <div class="flex flex-col md:flex-row gap-4 mb-6">
                                 <input type="text" id="ai-prompt" placeholder="e.g., How does the invincibility work?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-indigo-500 focus:ring-0 transition-all">
                                 <button id="ask-ai-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3 rounded-full transition-colors flex items-center justify-center space-x-2">
@@ -435,85 +416,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- GLSL SHADER BACKGROUND ---
-            const canvas = document.getElementById('shader-canvas');
-            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-            
-            if (!gl) {
-                console.error("WebGL not supported, falling back to CSS.");
-                return;
-            }
-
-            const vertexShaderSource = document.getElementById('shader-vertex').text;
-            const fragmentShaderSource = document.getElementById('shader-fragment').text;
-
-            function createShader(gl, type, source) {
-                const shader = gl.createShader(type);
-                gl.shaderSource(shader, source);
-                gl.compileShader(shader);
-                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-                    console.error('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
-                    gl.deleteShader(shader);
-                    return null;
-                }
-                return shader;
-            }
-
-            const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-            const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
-
-            const shaderProgram = gl.createProgram();
-            gl.attachShader(shaderProgram, vertexShader);
-            gl.attachShader(shaderProgram, fragmentShader);
-            gl.linkProgram(shaderProgram);
-
-            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-                console.error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
-                return null;
-            }
-
-            gl.useProgram(shaderProgram);
-
-            const positionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-            const positions = [-1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0,];
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
-            const positionAttributeLocation = gl.getAttribLocation(shaderProgram, 'a_position');
-            gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
-            gl.enableVertexAttribArray(positionAttributeLocation);
-
-            const resolutionUniformLocation = gl.getUniformLocation(shaderProgram, 'u_resolution');
-            const timeUniformLocation = gl.getUniformLocation(shaderProgram, 'u_time');
-            const mouseUniformLocation = gl.getUniformLocation(shaderProgram, 'u_mouse');
-
-            let mouseX = 0;
-            let mouseY = 0;
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = gl.canvas.height - e.clientY;
-            });
-            window.addEventListener('resize', onResize);
-
-            function onResize() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-                gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
-            }
-
-            function render(time) {
-                time *= 0.001;
-                gl.uniform1f(timeUniformLocation, time);
-                gl.uniform2f(mouseUniformLocation, mouseX, mouseY);
-                gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-                requestAnimationFrame(render);
-            }
-
-            onResize();
-            requestAnimationFrame(render);
-
-
             // --- MAGNETIC BUTTONS EFFECT ---
             const magneticElements = document.querySelectorAll('[data-magnetic]');
             magneticElements.forEach(el => {
@@ -714,6 +616,25 @@ LogDebug("Vex5.2 initialized successfully")`;
                 });
             });
 
+            const getScriptBtnBottom = document.getElementById('get-script-btn-bottom');
+            if(getScriptBtnBottom){
+                getScriptBtnBottom.addEventListener('click', () => {
+                    navigator.clipboard.writeText(scriptText).then(() => {
+                        console.log('Script copied to clipboard!');
+                        getScriptBtnBottom.textContent = 'Copied!';
+                        setTimeout(() => {
+                            getScriptBtnBottom.textContent = 'Get Script';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('Failed to copy text: ', err);
+                        getScriptBtnBottom.textContent = 'Failed!';
+                        setTimeout(() => {
+                            getScriptBtnBottom.textContent = 'Get Script';
+                        }, 2000);
+                    });
+                });
+            }
+
             // Make message visible on hover
             getScriptBtnHero.addEventListener('mouseenter', () => {
                 copyMessage.classList.remove('opacity-0');
@@ -802,19 +723,6 @@ LogDebug("Vex5.2 initialized successfully")`;
                     askAiBtn.disabled = false;
                     askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
                 }
-            }
-
-            // --- BETA FEATURE: DEVICE MOTION API ---
-            const vexAiSection = document.getElementById('vex-ai');
-            if (window.DeviceMotionEvent) {
-                window.addEventListener('devicemotion', event => {
-                    const { x, y } = event.accelerationIncludingGravity;
-                    const normalizedX = (x / 9.8) * 50 + 50;
-                    const normalizedY = (y / 9.8) * 50 + 50;
-                    
-                    vexAiSection.style.setProperty('--motion-x', `${normalizedX}%`);
-                    vexAiSection.style.setProperty('--motion-y', `${normalizedY}%`);
-                });
             }
         });
     </script>

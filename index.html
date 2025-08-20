@@ -1,526 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex — The Ultimate Roblox Script</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <style>
-        /* Using @layer for better CSS organization */
-        @layer base {
-            body {
-                font-family: 'Inter', sans-serif;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                background-color: #000;
-                overflow-x: hidden;
-            }
-        }
-        
-        @layer components {
-            .glass-effect {
-                background-color: rgba(17, 17, 17, 0.5);
-                backdrop-filter: blur(24px);
-                -webkit-backdrop-filter: blur(24px);
-                border: 1px solid rgba(255, 255, 255, 0.05);
-                position: relative;
-            }
-
-            .feature-card {
-                --glow-color: rgba(79, 70, 229, 0.5);
-                transition: transform 0.3s ease;
-            }
-
-            .feature-card:hover {
-                transform: translateY(-8px);
-            }
-            .feature-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                border-radius: inherit;
-                box-shadow: 0 0 40px 10px var(--glow-color);
-                opacity: 0;
-                transition: opacity 0.4s ease, box-shadow 0.4s ease;
-                z-index: -1;
-            }
-
-            .feature-card:hover::before {
-                opacity: 1;
-            }
-            
-            /* NEW: Big blue 'Get Script' button style */
-            .get-script-btn-hero {
-                background: linear-gradient(135deg, #0052FF, #00A3FF);
-                border: 1px solid rgba(120, 150, 255, 0.3);
-                color: white;
-                padding: 1.5rem; /* Increased padding */
-                border-radius: 2rem; /* More rounded */
-                transition: all 0.3s ease;
-                box-shadow: 0 8px 30px rgba(0, 120, 255, 0.3);
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 2.5rem; /* Larger icon */
-                width: 120px; /* Set fixed size */
-                height: 120px;
-            }
-
-            .get-script-btn-hero:hover {
-                box-shadow: 0 12px 40px rgba(0, 120, 255, 0.5);
-                transform: translateY(-6px) scale(1.05);
-            }
-
-            .get-script-icon {
-                width: 1em;
-                height: 1em;
-            }
-            
-            /* NEW: Standard blue button */
-            .blue-btn {
-                background: #0071e3;
-                color: white;
-                font-weight: 600;
-                padding: 0.75rem 1.5rem;
-                border-radius: 9999px;
-                transition: all 0.3s ease;
-            }
-            .blue-btn:hover {
-                background: #147ce5;
-                transform: translateY(-2px);
-            }
-
-            .code-text {
-                font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
-                white-space: pre;
-                font-size: 0.8rem;
-                line-height: 1.6;
-            }
-        }
-        
-        /* Aurora Background Effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 15% 50%, #0052FF 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 85% 30%, #5800FF 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 50% 80%, #00A3FF 0%, rgba(0,0,0,0) 20%);
-            z-index: -1;
-            animation: animateAurora 20s infinite linear;
-            opacity: 0.3;
-        }
-
-        @keyframes animateAurora {
-            0% { transform: rotate(0deg) scale(1.5); }
-            50% { transform: rotate(180deg) scale(2); }
-            100% { transform: rotate(360deg) scale(1.5); }
-        }
-        
-        #hero-content {
-            animation: fade-out-scale-down linear;
-            animation-timeline: scroll(root);
-            animation-range: 0 50vh;
-        }
-        @keyframes fade-out-scale-down {
-            to {
-                opacity: 0;
-                transform: scale(0.9) translateY(-50px);
-            }
-        }
-        
-        .view-animate {
-            animation: fade-in-up linear;
-            animation-timeline: view(block);
-            animation-range: entry 25% cover 50%;
-            animation-fill-mode: both;
-        }
-
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #87CEEB, #ADD8E6); /* Softer blue gradient */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .loader {
-            width: 24px;
-            height: 24px;
-            border: 3px solid #FFF;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .text-balance {
-            text-wrap: balance;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Vex</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-black text-gray-300">
+<body class="bg-gradient-to-r from-gray-900 via-black to-gray-800 min-h-screen flex items-center justify-center p-6 text-white">
+  <div class="bg-gray-950 rounded-2xl shadow-2xl p-10 max-w-4xl w-full relative overflow-hidden">
+    <!-- ASCII Art -->
+    <pre class="text-green-400 text-sm font-mono leading-snug mb-6">
+--[[ 
+__     __        ____   ____  
+\ \   / /____  _| ___| |___ \ 
+ \ \ / / _ \ \/ /___ \   __) |
+  \ V /  __/>  < ___) | / __/ 
+   \_/ \___/_/\_\____/ |_____|
+]]
+    </pre>
 
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                <span>Vex</span>
-            </a>
-            <nav class="hidden md:flex space-x-4 items-center">
-                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Features</a>
-                <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Backend</a>
-                <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Vex AI</a>
-                <button id="get-script-btn-nav" class="blue-btn" data-magnetic>
-                    <span>Get Script</span>
-                </button>
-            </nav>
-            <button class="md:hidden text-white" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
-        </div>
-    </header>
+    <!-- Title -->
+    <h1 class="text-5xl font-extrabold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-lime-400 to-emerald-500">
+      vex
+    </h1>
 
-    <main>
-        <section class="h-[150vh] flex items-start justify-center text-center bg-transparent pt-48 sticky top-0">
-            <div class="container mx-auto px-6" id="hero-content">
-                <div class="max-w-4xl mx-auto">
-                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight mb-6">
-                        Unlock the power of <span class="gradient-text">Vex</span>.
-                        <br>
-                        Unrivaled control.
-                    </h1>
-                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 text-balance">
-                        The most advanced open-source script for Roblox. Seamlessly integrated, intuitively designed, and powerfully simple.
-                    </p>
-                    <div class="flex flex-col items-center">
-                        <button id="get-script-btn-hero" class="get-script-btn-hero" data-magnetic>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="get-script-icon">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
-                        </button>
-                        <p id="copy-message" class="mt-6 text-gray-400 opacity-0 transition-opacity duration-300">Click to copy script!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Hero Text -->
+    <p class="text-lg text-gray-300 text-center mb-8">
+      vex, the exploit that’s sharp, clean, and built different.  
+      Sleek UI, smooth execution, zero fluff.
+    </p>
 
-        <div class="relative z-10 bg-black">
-            <section class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-4xl mx-auto glass-effect rounded-3xl p-10 view-animate">
-                        <h2 class="text-3xl font-bold text-white mb-4 text-balance">Unleash the True Potential of Roblox</h2>
-                        <p class="text-gray-400 text-lg text-balance">
-                            The Vex script provides a comprehensive suite of powerful features designed to give you ultimate control in any Roblox experience. It offers seamless integration and an intuitive interface, making it easy to master your gameplay. With built-in anti-cheat measures and performance optimizations, Vex ensures a smooth and reliable experience.
-                        </p>
-                    </div>
-                </div>
-            </section>
+    <!-- Info Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-gray-800/50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-bold text-green-400 mb-2">Fast</h2>
+        <p class="text-gray-400">Instant attach, no waiting, no slowdown.</p>
+      </div>
+      <div class="bg-gray-800/50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-bold text-green-400 mb-2">Lightweight</h2>
+        <p class="text-gray-400">Runs clean, no bloat. Focused on performance.</p>
+      </div>
+      <div class="bg-gray-800/50 p-6 rounded-xl shadow hover:shadow-lg transition">
+        <h2 class="text-xl font-bold text-green-400 mb-2">Secure</h2>
+        <p class="text-gray-400">Protected and updated often. Reliability first.</p>
+      </div>
+    </div>
 
-            <section id="features" class="py-20">
-                <div class="container mx-auto px-6">
-                    <div class="text-center mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">Everything you need. <br>And then some.</h2>
-                    </div>
-                    <div class="grid md:grid-cols-3 gap-8">
-                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Powerful Module</h3>
-                            <p class="text-gray-400">Our script delivers performance that’s not just fast, it’s instantaneous.</p>
-                        </div>
-                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M14.5 17.5L12 20l-2.5-2.5"/><path d="M12 4v12"/></svg>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Effortless Invincibility</h3>
-                            <p class="text-gray-400">Our unbreakable invincibility keeps you safe from all threats.</p>
-                        </div>
-                        <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
-                            <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M20 12V8l-6-4-6 4v4"/><path d="M14 22V12l-6-4-6 4v8"/><path d="M2 12l6 4 6-4 6-4"/></svg>
-                            </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Always Updated</h3>
-                            <p class="text-gray-400">We work tirelessly to provide updates and new features, so you're always ahead.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Call to Action -->
+    <div class="text-center">
+      <button class="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-full shadow-lg transform hover:scale-105 transition">
+        Download
+      </button>
+    </div>
+  </div>
 
-            <section id="backend" class="py-20">
-                <div class="container mx-auto px-6">
-                    <div class="grid md:grid-cols-2 gap-16 items-center">
-                        <div class="view-animate">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">A Backend Built for Speed and Security.</h2>
-                            <p class="text-gray-400 text-lg mb-8 text-balance">
-                                The Vex script is engineered with a powerful backend that prioritizes performance and security. Our advanced Lua framework ensures lightning-fast execution of commands and robust anti-exploit measures to keep you safe and ahead of the competition.
-                            </p>
-                            <button id="get-script-btn-bottom" class="blue-btn" data-magnetic>Get Script</button>
-                        </div>
-                        <div class="view-animate" style="animation-delay: 0.2s;">
-                            <div class="bg-gray-900/50 p-6 rounded-2xl glass-effect">
-                                <div class="flex items-center mb-4">
-                                    <div class="flex space-x-2">
-                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                                    </div>
-                                    <span class="ml-auto text-gray-500 text-sm">Vex.lua</span>
-                                </div>
-                                <pre id="backend-code" class="text-sm text-gray-400 code-text overflow-x-auto"></pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="vex-ai" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-3xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate text-balance">Have a question?</h2>
-                        <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
-                            Ask our AI anything about the Vex script.
-                        </p>
-                        <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
-                            <div class="flex flex-col md:flex-row gap-4 mb-6">
-                                <input type="text" id="ai-prompt" placeholder="e.g., How does the invincibility work?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-blue-500 focus:ring-0 transition-all">
-                                <button id="ask-ai-btn" class="blue-btn px-8 py-3 flex items-center justify-center space-x-2">
-                                    <span>✨ Ask Vex AI</span>
-                                </button>
-                            </div>
-                            <div id="vex-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300 min-h-[100px]">
-                                Ask a question to see the AI's response here.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
+  <!-- Footer -->
+  <footer class="mt-12 text-center text-gray-500 text-sm">
+    <p>&copy; 2025 vex. All rights reserved.</p>
+    <p>
+      <a href="#" id="privacy-policy-link" class="text-green-400 hover:underline">Privacy Policy</a> |
+      <a href="#" id="tos-link" class="text-green-400 hover:underline">Terms of Service</a>
+    </p>
+  </footer>
 
-    <footer class="glass-effect border-t-0 mt-20">
-        <div class="container mx-auto px-6 py-12">
-            <div class="grid md:grid-cols-4 gap-8 text-gray-400">
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Vex</h4>
-                    <p>The Ultimate Roblox Script</p>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Product</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#features" class="hover:text-white">Features</a></li>
-                        <li class="mb-2"><a href="#backend" class="hover:text-white">Backend</a></li>
-                        <li class="mb-2"><a href="#vex-ai" class="hover:text-white">Vex AI</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Community</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Discord</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">GitHub</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Press</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold text-white mb-4">Legal</h4>
-                    <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2025 Vex Inc. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <!-- Modal -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-gray-900 text-white rounded-xl p-8 max-w-lg w-full shadow-lg relative">
+      <button id="close-modal" class="absolute top-2 right-2 text-gray-400 hover:text-white">&times;</button>
+      <h2 id="modal-title" class="text-2xl font-bold mb-4"></h2>
+      <p id="modal-content" class="text-gray-300 text-sm leading-relaxed"></p>
+    </div>
+  </div>
 
+  <!-- Modal Script -->
+  <script>
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const closeModal = document.getElementById('close-modal');
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // --- DYNAMIC CODE DISPLAY ---
-            const codeEl = document.getElementById('backend-code');
-            const codeLines = [
-                `-- Services`,
-                `local Players = game:GetService("Players")`,
-                ``,
-                `-- Vex Configuration`,
-                `local Admins = {`,
-                `  [12345678] = {Exempt = true, Invincible = true}`,
-                `}`,
-                ``,
-                `-- Utility Functions`,
-                `local function isPlayerInvincible(player)`,
-                `  local admin = Admins[player.UserId]`,
-                `  return admin and admin.Invincible`,
-                `end`,
-            ];
-            let lineIndex = 0;
-            let charIndex = 0;
-            
-            function typeLine() {
-                if (!codeEl) return;
-                if (lineIndex < codeLines.length) {
-                    const line = codeLines[lineIndex];
-                    if (charIndex < line.length) {
-                        codeEl.textContent += line.charAt(charIndex);
-                        charIndex++;
-                        setTimeout(typeLine, 20);
-                    } else {
-                        codeEl.textContent += '\n';
-                        lineIndex++;
-                        charIndex = 0;
-                        setTimeout(typeLine, 100);
-                    }
-                } else {
-                    // Loop the animation
-                    setTimeout(() => {
-                        codeEl.textContent = '';
-                        lineIndex = 0;
-                        charIndex = 0;
-                        typeLine();
-                    }, 5000);
-                }
-            }
+    const privacyLink = document.getElementById('privacy-policy-link');
+    const tosLink = document.getElementById('tos-link');
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        typeLine();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            if (codeEl) observer.observe(codeEl);
+    privacyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modalTitle.textContent = 'Privacy Policy';
+      modalContent.textContent = 'We value your privacy. No personal data is collected, tracked, or shared. Usage remains fully anonymous.';
+      modal.classList.remove('hidden');
+    });
 
-            // --- MAGNETIC BUTTONS EFFECT ---
-            const magneticElements = document.querySelectorAll('[data-magnetic]');
-            magneticElements.forEach(el => {
-                el.addEventListener('mousemove', function(e) {
-                    const position = el.getBoundingClientRect();
-                    const x = e.clientX - position.left - position.width / 2;
-                    const y = e.clientY - position.top - position.height / 2;
-                    gsap.to(el, { x: x * 0.3, y: y * 0.3, duration: 0.7, ease: "elastic.out(1, 0.3)" });
-                });
-                el.addEventListener('mouseleave', function() {
-                    gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
-                });
-            });
+    tosLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      modalTitle.textContent = 'Terms of Service';
+      modalContent.textContent = 'By using vex, you agree to use it responsibly. The developers hold no liability for misuse or damages.';
+      modal.classList.remove('hidden');
+    });
 
-            // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
-            const scriptText = `loadstring(game:HttpGet("https://raw.githubusercontent.com/your-username/your-repo/main/vex-script.lua"))()`;
-            const copyMessage = document.getElementById('copy-message');
-            
-            const copyHandler = (btnElement, isIconBtn = false) => {
-                const originalContent = btnElement.innerHTML;
-                navigator.clipboard.writeText(scriptText).then(() => {
-                    if (isIconBtn) {
-                        copyMessage.textContent = 'Copied!';
-                        copyMessage.classList.remove('opacity-0');
-                        setTimeout(() => copyMessage.classList.add('opacity-0'), 2000);
-                    } else {
-                        btnElement.innerHTML = '<span>Copied!</span>';
-                        setTimeout(() => { btnElement.innerHTML = originalContent; }, 2000);
-                    }
-                }).catch(err => {
-                    console.error('Failed to copy text: ', err);
-                    if (isIconBtn) {
-                        copyMessage.textContent = 'Failed to copy!';
-                        copyMessage.classList.remove('opacity-0');
-                        setTimeout(() => copyMessage.classList.add('opacity-0'), 2000);
-                    } else {
-                        btnElement.innerHTML = '<span>Failed!</span>';
-                        setTimeout(() => { btnElement.innerHTML = originalContent; }, 2000);
-                    }
-                });
-            };
+    closeModal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
 
-            document.getElementById('get-script-btn-nav').addEventListener('click', (e) => copyHandler(e.currentTarget));
-            document.getElementById('get-script-btn-bottom').addEventListener('click', (e) => copyHandler(e.currentTarget));
-            document.getElementById('get-script-btn-hero').addEventListener('click', (e) => copyHandler(e.currentTarget, true));
-
-            // --- GEMINI API INTEGRATION ---
-            const askAiBtn = document.getElementById('ask-ai-btn');
-            const aiPromptInput = document.getElementById('ai-prompt');
-            const aiResponseContainer = document.getElementById('vex-ai-response');
-
-            const handleAiRequest = async () => {
-                const userPrompt = aiPromptInput.value.trim();
-                if (!userPrompt) {
-                    aiResponseContainer.textContent = 'Please enter a question.';
-                    return;
-                }
-
-                askAiBtn.disabled = true;
-                askAiBtn.innerHTML = '<span class="loader"></span>';
-                aiResponseContainer.innerHTML = 'Generating response...';
-
-                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script. Vex is an open-source script with features like invincibility, anti-cheat, performance optimization, and is written in Lua. Keep answers concise, friendly, and focused on the script's capabilities.`;
-                const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
-
-                try {
-                    let chatHistory = [{ role: "user", parts: [{ text: fullPrompt }] }];
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Leave empty
-                    const apiUrl = \`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=\${apiKey}\`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) throw new Error(\`API request failed with status \${response.status}\`);
-                    
-                    const result = await response.json();
-                    
-                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        aiResponseContainer.textContent = result.candidates[0].content.parts[0].text;
-                    } else {
-                        throw new Error('Unexpected API response structure.');
-                    }
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    aiResponseContainer.textContent = 'Sorry, I had trouble connecting. Please try again.';
-                } finally {
-                    askAiBtn.disabled = false;
-                    askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
-                }
-            };
-
-            askAiBtn.addEventListener('click', handleAiRequest);
-            aiPromptInput.addEventListener('keypress', (e) => e.key === 'Enter' && handleAiRequest());
-        });
-    </script>
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  </script>
 </body>
 </html>

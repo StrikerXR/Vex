@@ -140,6 +140,11 @@
                 position: relative;
                 z-index: 2;
             }
+            
+            .code-text {
+                font-family: monospace;
+                white-space: pre;
+            }
         }
         
         /* Aurora Background Effect */
@@ -235,7 +240,7 @@
             </a>
             <nav class="hidden md:flex space-x-2 items-center">
                 <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Features</a>
-                <a href="#design" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Design</a>
+                <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Backend</a>
                 <a href="#scripting" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Scripting</a>
                 <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-full" data-magnetic>Vex AI</a>
                 <button id="get-script-btn-nav" class="header-btn-glow" data-magnetic>
@@ -268,6 +273,7 @@
                             </svg>
                         </button>
                         <p id="copy-message" class="mt-4 text-gray-400 opacity-0 transition-opacity duration-300">Click to copy script!</p>
+                        <p class="mt-2 text-sm text-gray-500">NOTE: This script should be placed inside **ServerScriptService**.</p>
                     </div>
                 </div>
             </div>
@@ -302,8 +308,8 @@
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Effortless GUI</h3>
-                            <p class="text-gray-400">Our clean, simple UI makes it easy to control everything with a few clicks.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Effortless Invincibility</h3>
+                            <p class="text-gray-400">Our unbreakable invincibility keeps you safe from all threats.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
@@ -316,20 +322,21 @@
                 </div>
             </section>
 
-            <section id="design" class="py-20">
+            <section id="backend" class="py-20">
                 <div class="container mx-auto px-6">
                     <div class="grid md:grid-cols-2 gap-16 items-center">
                         <div class="view-animate glass-effect p-10 rounded-3xl">
-                            <h2 class="text-3xl font-bold text-white mb-4">A GUI Designed for You</h2>
+                            <h2 class="text-3xl font-bold text-white mb-4">A Backend Built for Speed and Security</h2>
                             <p class="text-gray-400 text-lg">
-                                The Vex GUI is meticulously crafted for an intuitive user experience. Its clean, liquid-glass aesthetic is not only visually stunning but also highly functional. The minimalist layout ensures you can access every feature effortlessly, giving you complete control with a few simple clicks.
+                                The Vex script is engineered with a powerful backend that prioritizes performance and security. Our advanced Lua framework ensures lightning-fast execution of commands and robust anti-exploit measures to keep you safe and ahead of the competition.
                             </p>
                             <button id="get-script-btn-bottom" class="liquid-glass-btn mt-6" data-magnetic>Get Script</button>
                         </div>
                         <div class="view-animate" style="animation-delay: 0.2s;">
-                            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 text-balance">Designed for life.</h2>
-                            <p class="text-lg text-gray-400 mb-4 text-balance">The Vex script is designed to be a seamless extension of your Roblox experience. We focus on creating a product that is not only powerful and reliable but also feels natural to use, allowing you to focus on the game.</p>
-                            <p class="text-lg text-gray-400 text-balance">Available in four stunning finishes: Midnight, Starlight, Nebula, and Rose Gold.</p>
+                            <div class="bg-gray-900/50 p-6 rounded-2xl glass-effect">
+                                <h3 class="text-xl font-semibold text-white mb-4">Core Functions</h3>
+                                <pre id="backend-code" class="text-sm text-gray-400 code-text overflow-x-auto"></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -416,6 +423,76 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // --- DYNAMIC CODE DISPLAY ---
+            const codeEl = document.getElementById('backend-code');
+            // This is a simplified Lua-looking script for the animation
+            const codeLines = [
+                `-- Services`,
+                `local Players = game:GetService("Players")`,
+                ``,
+                `-- Configuration`,
+                `local Admins = {`,
+                `  [12345678] = {Exempt = true, Invincible = true}`,
+                `}`,
+                ``,
+                `-- Utility Functions`,
+                `local function isPlayerInvincible(player)`,
+                `  local admin = Admins[player.UserId]`,
+                `  return admin and admin.Invincible`,
+                `end`,
+                ``,
+                `local function onCharacterAdded(player, character)`,
+                `  local humanoid = character:WaitForChild("Humanoid")`,
+                `  if isPlayerInvincible(player) then`,
+                `    -- Apply invincibility`,
+                `  else`,
+                `    humanoid.Died:Connect(function()`,
+                `      -- Handle death`,
+                `    end)`,
+                `  end`,
+                `end`,
+            ];
+            let lineIndex = 0;
+            let charIndex = 0;
+            let isTyping = true;
+            
+            function typeLine() {
+                if (lineIndex < codeLines.length) {
+                    const line = codeLines[lineIndex];
+                    if (charIndex <= line.length) {
+                        codeEl.textContent = codeEl.textContent.slice(0, -1) + line.substring(0, charIndex) + (isTyping ? "|" : "");
+                        charIndex++;
+                        setTimeout(typeLine, 15);
+                    } else {
+                        codeEl.textContent = codeEl.textContent.slice(0, -1) + line;
+                        lineIndex++;
+                        charIndex = 0;
+                        isTyping = true;
+                        if (lineIndex < codeLines.length) {
+                            codeEl.textContent += "\n";
+                        }
+                        setTimeout(typeLine, 800);
+                    }
+                } else {
+                    lineIndex = 0;
+                    charIndex = 0;
+                    isTyping = true;
+                    codeEl.textContent = "";
+                    setTimeout(typeLine, 5000);
+                }
+            }
+
+            // Start the animation when the element is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        typeLine();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            observer.observe(codeEl);
+
             // --- MAGNETIC BUTTONS EFFECT ---
             const magneticElements = document.querySelectorAll('[data-magnetic]');
             magneticElements.forEach(el => {
@@ -444,20 +521,21 @@
 
             // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
             const scriptText = `--[[
-__     __        ____   ____  
-\ \   / /____  _| ___| |___ \ 
- \ \ / / _ \ \/ /___ \   __) |
-  \ V /  __/>  < ___) | / __/ 
-   \_/ \___/_/\_\____(_)_____|
+__     __         __    ____  
+\\ \\   / /____  __/ /_  | ___| 
+ \\ \\ / / _ \\ \\/ / '_ \\ |___ \\ 
+  \\ V /  __/>  <| (_) | ___) |
+   \\_/ \\___/_/\\_\\___(_)____/ 
 
 	Author: StrikeXRR
-	Version: 5.2.0
-	Script: Vex5.2
+	Version: 6.6
+	Script: Vex6.6
 	Description:
 	- Kicks non-exempt players on death.
 	- Provides unbreakable invincibility for whitelisted users.
-	- Case-insensitive username checks.
+	- Case-insensitive username and UserId checks.
 	- Prevents instant respawn bypasses.
+	- Centralized admin configuration.
 	- Debug logging toggle for development.
 --]]
 
@@ -467,73 +545,73 @@ local Players = game:GetService("Players")
 --//======================= CONFIGURATION ======================\\--
 
 local DEBUG = false -- Set to true to print debug logs
+local ScriptVersion = "6.6" -- Used for logging and identification
 
--- Editable at runtime
-local ExemptPlayers = {
-	[""] = true,
-	[""] = true,
-}
-
-local InvinciblePlayers = {
-	["StrikeXRR"] = true,
-	[12345678] = true
+-- Centralized configuration for admin users.
+-- To add a user, use their UserId as the key.
+-- Permissions can be set by changing 'Exempt' and 'Invincible' to true or false.
+local Admins = {
+	-- Example: Adding an admin with all permissions
+	[12345678] = {
+		Exempt = true,
+		Invincible = true,
+	},
 }
 
 local KickMessage = "You died! Rejoin to try again."
-local AllowNaturalHealthRegen = false
-local InvincibilityRefreshRate = 0.1 -- seconds
+local InvincibilityRefreshRate = 0.1 -- Refresh rate for health checks in seconds
 
 --//======================= UTILITIES ==========================\\--
 
 local function LogDebug(...)
 	if DEBUG then
-		print("[Vex5.2 DEBUG]:", ...)
+		print("[Vex v" .. ScriptVersion .. " DEBUG]:", ...)
 	end
 end
 
-local function NormalizeName(name: string)
-	return string.lower(name)
+local function NormalizeId(id: number | string): number | string
+	if typeof(id) == "string" then
+		return string.lower(id)
+	end
+	return id
+end
+
+local function IsAdmin(player: Player): boolean
+	local id = NormalizeId(player.UserId)
+	return Admins[id] ~= nil
 end
 
 local function IsPlayerExempt(player: Player): boolean
-	return ExemptPlayers[NormalizeName(player.Name)] or ExemptPlayers[player.UserId]
+	local id = NormalizeId(player.UserId)
+	local admin = Admins[id]
+	return admin and admin.Exempt
 end
 
 local function IsPlayerInvincible(player: Player): boolean
-	return InvinciblePlayers[NormalizeName(player.Name)] or InvinciblePlayers[player.UserId]
+	local id = NormalizeId(player.UserId)
+	local admin = Admins[id]
+	return admin and admin.Invincible
 end
 
 local function ApplyInvincibility(humanoid: Humanoid)
-	if not AllowNaturalHealthRegen then
-		local rootPart = humanoid.Parent and humanoid.Parent:FindFirstChild("HumanoidRootPart")
-		if rootPart then
-			rootPart:SetAttribute("Invincible", true)
-		end
-
-		task.spawn(function()
-			while humanoid and humanoid.Parent and humanoid.Health > 0 do
-				if humanoid.Health < humanoid.MaxHealth then
-					humanoid.Health = humanoid.MaxHealth
-				end
-				task.wait(InvincibilityRefreshRate)
-			end
-		end)
-	else
-		humanoid.HealthChanged:Connect(function()
+	-- Prevents health from decreasing by resetting it constantly.
+	task.spawn(function()
+		while humanoid and humanoid.Parent and humanoid.Health > 0 do
 			if humanoid.Health < humanoid.MaxHealth then
 				humanoid.Health = humanoid.MaxHealth
 			end
-		end)
-	end
+			task.wait(InvincibilityRefreshRate)
+		end
+	end)
 	LogDebug("Invincibility applied to", humanoid.Parent.Name)
 end
 
 local function HandlePlayerDeath(player: Player)
 	if not IsPlayerExempt(player) then
-		LogDebug(player.Name, "is not exempt, kicking...")
+		LogDebug(player.Name, "is not exempt; kicking.")
 		player:Kick(KickMessage)
 	else
-		LogDebug(player.Name, "is exempt, not kicking.")
+		LogDebug(player.Name, "is exempt; not kicking.")
 	end
 end
 
@@ -551,14 +629,6 @@ local function OnCharacterAdded(player: Player, character: Model)
 end
 
 local function OnPlayerAdded(player: Player)
-	local lowerName = NormalizeName(player.Name)
-	if ExemptPlayers[player.Name] then
-		ExemptPlayers[lowerName] = true
-	end
-	if InvinciblePlayers[player.Name] then
-		InvinciblePlayers[lowerName] = true
-	end
-
 	player.CharacterAdded:Connect(function(character)
 		OnCharacterAdded(player, character)
 	end)
@@ -570,32 +640,44 @@ end
 
 --//====================== INITIALIZATION ======================\\--
 
+-- Process any players already in the game when the script starts
 for _, player in ipairs(Players:GetPlayers()) do
 	task.spawn(OnPlayerAdded, player)
 end
+
+-- Connect to new player events
 Players.PlayerAdded:Connect(OnPlayerAdded)
 
-LogDebug("Vex5.2 initialized successfully")`;
+LogDebug("Vex script v" .. ScriptVersion .. " initialized successfully.")`;
 
-            const getScriptBtnNav = document.getElementById('get-script-btn-nav');
-            getScriptBtnNav.addEventListener('click', () => {
+            const copyToClipboard = (btnElement, successMessage, failureMessage) => {
                 navigator.clipboard.writeText(scriptText).then(() => {
-                    console.log('Script copied to clipboard!');
-                    getScriptBtnNav.textContent = 'Copied!';
+                    btnElement.textContent = successMessage;
                     setTimeout(() => {
-                        getScriptBtnNav.textContent = 'Get Script';
+                        btnElement.textContent = "Get Script";
                     }, 2000);
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
-                    getScriptBtnNav.textContent = 'Failed!';
+                    btnElement.textContent = failureMessage;
                     setTimeout(() => {
-                        getScriptBtnNav.textContent = 'Get Script';
+                        btnElement.textContent = "Get Script";
                     }, 2000);
                 });
-            });
+            };
 
+            const getScriptBtnNav = document.getElementById('get-script-btn-nav');
+            const getScriptBtnBottom = document.getElementById('get-script-btn-bottom');
             const getScriptBtnHero = document.getElementById('get-script-btn-hero');
             const copyMessage = document.getElementById('copy-message');
+
+            getScriptBtnNav.addEventListener('click', () => {
+                copyToClipboard(getScriptBtnNav, 'Copied!', 'Failed!');
+            });
+            
+            getScriptBtnBottom.addEventListener('click', () => {
+                copyToClipboard(getScriptBtnBottom, 'Copied!', 'Failed!');
+            });
+
             getScriptBtnHero.addEventListener('click', () => {
                 navigator.clipboard.writeText(scriptText).then(() => {
                     console.log('Script copied to clipboard!');
@@ -615,115 +697,6 @@ LogDebug("Vex5.2 initialized successfully")`;
                     }, 2000);
                 });
             });
-
-            const getScriptBtnBottom = document.getElementById('get-script-btn-bottom');
-            if(getScriptBtnBottom){
-                getScriptBtnBottom.addEventListener('click', () => {
-                    navigator.clipboard.writeText(scriptText).then(() => {
-                        console.log('Script copied to clipboard!');
-                        getScriptBtnBottom.textContent = 'Copied!';
-                        setTimeout(() => {
-                            getScriptBtnBottom.textContent = 'Get Script';
-                        }, 2000);
-                    }).catch(err => {
-                        console.error('Failed to copy text: ', err);
-                        getScriptBtnBottom.textContent = 'Failed!';
-                        setTimeout(() => {
-                            getScriptBtnBottom.textContent = 'Get Script';
-                        }, 2000);
-                    });
-                });
-            }
-
-            // Make message visible on hover
-            getScriptBtnHero.addEventListener('mouseenter', () => {
-                copyMessage.classList.remove('opacity-0');
-            });
-            getScriptBtnHero.addEventListener('mouseleave', () => {
-                if (copyMessage.textContent === 'Click to copy script!') {
-                    copyMessage.classList.add('opacity-0');
-                }
-            });
-
-
-            // --- GEMINI API INTEGRATION ---
-            const askAiBtn = document.getElementById('ask-ai-btn');
-            const aiPromptInput = document.getElementById('ai-prompt');
-            const aiResponseContainer = document.getElementById('vex-ai-response');
-
-            askAiBtn.addEventListener('click', () => handleAiRequest(aiPromptInput.value.trim()));
-            aiPromptInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleAiRequest(aiPromptInput.value.trim());
-                }
-            });
-
-            async function handleAiRequest(userPrompt, retryCount = 0) {
-                if (!userPrompt) {
-                    aiResponseContainer.textContent = 'Please enter a question.';
-                    return;
-                }
-
-                askAiBtn.disabled = true;
-                askAiBtn.innerHTML = '<span class="loader"></span><span>Thinking...</span>';
-                if (retryCount === 0) {
-                    aiResponseContainer.innerHTML = 'Generating response...';
-                }
-
-                const productInfo = `
-                    You are Vex AI, a helpful assistant for the 'Vex' script.
-                    The Vex script is an advanced Roblox script with these features:
-                    - **Kicks on Death:** Automatically kicks non-exempt players when they die.
-                    - **Unbreakable Invincibility:** Provides a health-locking system for whitelisted users, preventing them from dying.
-                    - **Case-Insensitive Checks:** Player names and user IDs are checked in a case-insensitive manner for easier whitelisting.
-                    - **Anti-Respawn Bypass:** Prevents common bypasses that allow players to instantly respawn.
-                    - **Debug Logging:** Includes a toggle to enable or disable debug logs for developers.
-                    - **Design:** The website showcases a futuristic design with a focus on liquid-glass aesthetics.
-                    - **Scripting Language:** The script is written in Lua.
-                    
-                    Keep your answers concise, friendly, and focused on the product.
-                `;
-                
-                const payload = {
-                    contents: [{ role: "user", parts: [{ text: `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:` }] }]
-                };
-                const apiKey = "AIzaSyDw7AJD2IOGLJ4B7DPIU41lT9A1JQcXe2A";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        if (response.status >= 500 && retryCount < 3) {
-                            const delay = Math.pow(2, retryCount) * 1000;
-                            console.log(`Retrying API call in ${delay / 1000} seconds...`);
-                            await new Promise(resolve => setTimeout(resolve, delay));
-                            return handleAiRequest(userPrompt, retryCount + 1);
-                        }
-                        throw new Error(`API request failed with status ${response.status}: ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        aiResponseContainer.textContent = text;
-                    } else {
-                        throw new Error('Unexpected API response structure or no content.');
-                    }
-
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    aiResponseContainer.textContent = 'Sorry, I had trouble connecting to my brain. Please try again in a moment.';
-                } finally {
-                    askAiBtn.disabled = false;
-                    askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
-                }
-            }
         });
     </script>
 </body>

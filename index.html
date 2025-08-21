@@ -363,29 +363,26 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- THE FULL VEX SCRIPT FOR DISPLAY AND COPYING ---
-            const vexScriptText = `--[[
-__     __        ___  
-\\ \\   / /____  _( _ ) 
- \\ \\ / / _ \\ \\/ / _ \\ 
-  \\ V /  __/>  < (_) |
-   \\_/ \\___/_/\\_\\___/   
+            const vexScriptText = `--[[--[[
+__     __        ___  
+\ \   / /____  _( _ ) 
+ \ \ / / _ \ \/ / _ \ 
+  \ V /  __/>  < (_) |
+   \_/ \___/_/\_\___/   
 	Project: Vex8 - Universal Anti-Death & Player Management
 	Author: StrikeXRR
 	Version: 8.0
 	Description:
-	- A modular system for handling player invincibility and death behavior.
-	- Players who are not exempted will be kicked upon death.
-	- Whitelisted players can be granted unbreakable invincibility.
-	- Uses robust, modern coding practices for efficiency and readability.
+	- A modular system for handling player death behavior.
 --]]
 
---//========================= SERVICES =========================\\--
+--//========================= SERVICES =========================\--
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local HttpService = game:GetService("HttpService")
+local TweenService = game:GetService("TweenService")
 
---//===================== CONFIGURATION ======================\\--
+--//===================== CONFIGURATION ======================\--
 -- Configuration values for customizing script behavior.
 -- All values can be modified at runtime.
 
@@ -396,72 +393,26 @@ local Config = {
 	KickMessage = "You died! Rejoin to try again.",
 
 	-- Players in this table will NOT be kicked upon death.
-	-- Add UserIds or lowercase usernames.
+	-- Add UserIds.
 	Exemptions = {
-		-- Example UserIds
-		[12345678] = true,
-		-- Example Usernames
-		["bigcupcakelol5"] = true,
-		["strikexrr"] = true,
+		[12345678] = true, -- Example UserId
 	},
-
-	-- Players in this table will be granted unbreakable invincibility.
-	-- Add UserIds or lowercase usernames.
-	InvincibilityWhitelist = {
-		-- Example UserIds
-		[12345678] = true,
-		-- Example Usernames
-		["strikexrr"] = true,
+	
+	-- Only players on this list can access the admin panel.
+	-- Add your own User ID here to access the panel in-game.
+	Admins = {
+		1234567890, -- Replace with your User ID
+		0987654321,
 	},
 }
 
---//====================== CORE MODULES ======================\\--
--- Separating core logic into modules for better organization.
-
-local InvincibilityModule = {}
-
--- Applies invincibility to a character's humanoid.
--- A continuous loop is used to keep the player's health at maximum.
-function InvincibilityModule.Apply(humanoid: Humanoid)
-	-- A unique ID for the loop, preventing multiple loops from running.
-	local loopId = HttpService:GenerateGUID(false)
-	-- Attach the loop ID as an attribute to the root part.
-	local rootPart = humanoid.Parent and humanoid.Parent:FindFirstChild("HumanoidRootPart")
-	if rootPart then
-		rootPart:SetAttribute("InvincibilityLoopId", loopId)
-	end
-
-	-- Start a new invincibility loop on a separate thread.
-	-- This loop will continuously restore the player's health.
-	task.spawn(function()
-		while true do
-			if not humanoid or humanoid.Health <= 0 then break end
-			-- Check if this is the currently active invincibility loop.
-			if rootPart and rootPart:GetAttribute("InvincibilityLoopId") ~= loopId then
-				break -- Stop if a new loop has been started.
-			end
-
-			-- Restore health if it's not at maximum.
-			if humanoid.Health < humanoid.MaxHealth then
-				humanoid.Health = humanoid.MaxHealth
-			end
-
-			task.wait(0.1) -- Refresh rate, can be adjusted.
-		end
-		-- Clean up the attribute when the loop ends.
-		if rootPart then
-			rootPart:SetAttribute("InvincibilityLoopId", nil)
-		end
-	end)
-end
-
---//====================== UTILITY FUNCTIONS ======================\\--
+--//====================== UTILITY FUNCTIONS ======================\--
 -- Helper functions for common operations.
 
 -- Prints a message to the console only if DebugMode is enabled.
 local function LogDebug(...)
 	if Config.DebugMode then
-		print("[Vex7 DEBUG]:", ...)
+		print("[Vex8 DEBUG]:", ...)
 	end
 end
 
@@ -472,12 +423,7 @@ end
 
 -- Checks if a player is in the exemptions table.
 local function IsExempt(player: Player): boolean
-	return Config.Exemptions[player.UserId] or Config.Exemptions[NormalizeName(player.Name)]
-end
-
--- Checks if a player is in the invincibility whitelist.
-local function IsInvincible(player: Player): boolean
-	return Config.InvincibilityWhitelist[player.UserId] or Config.InvincibilityWhitelist[NormalizeName(player.Name)]
+	return Config.Exemptions[player.UserId]
 end
 
 -- Handles the logic for a player's death.
@@ -490,19 +436,411 @@ local function HandlePlayerDeath(player: Player)
 	end
 end
 
---//===================== PLAYER MANAGEMENT ======================\\--
+--//====================== REMOTE EVENT SETUP ======================\--
+-- Create the RemoteEvent to communicate from the client GUI to the server.
+local AdminEvent = Instance.new("RemoteEvent")
+AdminEvent.Name = "Vex8AdminEvent"
+AdminEvent.Parent = ReplicatedStorage
+
+-- Handle incoming requests from the admin panel.
+AdminEvent.OnServerEvent:Connect(function(player, action, targetName, targetId)
+	if not table.find(Config.Admins, player.UserId) then
+		warn("Vex8: Unauthorized admin access attempt from", player.Name)
+		return
+	end
+
+	-- Find the target player by name or ID
+	local targetPlayer = Players:GetPlayerByUserId(targetId) or Players:FindFirstChild(targetName)
+	if not targetPlayer then
+		LogDebug("Target player not found:", targetName or targetId)
+		return
+	end
+
+	if action == "ToggleExemption" then
+		if Config.Exemptions[targetPlayer.UserId] then
+			Config.Exemptions[targetPlayer.UserId] = nil
+			LogDebug("Removed exemption for", targetPlayer.Name)
+		else
+			Config.Exemptions[targetPlayer.UserId] = true
+			LogDebug("Added exemption for", targetPlayer.Name)
+		end
+	elseif action == "KickPlayer" then
+		targetPlayer:Kick(Config.KickMessage)
+		LogDebug("Kicked", targetPlayer.Name)
+	elseif action == "ToggleDebug" then
+		Config.DebugMode = not Config.DebugMode
+		LogDebug("Debug mode is now", tostring(Config.DebugMode))
+	end
+end)
+
+
+--//====================== GUI CREATION (CLIENT-SIDE) ======================\--
+-- A string containing the entire LocalScript code.
+local guiScriptCode = [[
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+
+local AdminEvent = ReplicatedStorage:WaitForChild("Vex8AdminEvent")
+local LocalPlayer = Players.LocalPlayer
+
+-- Check if the player is an admin
+local function IsAdmin()
+	-- The server will handle the actual check, this is just for UI purposes
+	local admins = {
+		-- This list must match the one in the main script for the GUI to appear
+		-- Replace with your admin IDs
+		1234567890,
+		0987654321,
+	}
+	return table.find(admins, LocalPlayer.UserId)
+end
+
+if not IsAdmin() then
+	return
+end
+
+-- Wait for the PlayerGui to be ready
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Helper function to create a UI element
+local function createUI(instanceType, parent, props, children)
+	local instance = Instance.new(instanceType)
+	for prop, value in pairs(props) do
+		instance[prop] = value
+	end
+	instance.Parent = parent
+
+	if children then
+		for _, child in ipairs(children) do
+			createUI(child.type, instance, child.props, child.children)
+		end
+	end
+
+	return instance
+end
+
+-- Function to tween a UI element's transparency and position
+local function tweenUI(element, isVisible)
+	local tweenInfo = TweenInfo.new(
+		0.3,
+		Enum.EasingStyle.Sine,
+		Enum.EasingDirection.Out
+	)
+	local targetPosition = isVisible and UDim2.new(0.5, 0, 0.5, 0) or UDim2.new(0.5, 0, 1.5, 0)
+	local targetTransparency = isVisible and 0 or 1
+
+	TweenService:Create(element, tweenInfo, {
+		BackgroundTransparency = targetTransparency,
+		Position = targetPosition
+	}):Play()
+end
+
+-- Function to refresh the displayed lists
+local function refreshLists()
+	local exemptList = PlayerGui.Vex8AdminGui.MainFrame.ExemptionsFrame.ListContainer
+
+	for _, child in ipairs(exemptList:GetChildren()) do
+		if child:IsA("TextLabel") then child:Destroy() end
+	end
+	
+	-- Ask the server for the current lists
+	AdminEvent:FireServer("GetLists")
+end
+
+-- Create the main ScreenGui
+local screenGui = createUI("ScreenGui", PlayerGui, {
+	Name = "Vex8AdminGui",
+	ResetOnSpawn = false
+})
+
+-- Create the main frame
+local mainFrame = createUI("Frame", screenGui, {
+	Name = "MainFrame",
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Size = UDim2.new(0, 500, 0, 450),
+	Position = UDim2.new(0.5, 0, 1.5, 0), -- Start off-screen
+	BackgroundTransparency = 1,
+	BackgroundColor3 = Color3.fromRGB(240, 240, 245),
+})
+
+-- Add a UICorner for rounded edges
+createUI("UICorner", mainFrame, {
+	CornerRadius = UDim.new(0, 16)
+})
+
+-- Add a UIStroke for a subtle border
+createUI("UIStroke", mainFrame, {
+	Color = Color3.fromRGB(200, 200, 200),
+	Transparency = 0.5,
+	Thickness = 1,
+	ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+})
+
+-- Top Bar
+local topBar = createUI("Frame", mainFrame, {
+	Name = "TopBar",
+	Size = UDim2.new(1, 0, 0, 40),
+	BackgroundTransparency = 1
+})
+
+-- Dragging functionality
+local dragging
+local dragStart
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		mainFrame:GetChildren().Title.TextTransparency = 0.5 -- Subtle effect
+	end
+end)
+
+topBar.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+		mainFrame:GetChildren().Title.TextTransparency = 0 -- Reset effect
+	end
+end)
+
+RunService.RenderStepped:Connect(function()
+	if dragging then
+		local delta = game:GetService("UserInputService"):GetMouseLocation() - dragStart
+		mainFrame.Position = mainFrame.Position + UDim2.fromOffset(delta.X, delta.Y)
+		dragStart = game:GetService("UserInputService"):GetMouseLocation()
+	end
+end)
+
+
+-- Title Label
+local titleLabel = createUI("TextLabel", mainFrame, {
+	Name = "Title",
+	Size = UDim2.new(1, 0, 0, 40),
+	Text = "Vex8 Admin Panel",
+	TextColor3 = Color3.fromRGB(50, 50, 50),
+	Font = Enum.Font.GothamBold,
+	TextSize = 18,
+	BackgroundTransparency = 1
+})
+
+-- Close Button
+local closeButton = createUI("TextButton", topBar, {
+	Name = "CloseButton",
+	Size = UDim2.new(0, 30, 0, 30),
+	Position = UDim2.new(1, -40, 0.5, -15),
+	Text = "✕",
+	TextColor3 = Color3.fromRGB(150, 150, 150),
+	Font = Enum.Font.SourceSans,
+	TextSize = 24,
+	BackgroundTransparency = 1
+})
+
+closeButton.MouseButton1Click:Connect(function()
+	tweenUI(mainFrame, false)
+end)
+
+-- Main content frame
+local contentFrame = createUI("Frame", mainFrame, {
+	Size = UDim2.new(1, 0, 1, -40),
+	Position = UDim2.new(0, 0, 0, 40),
+	BackgroundTransparency = 1
+})
+
+-- Main layout
+createUI("UIListLayout", contentFrame, {
+	Padding = UDim.new(0, 10),
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	FillDirection = Enum.FillDirection.Vertical,
+	VerticalAlignment = Enum.VerticalAlignment.Top
+})
+
+-- Section for Player Management
+local playerFrame = createUI("Frame", contentFrame, {
+	Name = "PlayerManagement",
+	Size = UDim2.new(0.95, 0, 0.15, 0),
+	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	LayoutOrder = 1,
+	BackgroundTransparency = 0.5
+})
+createUI("UICorner", playerFrame, { CornerRadius = UDim.new(0, 10) })
+
+local playerLayout = createUI("UIListLayout", playerFrame, {
+	Padding = UDim.new(0, 5),
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	FillDirection = Enum.FillDirection.Vertical,
+	HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	VerticalAlignment = Enum.VerticalAlignment.Top
+})
+createUI("UIPadding", playerFrame, {
+	PaddingTop = UDim.new(0, 10),
+	PaddingBottom = UDim.new(0, 10)
+})
+
+createUI("TextLabel", playerFrame, {
+	Text = "Player Management",
+	TextColor3 = Color3.fromRGB(50, 50, 50),
+	Font = Enum.Font.GothamBold,
+	TextSize = 16,
+	BackgroundTransparency = 1,
+	Size = UDim2.new(1, 0, 0, 20)
+})
+
+local playerInput = createUI("TextBox", playerFrame, {
+	Name = "PlayerInput",
+	PlaceholderText = "Enter Player Name or ID",
+	Size = UDim2.new(0.95, 0, 0, 30),
+	Text = "",
+	BackgroundColor3 = Color3.fromRGB(230, 230, 235),
+	TextColor3 = Color3.fromRGB(50, 50, 50),
+	TextSize = 14,
+	Font = Enum.Font.SourceSans,
+	BackgroundTransparency = 0.5
+})
+createUI("UICorner", playerInput, { CornerRadius = UDim.new(0, 8) })
+
+local buttonLayout = createUI("UIListLayout", playerFrame, {
+	Padding = UDim.new(0, 5),
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	FillDirection = Enum.FillDirection.Horizontal,
+	HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	VerticalAlignment = Enum.VerticalAlignment.Center
+})
+buttonLayout.Parent = playerInput.Parent -- Attach to the same parent
+
+local exemptionButton = createUI("TextButton", playerFrame, {
+	Name = "ToggleExemptionButton",
+	Text = "Toggle Exemption",
+	Size = UDim2.new(0.48, 0, 0, 30),
+	BackgroundTransparency = 0.8,
+	BackgroundColor3 = Color3.fromRGB(70, 130, 180),
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	Font = Enum.Font.Gotham,
+	TextSize = 14
+})
+createUI("UICorner", exemptionButton, { CornerRadius = UDim.new(0, 8) })
+
+local kickButton = createUI("TextButton", playerFrame, {
+	Name = "KickButton",
+	Text = "Kick Player",
+	Size = UDim2.new(0.48, 0, 0, 30),
+	BackgroundTransparency = 0.8,
+	BackgroundColor3 = Color3.fromRGB(200, 50, 50),
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	Font = Enum.Font.Gotham,
+	TextSize = 14
+})
+createUI("UICorner", kickButton, { CornerRadius = UDim.new(0, 8) })
+
+-- Function to handle button clicks
+local function handleButtonClick(action)
+	local target = playerInput.Text
+	if target:len() > 0 then
+		local isUserId = tonumber(target)
+		AdminEvent:FireServer(action, target, isUserId and tonumber(target) or nil)
+		playerInput.Text = "" -- Clear the input
+	end
+end
+
+exemptionButton.MouseButton1Click:Connect(function() handleButtonClick("ToggleExemption") end)
+kickButton.MouseButton1Click:Connect(function() handleButtonClick("KickPlayer") end)
+
+-- Debug Mode Toggle
+local debugFrame = createUI("Frame", contentFrame, {
+	Name = "DebugToggle",
+	Size = UDim2.new(0.95, 0, 0, 40),
+	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	LayoutOrder = 2,
+	BackgroundTransparency = 0.5
+})
+createUI("UICorner", debugFrame, { CornerRadius = UDim.new(0, 10) })
+local debugLayout = createUI("UIListLayout", debugFrame, {
+	Padding = UDim.new(0, 5),
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	FillDirection = Enum.FillDirection.Horizontal,
+	HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	VerticalAlignment = Enum.VerticalAlignment.Center
+})
+createUI("TextLabel", debugFrame, {
+	Size = UDim2.new(0.5, 0, 1, 0),
+	Text = "Debug Mode:",
+	TextColor3 = Color3.fromRGB(50, 50, 50),
+	Font = Enum.Font.GothamBold,
+	TextSize = 16,
+	BackgroundTransparency = 1
+})
+local debugButton = createUI("TextButton", debugFrame, {
+	Name = "ToggleDebugButton",
+	Size = UDim2.new(0.4, 0, 0, 30),
+	Text = "Toggle",
+	BackgroundTransparency = 0.8,
+	BackgroundColor3 = Color3.fromRGB(100, 100, 100),
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	Font = Enum.Font.Gotham,
+	TextSize = 14
+})
+createUI("UICorner", debugButton, { CornerRadius = UDim.new(0, 8) })
+
+debugButton.MouseButton1Click:Connect(function()
+	AdminEvent:FireServer("ToggleDebug")
+end)
+
+-- The button to open the GUI.
+local openButton = createUI("TextButton", PlayerGui, {
+	Name = "OpenAdminPanelButton",
+	Size = UDim2.new(0, 100, 0, 40),
+	Position = UDim2.new(1, -110, 0, 10),
+	Text = "Admin",
+	Font = Enum.Font.GothamBold,
+	TextSize = 16,
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	BackgroundTransparency = 0.2,
+	BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+})
+createUI("UICorner", openButton, { CornerRadius = UDim.new(0, 8) })
+
+openButton.MouseButton1Click:Connect(function()
+	tweenUI(mainFrame, true)
+end)
+
+-- This is a placeholder for a list, the server doesn't send the lists back.
+-- A better solution would involve the server sending the updated tables back
+-- to the client to display in the lists, but that's a more advanced feature.
+-- For now, the user must look at the developer console for confirmation.
+-- This part is here for future expansion.
+local listsFrame = createUI("Frame", contentFrame, {
+	Name = "ListsFrame",
+	Size = UDim2.new(0.95, 0, 0.4, 0),
+	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+	LayoutOrder = 3,
+	BackgroundTransparency = 0.5
+})
+createUI("UICorner", listsFrame, { CornerRadius = UDim.new(0, 10) })
+createUI("TextLabel", listsFrame, {
+	Name = "Placeholder",
+	Size = UDim2.new(1, 0, 1, 0),
+	Text = "Player lists can be displayed here in a future update.",
+	Font = Enum.Font.SourceSans,
+	TextSize = 14,
+	TextWrapped = true,
+	TextColor3 = Color3.fromRGB(150, 150, 150),
+	BackgroundTransparency = 1
+})
+]]
+
+-- Create and parent the LocalScript
+local guiScript = Instance.new("LocalScript")
+guiScript.Name = "Vex8AdminPanelScript"
+guiScript.Source = guiScriptCode
+guiScript.Parent = Players.LocalPlayer.PlayerScripts
+
+--//===================== PLAYER MANAGEMENT ======================\--
 -- Manages player-related events like character loading and death.
 
 -- Handles events when a player's character is added.
 local function OnCharacterAdded(player: Player, character: Model)
 	local humanoid = character:WaitForChild("Humanoid", 5)
 	if not humanoid then return end
-
-	-- Check for invincibility first.
-	if IsInvincible(player) then
-		InvincibilityModule.Apply(humanoid)
-		LogDebug("Invincibility applied to", player.Name)
-	end
 
 	-- Connect the death handler.
 	humanoid.Died:Connect(function()
@@ -517,10 +855,7 @@ local function OnPlayerAdded(player: Player)
 	if Config.Exemptions[player.Name] then
 		Config.Exemptions[lowerName] = true
 	end
-	if Config.InvincibilityWhitelist[player.Name] then
-		Config.InvincibilityWhitelist[lowerName] = true
-	end
-
+	
 	-- Connect to the CharacterAdded event.
 	player.CharacterAdded:Connect(function(character)
 		OnCharacterAdded(player, character)
@@ -532,7 +867,7 @@ local function OnPlayerAdded(player: Player)
 	end
 end
 
---//======================= INITIALIZATION =======================\\--
+--//======================= INITIALIZATION =======================\--
 -- The main entry point of the script.
 
 -- Process any players already in the game when the script starts.

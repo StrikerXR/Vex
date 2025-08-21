@@ -1,14 +1,16 @@
 --[[
-__     __        ___  
-\ \   / /____  _( _ ) 
- \ \ / / _ \ \/ / _ \ 
-  \ V /  __/>  < (_) |
-   \_/ \___/_/\_\___/   
-	Project: Vex8 - Universal Anti-Death & Player Management
-	Author: StrikeXRR
-	Version: 8.0
+ 
+\ \   / /____  _( _ ) / |
+ \ \ / / _ \ \/ / _ \ | |
+  \ V /  __/>  < (_) || |
+   \_/ \___/_/\_\___(_)_|
+	Project: Vex8 - Universal Anti-Death & Player Management with Admin Panel
+	Author: StrikeXRR & Gemini
+	Version: 8.1
 	Description:
 	- A modular system for handling player death behavior.
+	- Players who are not exempted will be kicked upon death.
+	- Now includes a modern, programmatically generated admin panel with a real-time list of exempted players.
 --]]
 
 --//========================= SERVICES =========================\--
@@ -51,11 +53,6 @@ local function LogDebug(...)
 	end
 end
 
--- Normalizes a player's name for case-insensitive checks.
-local function NormalizeName(name: string): string
-	return string.lower(name)
-end
-
 -- Checks if a player is in the exemptions table.
 local function IsExempt(player: Player): boolean
 	return Config.Exemptions[player.UserId]
@@ -81,6 +78,13 @@ AdminEvent.Parent = ReplicatedStorage
 AdminEvent.OnServerEvent:Connect(function(player, action, targetName, targetId)
 	if not table.find(Config.Admins, player.UserId) then
 		warn("Vex8: Unauthorized admin access attempt from", player.Name)
+		return
+	end
+
+	-- Server actions
+	if action == "GetExemptions" then
+		-- Send the current exemptions list to the requesting client
+		AdminEvent:FireClient(player, "UpdateExemptions", Config.Exemptions)
 		return
 	end
 
@@ -172,17 +176,57 @@ local function tweenUI(element, isVisible)
 	}):Play()
 end
 
--- Function to refresh the displayed lists
-local function refreshLists()
-	local exemptList = PlayerGui.Vex8AdminGui.MainFrame.ExemptionsFrame.ListContainer
+local function updateDebugButton(isDebugging)
+	local debugButton = PlayerGui.Vex8AdminGui.MainFrame.ContentFrame.DebugToggle.ToggleDebugButton
+	if isDebugging then
+		debugButton.Text = "On"
+		debugButton.BackgroundColor3 = Color3.fromRGB(80, 200, 120) -- Green
+	else
+		debugButton.Text = "Off"
+		debugButton.BackgroundColor3 = Color3.fromRGB(200, 80, 80) -- Red
+	end
+end
 
-	for _, child in ipairs(exemptList:GetChildren()) do
-		if child:IsA("TextLabel") then child:Destroy() end
+-- Function to update the displayed lists
+local function updateExemptionsList(exemptions)
+	local listContainer = PlayerGui.Vex8AdminGui.MainFrame.ContentFrame.ExemptionsFrame.ExemptionsList.ListContainer
+	-- Clear the existing list
+	for _, child in ipairs(listContainer:GetChildren()) do
+		if child:IsA("TextLabel") or child:IsA("UIListLayout") then
+			child:Destroy()
+		end
 	end
 	
-	-- Ask the server for the current lists
-	AdminEvent:FireServer("GetLists")
+	createUI("UIListLayout", listContainer, {
+		Padding = UDim.new(0, 5),
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		FillDirection = Enum.FillDirection.Vertical
+	})
+
+	-- Loop through and add new player names
+	for userId, _ in pairs(exemptions) do
+		local success, name = pcall(Players.GetNameFromUserIdAsync, Players, userId)
+		local displayText = success and name or tostring(userId)
+
+		local playerLabel = createUI("TextLabel", listContainer, {
+			Size = UDim2.new(1, -20, 0, 20),
+			Text = displayText,
+			TextColor3 = Color3.fromRGB(50, 50, 50),
+			Font = Enum.Font.SourceSansSemibold,
+			TextSize = 14,
+			BackgroundTransparency = 1,
+			TextXAlignment = Enum.TextXAlignment.Left
+		})
+	end
 end
+
+-- Listen for server events
+AdminEvent.OnClientEvent:Connect(function(action, data)
+	if action == "UpdateExemptions" then
+		updateExemptionsList(data)
+	end
+end)
 
 -- Create the main ScreenGui
 local screenGui = createUI("ScreenGui", PlayerGui, {
@@ -194,21 +238,21 @@ local screenGui = createUI("ScreenGui", PlayerGui, {
 local mainFrame = createUI("Frame", screenGui, {
 	Name = "MainFrame",
 	AnchorPoint = Vector2.new(0.5, 0.5),
-	Size = UDim2.new(0, 500, 0, 450),
+	Size = UDim2.new(0, 500, 0, 600),
 	Position = UDim2.new(0.5, 0, 1.5, 0), -- Start off-screen
-	BackgroundTransparency = 1,
-	BackgroundColor3 = Color3.fromRGB(240, 240, 245),
+	BackgroundTransparency = 0.2,
+	BackgroundColor3 = Color3.fromRGB(245, 245, 245),
 })
 
 -- Add a UICorner for rounded edges
 createUI("UICorner", mainFrame, {
-	CornerRadius = UDim.new(0, 16)
+	CornerRadius = UDim.new(0, 20)
 })
 
 -- Add a UIStroke for a subtle border
 createUI("UIStroke", mainFrame, {
-	Color = Color3.fromRGB(200, 200, 200),
-	Transparency = 0.5,
+	Color = Color3.fromRGB(220, 220, 220),
+	Transparency = 0,
 	Thickness = 1,
 	ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 })
@@ -216,7 +260,7 @@ createUI("UIStroke", mainFrame, {
 -- Top Bar
 local topBar = createUI("Frame", mainFrame, {
 	Name = "TopBar",
-	Size = UDim2.new(1, 0, 0, 40),
+	Size = UDim2.new(1, 0, 0, 60),
 	BackgroundTransparency = 1
 })
 
@@ -227,14 +271,12 @@ topBar.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		dragging = true
 		dragStart = input.Position
-		mainFrame:GetChildren().Title.TextTransparency = 0.5 -- Subtle effect
 	end
 end)
 
 topBar.InputEnded:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 		dragging = false
-		mainFrame:GetChildren().Title.TextTransparency = 0 -- Reset effect
 	end
 end)
 
@@ -246,23 +288,26 @@ RunService.RenderStepped:Connect(function()
 	end
 end)
 
-
 -- Title Label
-local titleLabel = createUI("TextLabel", mainFrame, {
+local titleLabel = createUI("TextLabel", topBar, {
 	Name = "Title",
-	Size = UDim2.new(1, 0, 0, 40),
+	Size = UDim2.new(1, 0, 1, 0),
 	Text = "Vex8 Admin Panel",
 	TextColor3 = Color3.fromRGB(50, 50, 50),
 	Font = Enum.Font.GothamBold,
-	TextSize = 18,
-	BackgroundTransparency = 1
+	TextSize = 20,
+	BackgroundTransparency = 1,
+	TextXAlignment = Enum.TextXAlignment.Left
+})
+createUI("UIPadding", titleLabel, {
+	PaddingLeft = UDim.new(0, 20)
 })
 
 -- Close Button
 local closeButton = createUI("TextButton", topBar, {
 	Name = "CloseButton",
-	Size = UDim2.new(0, 30, 0, 30),
-	Position = UDim2.new(1, -40, 0.5, -15),
+	Size = UDim2.new(0, 40, 0, 40),
+	Position = UDim2.new(1, -50, 0.5, -20),
 	Text = "✕",
 	TextColor3 = Color3.fromRGB(150, 150, 150),
 	Font = Enum.Font.SourceSans,
@@ -276,14 +321,21 @@ end)
 
 -- Main content frame
 local contentFrame = createUI("Frame", mainFrame, {
-	Size = UDim2.new(1, 0, 1, -40),
-	Position = UDim2.new(0, 0, 0, 40),
+	Name = "ContentFrame",
+	Size = UDim2.new(1, 0, 1, -60),
+	Position = UDim2.new(0, 0, 0, 60),
 	BackgroundTransparency = 1
+})
+createUI("UIPadding", contentFrame, {
+	PaddingLeft = UDim.new(0, 20),
+	PaddingRight = UDim.new(0, 20),
+	PaddingTop = UDim.new(0, 10),
+	PaddingBottom = UDim.new(0, 10)
 })
 
 -- Main layout
 createUI("UIListLayout", contentFrame, {
-	Padding = UDim.new(0, 10),
+	Padding = UDim.new(0, 20),
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	HorizontalAlignment = Enum.HorizontalAlignment.Center,
 	FillDirection = Enum.FillDirection.Vertical,
@@ -293,7 +345,7 @@ createUI("UIListLayout", contentFrame, {
 -- Section for Player Management
 local playerFrame = createUI("Frame", contentFrame, {
 	Name = "PlayerManagement",
-	Size = UDim2.new(0.95, 0, 0.15, 0),
+	Size = UDim2.new(1, 0, 0, 120),
 	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	LayoutOrder = 1,
 	BackgroundTransparency = 0.5
@@ -324,7 +376,7 @@ createUI("TextLabel", playerFrame, {
 local playerInput = createUI("TextBox", playerFrame, {
 	Name = "PlayerInput",
 	PlaceholderText = "Enter Player Name or ID",
-	Size = UDim2.new(0.95, 0, 0, 30),
+	Size = UDim2.new(0.95, 0, 0, 35),
 	Text = "",
 	BackgroundColor3 = Color3.fromRGB(230, 230, 235),
 	TextColor3 = Color3.fromRGB(50, 50, 50),
@@ -334,38 +386,44 @@ local playerInput = createUI("TextBox", playerFrame, {
 })
 createUI("UICorner", playerInput, { CornerRadius = UDim.new(0, 8) })
 
-local buttonLayout = createUI("UIListLayout", playerFrame, {
-	Padding = UDim.new(0, 5),
+local buttonsLayout = createUI("UIListLayout", playerFrame, {
+	Padding = UDim.new(0, 10),
 	SortOrder = Enum.SortOrder.LayoutOrder,
 	FillDirection = Enum.FillDirection.Horizontal,
 	HorizontalAlignment = Enum.HorizontalAlignment.Center,
 	VerticalAlignment = Enum.VerticalAlignment.Center
 })
-buttonLayout.Parent = playerInput.Parent -- Attach to the same parent
+buttonsLayout.Parent = playerInput.Parent -- Attach to the same parent
 
 local exemptionButton = createUI("TextButton", playerFrame, {
 	Name = "ToggleExemptionButton",
 	Text = "Toggle Exemption",
-	Size = UDim2.new(0.48, 0, 0, 30),
-	BackgroundTransparency = 0.8,
+	Size = UDim2.new(0.48, 0, 0, 40),
+	BackgroundTransparency = 0,
 	BackgroundColor3 = Color3.fromRGB(70, 130, 180),
 	TextColor3 = Color3.fromRGB(255, 255, 255),
 	Font = Enum.Font.Gotham,
 	TextSize = 14
 })
-createUI("UICorner", exemptionButton, { CornerRadius = UDim.new(0, 8) })
+createUI("UICorner", exemptionButton, { CornerRadius = UDim.new(0, 10) })
+createUI("UIGradient", exemptionButton, {
+	Color = ColorSequence.new(Color3.fromRGB(70, 130, 180), Color3.fromRGB(50, 110, 160))
+})
 
 local kickButton = createUI("TextButton", playerFrame, {
 	Name = "KickButton",
 	Text = "Kick Player",
-	Size = UDim2.new(0.48, 0, 0, 30),
-	BackgroundTransparency = 0.8,
+	Size = UDim2.new(0.48, 0, 0, 40),
+	BackgroundTransparency = 0,
 	BackgroundColor3 = Color3.fromRGB(200, 50, 50),
 	TextColor3 = Color3.fromRGB(255, 255, 255),
 	Font = Enum.Font.Gotham,
 	TextSize = 14
 })
-createUI("UICorner", kickButton, { CornerRadius = UDim.new(0, 8) })
+createUI("UICorner", kickButton, { CornerRadius = UDim.new(0, 10) })
+createUI("UIGradient", kickButton, {
+	Color = ColorSequence.new(Color3.fromRGB(200, 50, 50), Color3.fromRGB(180, 40, 40))
+})
 
 -- Function to handle button clicks
 local function handleButtonClick(action)
@@ -383,7 +441,7 @@ kickButton.MouseButton1Click:Connect(function() handleButtonClick("KickPlayer") 
 -- Debug Mode Toggle
 local debugFrame = createUI("Frame", contentFrame, {
 	Name = "DebugToggle",
-	Size = UDim2.new(0.95, 0, 0, 40),
+	Size = UDim2.new(1, 0, 0, 50),
 	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	LayoutOrder = 2,
 	BackgroundTransparency = 0.5
@@ -406,15 +464,18 @@ createUI("TextLabel", debugFrame, {
 })
 local debugButton = createUI("TextButton", debugFrame, {
 	Name = "ToggleDebugButton",
-	Size = UDim2.new(0.4, 0, 0, 30),
+	Size = UDim2.new(0.4, 0, 0, 35),
 	Text = "Toggle",
-	BackgroundTransparency = 0.8,
+	BackgroundTransparency = 0,
 	BackgroundColor3 = Color3.fromRGB(100, 100, 100),
 	TextColor3 = Color3.fromRGB(255, 255, 255),
 	Font = Enum.Font.Gotham,
 	TextSize = 14
 })
-createUI("UICorner", debugButton, { CornerRadius = UDim.new(0, 8) })
+createUI("UICorner", debugButton, { CornerRadius = UDim.new(0, 10) })
+createUI("UIGradient", debugButton, {
+	Color = ColorSequence.new(Color3.fromRGB(100, 100, 100), Color3.fromRGB(70, 70, 70))
+})
 
 debugButton.MouseButton1Click:Connect(function()
 	AdminEvent:FireServer("ToggleDebug")
@@ -423,44 +484,85 @@ end)
 -- The button to open the GUI.
 local openButton = createUI("TextButton", PlayerGui, {
 	Name = "OpenAdminPanelButton",
-	Size = UDim2.new(0, 100, 0, 40),
-	Position = UDim2.new(1, -110, 0, 10),
-	Text = "Admin",
+	Size = UDim2.new(0, 120, 0, 45),
+	Position = UDim2.new(1, -130, 0, 10),
+	Text = "Admin Panel",
 	Font = Enum.Font.GothamBold,
 	TextSize = 16,
 	TextColor3 = Color3.fromRGB(255, 255, 255),
-	BackgroundTransparency = 0.2,
+	BackgroundTransparency = 0.5,
 	BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 })
-createUI("UICorner", openButton, { CornerRadius = UDim.new(0, 8) })
+createUI("UICorner", openButton, { CornerRadius = UDim.new(0, 10) })
 
 openButton.MouseButton1Click:Connect(function()
 	tweenUI(mainFrame, true)
+	AdminEvent:FireServer("GetExemptions")
 end)
 
--- This is a placeholder for a list, the server doesn't send the lists back.
--- A better solution would involve the server sending the updated tables back
--- to the client to display in the lists, but that's a more advanced feature.
--- For now, the user must look at the developer console for confirmation.
--- This part is here for future expansion.
-local listsFrame = createUI("Frame", contentFrame, {
-	Name = "ListsFrame",
-	Size = UDim2.new(0.95, 0, 0.4, 0),
+-- Exemptions List Section
+local exemptionsFrame = createUI("Frame", contentFrame, {
+	Name = "ExemptionsFrame",
+	Size = UDim2.new(1, 0, 0.5, 0),
 	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 	LayoutOrder = 3,
 	BackgroundTransparency = 0.5
 })
-createUI("UICorner", listsFrame, { CornerRadius = UDim.new(0, 10) })
-createUI("TextLabel", listsFrame, {
-	Name = "Placeholder",
-	Size = UDim2.new(1, 0, 1, 0),
-	Text = "Player lists can be displayed here in a future update.",
-	Font = Enum.Font.SourceSans,
-	TextSize = 14,
-	TextWrapped = true,
-	TextColor3 = Color3.fromRGB(150, 150, 150),
-	BackgroundTransparency = 1
+createUI("UICorner", exemptionsFrame, { CornerRadius = UDim.new(0, 10) })
+
+local exemptionsLayout = createUI("UIListLayout", exemptionsFrame, {
+	Padding = UDim.new(0, 5),
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	FillDirection = Enum.FillDirection.Vertical,
+	HorizontalAlignment = Enum.HorizontalAlignment.Center,
+	VerticalAlignment = Enum.VerticalAlignment.Top
 })
+createUI("UIPadding", exemptionsFrame, {
+	PaddingTop = UDim.new(0, 10),
+	PaddingBottom = UDim.new(0, 10)
+})
+
+createUI("TextLabel", exemptionsFrame, {
+	Text = "Exempt Players (Auto-Updates)",
+	TextColor3 = Color3.fromRGB(50, 50, 50),
+	Font = Enum.Font.GothamBold,
+	TextSize = 16,
+	BackgroundTransparency = 1,
+	Size = UDim2.new(1, 0, 0, 20)
+})
+
+local exemptionsList = createUI("ScrollingFrame", exemptionsFrame, {
+	Name = "ExemptionsList",
+	Size = UDim2.new(1, -20, 1, -40),
+	Position = UDim2.new(0, 10, 0, 30),
+	BackgroundTransparency = 1,
+	CanvasSize = UDim2.new(0, 0, 0, 0),
+	ScrollBarThickness = 6,
+	ScrollBarImageColor3 = Color3.fromRGB(150, 150, 150)
+})
+createUI("UIPadding", exemptionsList, {
+	PaddingTop = UDim.new(0, 5),
+	PaddingBottom = UDim.new(0, 5)
+})
+createUI("UIListLayout", exemptionsList, {
+	Padding = UDim.new(0, 5),
+	SortOrder = Enum.SortOrder.LayoutOrder,
+	HorizontalAlignment = Enum.HorizontalAlignment.Left,
+	FillDirection = Enum.FillDirection.Vertical
+})
+
+-- Request initial list from server and update list periodically
+local function refreshExemptions()
+	AdminEvent:FireServer("GetExemptions")
+end
+refreshExemptions()
+
+task.spawn(function()
+	while true do
+		refreshExemptions()
+		task.wait(5) -- Refresh every 5 seconds
+	end
+end)
 ]]
 
 -- Create and parent the LocalScript
@@ -485,12 +587,6 @@ end
 
 -- Handles events when a new player joins the game.
 local function OnPlayerAdded(player: Player)
-	-- Normalize names in the config tables to ensure consistency.
-	local lowerName = NormalizeName(player.Name)
-	if Config.Exemptions[player.Name] then
-		Config.Exemptions[lowerName] = true
-	end
-	
 	-- Connect to the CharacterAdded event.
 	player.CharacterAdded:Connect(function(character)
 		OnCharacterAdded(player, character)

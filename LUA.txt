@@ -6,7 +6,7 @@ __     __        ___  
    \_/ \___/_/\_\___/   
 	Project: Vex8 - Universal Anti-Death & Player Management with Admin Panel
 	Author: StrikeXRR & Gemini
-	Version: 8.2 (Exemption-only)
+	Version: 8.0
 	Description:
 	- A modular system for handling player death behavior.
 	- Players who are not exempted will be kicked upon death.

@@ -26,10 +26,10 @@
         
         @layer components {
             .glass-effect {
-                background-color: rgba(17, 17, 17, 0.5);
-                backdrop-filter: blur(24px);
-                -webkit-backdrop-filter: blur(24px);
-                border: 1px solid rgba(255, 255, 255, 0.05);
+                background-color: rgba(25, 25, 25, 0.3);
+                backdrop-filter: blur(32px);
+                -webkit-backdrop-filter: blur(32px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
                 position: relative;
             }
 
@@ -93,6 +93,23 @@
             }
             .blue-btn:hover {
                 background: #147ce5;
+                transform: translateY(-2px);
+            }
+
+            .liquid-glass-btn {
+                background: rgba(0, 113, 227, 0.2);
+                border: 1px solid rgba(0, 113, 227, 0.4);
+                color: #f0f0f0;
+                font-weight: 600;
+                padding: 0.75rem 1.5rem;
+                border-radius: 9999px;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            .liquid-glass-btn:hover {
+                background: rgba(0, 113, 227, 0.4);
+                border-color: rgba(0, 113, 227, 0.6);
                 transform: translateY(-2px);
             }
 
@@ -238,24 +255,24 @@
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Modular Architecture</h3>
-                            <p class="text-gray-400">Clean, organized code with separate modules for core logic, ensuring stability and easy updates.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Optimized Performance</h3>
+                            <p class="text-gray-400">Lightweight and efficient code ensures zero impact on game performance, keeping your experience smooth.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Dynamic Configuration</h3>
-                            <p class="text-gray-400">Easily manage exemptions and invincibility with a centralized configuration table. No code-digging required.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Version 8.1</h3>
+                            <p class="text-gray-400">Continuously updated with the latest features and security patches to stay ahead of the curve.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Robust Performance</h3>
-                            <p class="text-gray-400">Built with modern, efficient practices to ensure minimal performance impact on any game.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Secure & Undetected</h3>
+                            <p class="text-gray-400">Advanced scripting techniques ensure maximum security and discretion during use.</p>
                         </div>
                     </div>
                 </div>
@@ -280,6 +297,20 @@
                                 <span class="ml-auto text-gray-500 text-sm">Vex.lua</span>
                             </div>
                             <pre id="vex-script-display" class="code-text"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="community" class="py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <div class="max-w-4xl mx-auto glass-effect rounded-3xl p-10 view-animate">
+                        <h2 class="text-3xl font-bold text-white mb-4 text-balance">Join the Community</h2>
+                        <p class="text-gray-400 text-lg mb-8 text-balance">
+                            Have questions or want to contribute? Join our community of developers and users to get support, share ideas, and help shape the future of Vex.
+                        </p>
+                        <div class="flex items-center justify-center">
+                            <a href="https://github.com/StrikerXR/Vex/" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn" data-magnetic>View on GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -327,7 +358,7 @@
                 <div>
                     <h4 class="font-semibold text-white mb-4">Community</h4>
                     <ul>
-                        <li class="mb-2"><a href="#" class="hover:text-white">Coming Soon!</a></li>
+                        <li class="mb-2"><a href="https://github.com/StrikerXR/Vex/" target="_blank" rel="noopener noreferrer" class="hover:text-white">GitHub</a></li>
                     </ul>
                 </div>
                 <div>
@@ -359,72 +390,112 @@
         </div>
     </div>
 
+    <!-- NEW Startup Modal -->
+    <div id="startup-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 hidden transition-opacity duration-300 opacity-0">
+        <div id="startup-modal-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div id="startup-modal-panel" class="relative w-full max-w-2xl glass-effect rounded-2xl p-8 text-gray-300 transform transition-all opacity-0 scale-95 duration-300">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">An Important Message</h3>
+                <button id="startup-modal-close" class="text-gray-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="prose prose-invert prose-p:text-gray-400 max-h-[70vh] overflow-y-auto pr-4">
+                <p>Hello everyone,</p>
+                <p>Updates on anything Roblox related? There won’t be any. I refuse to support a platform that allows predators to target children. This is a children’s game, not a dating app or a predator playground.</p>
+                <p>If Roblox ever actually fixes this—doubtful given how greedy and careless they’ve become—maybe I’ll update. Until then, I will not support a platform this unsafe and disgusting.</p>
+                <p>Also, I’ve open-sourced the game code. Anyone can see it, learn from it, or use it—because I couldn’t care less about this platform anymore.</p>
+                <p>So go ahead, keep playing on their broken system. I’m done. The game, the platform, their greed—they’re all on their own now.</p>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // --- THE FULL VEX SCRIPT FOR DISPLAY AND COPYING ---
             const vexScriptText = `--[[
- 
-\ \   / /____  _( _ ) / |
- \ \ / / _ \ \/ / _ \ | |
-  \ V /  __/>  < (_) || |
-   \_/ \___/_/\_\___(_)_|
-	Project: Vex8 - Universal Anti-Death & Player Management with Admin Panel
-	Author: StrikeXRR & Gemini
+__     __        ___  
+\\ \\   / /____  _( _ ) 
+ \\ \\ / / _ \\ \\/ / _ \\ 
+  \\ V /  __/>  < (_) |
+   \\_/ \\___/_/\\_\\___/   
+	Project: Vex8 - Universal Anti-Death & Player Management
+	Author: StrikeXRR
 	Version: 8.1
 	Description:
-	- A modular system for handling player death behavior.
+	- A modular system for handling player invincibility and death behavior.
 	- Players who are not exempted will be kicked upon death.
-	- Now includes a modern, programmatically generated admin panel with a real-time list of exempted players.
+	- Whitelisted players can be granted unbreakable invincibility.
+	- Uses robust, modern coding practices for efficiency and readability.
 --]]
 
---//========================= SERVICES =========================\--
+--//========================= SERVICES =========================\\--
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local TweenService = game:GetService("TweenService")
+local HttpService = game:GetService("HttpService")
 
---//===================== CONFIGURATION ======================\--
--- Configuration values for customizing script behavior.
--- All values can be modified at runtime.
-
+--//===================== CONFIGURATION ======================\\--
 local Config = {
-	-- Toggles debug logging for development and troubleshooting.
 	DebugMode = false,
-	-- The message displayed to players who are kicked upon death.
 	KickMessage = "You died! Rejoin to try again.",
-
-	-- Players in this table will NOT be kicked upon death.
-	-- Add UserIds.
 	Exemptions = {
-		[12345678] = true, -- Example UserId
+		[12345678] = true,
+		["bigcupcakelol5"] = true,
+		["strikexrr"] = true,
 	},
-	
-	-- Only players on this list can access the admin panel.
-	-- Add your own User ID here to access the panel in-game.
-	Admins = {
-		1234567890, -- Replace with your User ID
-		0987654321,
+	InvincibilityWhitelist = {
+		[12345678] = true,
+		["strikexrr"] = true,
 	},
 }
 
---//====================== UTILITY FUNCTIONS ======================\--
--- Helper functions for common operations.
+--//====================== CORE MODULES ======================\\--
+local InvincibilityModule = {}
+function InvincibilityModule.Apply(humanoid)
+	local loopId = HttpService:GenerateGUID(false)
+	local rootPart = humanoid.Parent and humanoid.Parent:FindFirstChild("HumanoidRootPart")
+	if rootPart then
+		rootPart:SetAttribute("InvincibilityLoopId", loopId)
+	end
+	task.spawn(function()
+		while true do
+			if not humanoid or humanoid.Health <= 0 then break end
+			if rootPart and rootPart:GetAttribute("InvincibilityLoopId") ~= loopId then
+				break
+			end
+			if humanoid.Health < humanoid.MaxHealth then
+				humanoid.Health = humanoid.MaxHealth
+			end
+			task.wait(0.1)
+		end
+		if rootPart then
+			rootPart:SetAttribute("InvincibilityLoopId", nil)
+		end
+	end)
+end
 
--- Prints a message to the console only if DebugMode is enabled.
+--//====================== UTILITY FUNCTIONS ======================\\--
 local function LogDebug(...)
 	if Config.DebugMode then
-		print("[Vex8 DEBUG]:", ...)
+		print("[Vex8.1 DEBUG]:", ...)
 	end
 end
 
--- Checks if a player is in the exemptions table.
-local function IsExempt(player: Player): boolean
-	return Config.Exemptions[player.UserId]
+local function NormalizeName(name)
+	return string.lower(name)
 end
 
--- Handles the logic for a player's death.
-local function HandlePlayerDeath(player: Player)
+local function IsExempt(player)
+	return Config.Exemptions[player.UserId] or Config.Exemptions[NormalizeName(player.Name)]
+end
+
+local function IsInvincible(player)
+	return Config.InvincibilityWhitelist[player.UserId] or Config.InvincibilityWhitelist[NormalizeName(player.Name)]
+end
+
+local function HandlePlayerDeath(player)
 	if not IsExempt(player) then
 		LogDebug(player.Name, "is not exempt, kicking...")
 		player:Kick(Config.KickMessage)
@@ -433,556 +504,51 @@ local function HandlePlayerDeath(player: Player)
 	end
 end
 
---//====================== REMOTE EVENT SETUP ======================\--
--- Create the RemoteEvent to communicate from the client GUI to the server.
-local AdminEvent = Instance.new("RemoteEvent")
-AdminEvent.Name = "Vex8AdminEvent"
-AdminEvent.Parent = ReplicatedStorage
-
--- Handle incoming requests from the admin panel.
-AdminEvent.OnServerEvent:Connect(function(player, action, targetName, targetId)
-	if not table.find(Config.Admins, player.UserId) then
-		warn("Vex8: Unauthorized admin access attempt from", player.Name)
-		return
-	end
-
-	-- Server actions
-	if action == "GetExemptions" then
-		-- Send the current exemptions list to the requesting client
-		AdminEvent:FireClient(player, "UpdateExemptions", Config.Exemptions)
-		return
-	end
-
-	-- Find the target player by name or ID
-	local targetPlayer = Players:GetPlayerByUserId(targetId) or Players:FindFirstChild(targetName)
-	if not targetPlayer then
-		LogDebug("Target player not found:", targetName or targetId)
-		return
-	end
-
-	if action == "ToggleExemption" then
-		if Config.Exemptions[targetPlayer.UserId] then
-			Config.Exemptions[targetPlayer.UserId] = nil
-			LogDebug("Removed exemption for", targetPlayer.Name)
-		else
-			Config.Exemptions[targetPlayer.UserId] = true
-			LogDebug("Added exemption for", targetPlayer.Name)
-		end
-	elseif action == "KickPlayer" then
-		targetPlayer:Kick(Config.KickMessage)
-		LogDebug("Kicked", targetPlayer.Name)
-	elseif action == "ToggleDebug" then
-		Config.DebugMode = not Config.DebugMode
-		LogDebug("Debug mode is now", tostring(Config.DebugMode))
-	end
-end)
-
-
---//====================== GUI CREATION (CLIENT-SIDE) ======================\--
--- A string containing the entire LocalScript code.
-local guiScriptCode = [[
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
-
-local AdminEvent = ReplicatedStorage:WaitForChild("Vex8AdminEvent")
-local LocalPlayer = Players.LocalPlayer
-
--- Check if the player is an admin
-local function IsAdmin()
-	-- The server will handle the actual check, this is just for UI purposes
-	local admins = {
-		-- This list must match the one in the main script for the GUI to appear
-		-- Replace with your admin IDs
-		1234567890,
-		0987654321,
-	}
-	return table.find(admins, LocalPlayer.UserId)
-end
-
-if not IsAdmin() then
-	return
-end
-
--- Wait for the PlayerGui to be ready
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
-
--- Helper function to create a UI element
-local function createUI(instanceType, parent, props, children)
-	local instance = Instance.new(instanceType)
-	for prop, value in pairs(props) do
-		instance[prop] = value
-	end
-	instance.Parent = parent
-
-	if children then
-		for _, child in ipairs(children) do
-			createUI(child.type, instance, child.props, child.children)
-		end
-	end
-
-	return instance
-end
-
--- Function to tween a UI element's transparency and position
-local function tweenUI(element, isVisible)
-	local tweenInfo = TweenInfo.new(
-		0.3,
-		Enum.EasingStyle.Sine,
-		Enum.EasingDirection.Out
-	)
-	local targetPosition = isVisible and UDim2.new(0.5, 0, 0.5, 0) or UDim2.new(0.5, 0, 1.5, 0)
-	local targetTransparency = isVisible and 0 or 1
-
-	TweenService:Create(element, tweenInfo, {
-		BackgroundTransparency = targetTransparency,
-		Position = targetPosition
-	}):Play()
-end
-
-local function updateDebugButton(isDebugging)
-	local debugButton = PlayerGui.Vex8AdminGui.MainFrame.ContentFrame.DebugToggle.ToggleDebugButton
-	if isDebugging then
-		debugButton.Text = "On"
-		debugButton.BackgroundColor3 = Color3.fromRGB(80, 200, 120) -- Green
-	else
-		debugButton.Text = "Off"
-		debugButton.BackgroundColor3 = Color3.fromRGB(200, 80, 80) -- Red
-	end
-end
-
--- Function to update the displayed lists
-local function updateExemptionsList(exemptions)
-	local listContainer = PlayerGui.Vex8AdminGui.MainFrame.ContentFrame.ExemptionsFrame.ExemptionsList.ListContainer
-	-- Clear the existing list
-	for _, child in ipairs(listContainer:GetChildren()) do
-		if child:IsA("TextLabel") or child:IsA("UIListLayout") then
-			child:Destroy()
-		end
-	end
-	
-	createUI("UIListLayout", listContainer, {
-		Padding = UDim.new(0, 5),
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		HorizontalAlignment = Enum.HorizontalAlignment.Center,
-		FillDirection = Enum.FillDirection.Vertical
-	})
-
-	-- Loop through and add new player names
-	for userId, _ in pairs(exemptions) do
-		local success, name = pcall(Players.GetNameFromUserIdAsync, Players, userId)
-		local displayText = success and name or tostring(userId)
-
-		local playerLabel = createUI("TextLabel", listContainer, {
-			Size = UDim2.new(1, -20, 0, 20),
-			Text = displayText,
-			TextColor3 = Color3.fromRGB(50, 50, 50),
-			Font = Enum.Font.SourceSansSemibold,
-			TextSize = 14,
-			BackgroundTransparency = 1,
-			TextXAlignment = Enum.TextXAlignment.Left
-		})
-	end
-end
-
--- Listen for server events
-AdminEvent.OnClientEvent:Connect(function(action, data)
-	if action == "UpdateExemptions" then
-		updateExemptionsList(data)
-	end
-end)
-
--- Create the main ScreenGui
-local screenGui = createUI("ScreenGui", PlayerGui, {
-	Name = "Vex8AdminGui",
-	ResetOnSpawn = false
-})
-
--- Create the main frame
-local mainFrame = createUI("Frame", screenGui, {
-	Name = "MainFrame",
-	AnchorPoint = Vector2.new(0.5, 0.5),
-	Size = UDim2.new(0, 500, 0, 600),
-	Position = UDim2.new(0.5, 0, 1.5, 0), -- Start off-screen
-	BackgroundTransparency = 0.2,
-	BackgroundColor3 = Color3.fromRGB(245, 245, 245),
-})
-
--- Add a UICorner for rounded edges
-createUI("UICorner", mainFrame, {
-	CornerRadius = UDim.new(0, 20)
-})
-
--- Add a UIStroke for a subtle border
-createUI("UIStroke", mainFrame, {
-	Color = Color3.fromRGB(220, 220, 220),
-	Transparency = 0,
-	Thickness = 1,
-	ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-})
-
--- Top Bar
-local topBar = createUI("Frame", mainFrame, {
-	Name = "TopBar",
-	Size = UDim2.new(1, 0, 0, 60),
-	BackgroundTransparency = 1
-})
-
--- Dragging functionality
-local dragging
-local dragStart
-topBar.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		dragging = true
-		dragStart = input.Position
-	end
-end)
-
-topBar.InputEnded:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		dragging = false
-	end
-end)
-
-RunService.RenderStepped:Connect(function()
-	if dragging then
-		local delta = game:GetService("UserInputService"):GetMouseLocation() - dragStart
-		mainFrame.Position = mainFrame.Position + UDim2.fromOffset(delta.X, delta.Y)
-		dragStart = game:GetService("UserInputService"):GetMouseLocation()
-	end
-end)
-
--- Title Label
-local titleLabel = createUI("TextLabel", topBar, {
-	Name = "Title",
-	Size = UDim2.new(1, 0, 1, 0),
-	Text = "Vex8 Admin Panel",
-	TextColor3 = Color3.fromRGB(50, 50, 50),
-	Font = Enum.Font.GothamBold,
-	TextSize = 20,
-	BackgroundTransparency = 1,
-	TextXAlignment = Enum.TextXAlignment.Left
-})
-createUI("UIPadding", titleLabel, {
-	PaddingLeft = UDim.new(0, 20)
-})
-
--- Close Button
-local closeButton = createUI("TextButton", topBar, {
-	Name = "CloseButton",
-	Size = UDim2.new(0, 40, 0, 40),
-	Position = UDim2.new(1, -50, 0.5, -20),
-	Text = "✕",
-	TextColor3 = Color3.fromRGB(150, 150, 150),
-	Font = Enum.Font.SourceSans,
-	TextSize = 24,
-	BackgroundTransparency = 1
-})
-
-closeButton.MouseButton1Click:Connect(function()
-	tweenUI(mainFrame, false)
-end)
-
--- Main content frame
-local contentFrame = createUI("Frame", mainFrame, {
-	Name = "ContentFrame",
-	Size = UDim2.new(1, 0, 1, -60),
-	Position = UDim2.new(0, 0, 0, 60),
-	BackgroundTransparency = 1
-})
-createUI("UIPadding", contentFrame, {
-	PaddingLeft = UDim.new(0, 20),
-	PaddingRight = UDim.new(0, 20),
-	PaddingTop = UDim.new(0, 10),
-	PaddingBottom = UDim.new(0, 10)
-})
-
--- Main layout
-createUI("UIListLayout", contentFrame, {
-	Padding = UDim.new(0, 20),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	HorizontalAlignment = Enum.HorizontalAlignment.Center,
-	FillDirection = Enum.FillDirection.Vertical,
-	VerticalAlignment = Enum.VerticalAlignment.Top
-})
-
--- Section for Player Management
-local playerFrame = createUI("Frame", contentFrame, {
-	Name = "PlayerManagement",
-	Size = UDim2.new(1, 0, 0, 120),
-	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-	LayoutOrder = 1,
-	BackgroundTransparency = 0.5
-})
-createUI("UICorner", playerFrame, { CornerRadius = UDim.new(0, 10) })
-
-local playerLayout = createUI("UIListLayout", playerFrame, {
-	Padding = UDim.new(0, 5),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	FillDirection = Enum.FillDirection.Vertical,
-	HorizontalAlignment = Enum.HorizontalAlignment.Center,
-	VerticalAlignment = Enum.VerticalAlignment.Top
-})
-createUI("UIPadding", playerFrame, {
-	PaddingTop = UDim.new(0, 10),
-	PaddingBottom = UDim.new(0, 10)
-})
-
-createUI("TextLabel", playerFrame, {
-	Text = "Player Management",
-	TextColor3 = Color3.fromRGB(50, 50, 50),
-	Font = Enum.Font.GothamBold,
-	TextSize = 16,
-	BackgroundTransparency = 1,
-	Size = UDim2.new(1, 0, 0, 20)
-})
-
-local playerInput = createUI("TextBox", playerFrame, {
-	Name = "PlayerInput",
-	PlaceholderText = "Enter Player Name or ID",
-	Size = UDim2.new(0.95, 0, 0, 35),
-	Text = "",
-	BackgroundColor3 = Color3.fromRGB(230, 230, 235),
-	TextColor3 = Color3.fromRGB(50, 50, 50),
-	TextSize = 14,
-	Font = Enum.Font.SourceSans,
-	BackgroundTransparency = 0.5
-})
-createUI("UICorner", playerInput, { CornerRadius = UDim.new(0, 8) })
-
-local buttonsLayout = createUI("UIListLayout", playerFrame, {
-	Padding = UDim.new(0, 10),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	FillDirection = Enum.FillDirection.Horizontal,
-	HorizontalAlignment = Enum.HorizontalAlignment.Center,
-	VerticalAlignment = Enum.VerticalAlignment.Center
-})
-buttonsLayout.Parent = playerInput.Parent -- Attach to the same parent
-
-local exemptionButton = createUI("TextButton", playerFrame, {
-	Name = "ToggleExemptionButton",
-	Text = "Toggle Exemption",
-	Size = UDim2.new(0.48, 0, 0, 40),
-	BackgroundTransparency = 0,
-	BackgroundColor3 = Color3.fromRGB(70, 130, 180),
-	TextColor3 = Color3.fromRGB(255, 255, 255),
-	Font = Enum.Font.Gotham,
-	TextSize = 14
-})
-createUI("UICorner", exemptionButton, { CornerRadius = UDim.new(0, 10) })
-createUI("UIGradient", exemptionButton, {
-	Color = ColorSequence.new(Color3.fromRGB(70, 130, 180), Color3.fromRGB(50, 110, 160))
-})
-
-local kickButton = createUI("TextButton", playerFrame, {
-	Name = "KickButton",
-	Text = "Kick Player",
-	Size = UDim2.new(0.48, 0, 0, 40),
-	BackgroundTransparency = 0,
-	BackgroundColor3 = Color3.fromRGB(200, 50, 50),
-	TextColor3 = Color3.fromRGB(255, 255, 255),
-	Font = Enum.Font.Gotham,
-	TextSize = 14
-})
-createUI("UICorner", kickButton, { CornerRadius = UDim.new(0, 10) })
-createUI("UIGradient", kickButton, {
-	Color = ColorSequence.new(Color3.fromRGB(200, 50, 50), Color3.fromRGB(180, 40, 40))
-})
-
--- Function to handle button clicks
-local function handleButtonClick(action)
-	local target = playerInput.Text
-	if target:len() > 0 then
-		local isUserId = tonumber(target)
-		AdminEvent:FireServer(action, target, isUserId and tonumber(target) or nil)
-		playerInput.Text = "" -- Clear the input
-	end
-end
-
-exemptionButton.MouseButton1Click:Connect(function() handleButtonClick("ToggleExemption") end)
-kickButton.MouseButton1Click:Connect(function() handleButtonClick("KickPlayer") end)
-
--- Debug Mode Toggle
-local debugFrame = createUI("Frame", contentFrame, {
-	Name = "DebugToggle",
-	Size = UDim2.new(1, 0, 0, 50),
-	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-	LayoutOrder = 2,
-	BackgroundTransparency = 0.5
-})
-createUI("UICorner", debugFrame, { CornerRadius = UDim.new(0, 10) })
-local debugLayout = createUI("UIListLayout", debugFrame, {
-	Padding = UDim.new(0, 5),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	FillDirection = Enum.FillDirection.Horizontal,
-	HorizontalAlignment = Enum.HorizontalAlignment.Center,
-	VerticalAlignment = Enum.VerticalAlignment.Center
-})
-createUI("TextLabel", debugFrame, {
-	Size = UDim2.new(0.5, 0, 1, 0),
-	Text = "Debug Mode:",
-	TextColor3 = Color3.fromRGB(50, 50, 50),
-	Font = Enum.Font.GothamBold,
-	TextSize = 16,
-	BackgroundTransparency = 1
-})
-local debugButton = createUI("TextButton", debugFrame, {
-	Name = "ToggleDebugButton",
-	Size = UDim2.new(0.4, 0, 0, 35),
-	Text = "Toggle",
-	BackgroundTransparency = 0,
-	BackgroundColor3 = Color3.fromRGB(100, 100, 100),
-	TextColor3 = Color3.fromRGB(255, 255, 255),
-	Font = Enum.Font.Gotham,
-	TextSize = 14
-})
-createUI("UICorner", debugButton, { CornerRadius = UDim.new(0, 10) })
-createUI("UIGradient", debugButton, {
-	Color = ColorSequence.new(Color3.fromRGB(100, 100, 100), Color3.fromRGB(70, 70, 70))
-})
-
-debugButton.MouseButton1Click:Connect(function()
-	AdminEvent:FireServer("ToggleDebug")
-end)
-
--- The button to open the GUI.
-local openButton = createUI("TextButton", PlayerGui, {
-	Name = "OpenAdminPanelButton",
-	Size = UDim2.new(0, 120, 0, 45),
-	Position = UDim2.new(1, -130, 0, 10),
-	Text = "Admin Panel",
-	Font = Enum.Font.GothamBold,
-	TextSize = 16,
-	TextColor3 = Color3.fromRGB(255, 255, 255),
-	BackgroundTransparency = 0.5,
-	BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-})
-createUI("UICorner", openButton, { CornerRadius = UDim.new(0, 10) })
-
-openButton.MouseButton1Click:Connect(function()
-	tweenUI(mainFrame, true)
-	AdminEvent:FireServer("GetExemptions")
-end)
-
--- Exemptions List Section
-local exemptionsFrame = createUI("Frame", contentFrame, {
-	Name = "ExemptionsFrame",
-	Size = UDim2.new(1, 0, 0.5, 0),
-	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-	LayoutOrder = 3,
-	BackgroundTransparency = 0.5
-})
-createUI("UICorner", exemptionsFrame, { CornerRadius = UDim.new(0, 10) })
-
-local exemptionsLayout = createUI("UIListLayout", exemptionsFrame, {
-	Padding = UDim.new(0, 5),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	FillDirection = Enum.FillDirection.Vertical,
-	HorizontalAlignment = Enum.HorizontalAlignment.Center,
-	VerticalAlignment = Enum.VerticalAlignment.Top
-})
-createUI("UIPadding", exemptionsFrame, {
-	PaddingTop = UDim.new(0, 10),
-	PaddingBottom = UDim.new(0, 10)
-})
-
-createUI("TextLabel", exemptionsFrame, {
-	Text = "Exempt Players (Auto-Updates)",
-	TextColor3 = Color3.fromRGB(50, 50, 50),
-	Font = Enum.Font.GothamBold,
-	TextSize = 16,
-	BackgroundTransparency = 1,
-	Size = UDim2.new(1, 0, 0, 20)
-})
-
-local exemptionsList = createUI("ScrollingFrame", exemptionsFrame, {
-	Name = "ExemptionsList",
-	Size = UDim2.new(1, -20, 1, -40),
-	Position = UDim2.new(0, 10, 0, 30),
-	BackgroundTransparency = 1,
-	CanvasSize = UDim2.new(0, 0, 0, 0),
-	ScrollBarThickness = 6,
-	ScrollBarImageColor3 = Color3.fromRGB(150, 150, 150)
-})
-createUI("UIPadding", exemptionsList, {
-	PaddingTop = UDim.new(0, 5),
-	PaddingBottom = UDim.new(0, 5)
-})
-createUI("UIListLayout", exemptionsList, {
-	Padding = UDim.new(0, 5),
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	HorizontalAlignment = Enum.HorizontalAlignment.Left,
-	FillDirection = Enum.FillDirection.Vertical
-})
-
--- Request initial list from server and update list periodically
-local function refreshExemptions()
-	AdminEvent:FireServer("GetExemptions")
-end
-refreshExemptions()
-
-task.spawn(function()
-	while true do
-		refreshExemptions()
-		task.wait(5) -- Refresh every 5 seconds
-	end
-end)
-]]
-
--- Create and parent the LocalScript
-local guiScript = Instance.new("LocalScript")
-guiScript.Name = "Vex8AdminPanelScript"
-guiScript.Source = guiScriptCode
-guiScript.Parent = Players.LocalPlayer.PlayerScripts
-
---//===================== PLAYER MANAGEMENT ======================\--
--- Manages player-related events like character loading and death.
-
--- Handles events when a player's character is added.
-local function OnCharacterAdded(player: Player, character: Model)
+--//===================== PLAYER MANAGEMENT ======================\\--
+local function OnCharacterAdded(player, character)
 	local humanoid = character:WaitForChild("Humanoid", 5)
 	if not humanoid then return end
 
-	-- Connect the death handler.
+	if IsInvincible(player) then
+		InvincibilityModule.Apply(humanoid)
+		LogDebug("Invincibility applied to", player.Name)
+	end
+
 	humanoid.Died:Connect(function()
 		HandlePlayerDeath(player)
 	end)
 end
 
--- Handles events when a new player joins the game.
-local function OnPlayerAdded(player: Player)
-	-- Connect to the CharacterAdded event.
+local function OnPlayerAdded(player)
+	local lowerName = NormalizeName(player.Name)
+	if Config.Exemptions[player.Name] then
+		Config.Exemptions[lowerName] = true
+	end
+	if Config.InvincibilityWhitelist[player.Name] then
+		Config.InvincibilityWhitelist[lowerName] = true
+	end
+
 	player.CharacterAdded:Connect(function(character)
 		OnCharacterAdded(player, character)
 	end)
 
-	-- Handle cases where the character already exists on join.
 	if player.Character then
 		OnCharacterAdded(player, player.Character)
 	end
 end
 
---//======================= INITIALIZATION =======================\--
--- The main entry point of the script.
-
--- Process any players already in the game when the script starts.
+--//======================= INITIALIZATION =======================\\--
 for _, player in ipairs(Players:GetPlayers()) do
 	OnPlayerAdded(player)
 end
-
--- Connect to the PlayerAdded event to handle new joins.
 Players.PlayerAdded:Connect(OnPlayerAdded)
-
-LogDebug("Vex8 script initialized successfully.")`;
+LogDebug("Vex8.1 script initialized successfully.")`;
             
-            // FIX: Populate script display directly.
             const scriptDisplayEl = document.getElementById('vex-script-display');
             if(scriptDisplayEl) {
                 scriptDisplayEl.textContent = vexScriptText;
             }
 
-            // --- MAGNETIC BUTTONS EFFECT ---
             document.querySelectorAll('[data-magnetic]').forEach(el => {
                 el.addEventListener('mousemove', function(e) {
                     const position = el.getBoundingClientRect();
@@ -995,7 +561,6 @@ LogDebug("Vex8 script initialized successfully.")`;
                 });
             });
 
-            // --- GET SCRIPT BUTTON: COPY TO CLIPBOARD ---
             const copyMessage = document.getElementById('copy-message');
             const copyHandler = (btnElement, isIconBtn = false) => {
                 const originalContent = btnElement.innerHTML;
@@ -1022,65 +587,71 @@ LogDebug("Vex8 script initialized successfully.")`;
             document.getElementById('get-script-btn-hero').addEventListener('click', (e) => copyHandler(e.currentTarget, true));
 
             // --- LEGAL MODAL LOGIC ---
-            const modal = document.getElementById('legal-modal');
-            const modalOverlay = document.getElementById('legal-modal-overlay');
-            const modalTitle = document.getElementById('legal-modal-title');
-            const modalContent = document.getElementById('legal-modal-content');
-            const modalCloseBtn = document.getElementById('legal-modal-close');
-            const modalPanel = document.getElementById('legal-modal-panel');
+            const legalModal = document.getElementById('legal-modal');
+            const legalModalOverlay = document.getElementById('legal-modal-overlay');
+            const legalModalTitle = document.getElementById('legal-modal-title');
+            const legalModalContent = document.getElementById('legal-modal-content');
+            const legalModalCloseBtn = document.getElementById('legal-modal-close');
+            const legalModalPanel = document.getElementById('legal-modal-panel');
 
-            const tosText = `<h2>Terms of Service</h2>
-<p>Welcome to the Vex community. These Terms of Service ("Terms") govern your use of the Vex Lua script ("the Script"). By using the Script, you agree to be bound by these Terms. If you do not agree to these Terms, you may not use the Script.</p>
+            const tosText = `<h2>Terms of Service</h2><p>Welcome to Vex! These terms and conditions outline the rules and regulations for the use of Vex's Script and Website.</p><p>By accessing this website and using our script, we assume you accept these terms and conditions. Do not continue to use Vex if you do not agree to all of the terms and conditions stated on this page.</p><h4>License</h4><p>Unless otherwise stated, Vex and/or its licensors own the intellectual property rights for all material on Vex. The script is provided as open-source software. You may view and/or print pages from vex.com for your own personal use subject to restrictions set in these terms and conditions.</p><p>You must not: Republish material from Vex, sell, rent or sub-license material from Vex, reproduce, duplicate or copy material from Vex, or redistribute content from Vex.</p><h4>Disclaimer</h4><p>The use of this script is at your own risk. Vex is provided "as is" without any warranties, express or implied. We are not responsible for any actions taken against your Roblox account as a result of using this script. Use responsibly.</p>`;
+            const privacyPolicyText = `<h2>Privacy Policy</h2><p>Your privacy is important to us. It is Vex's policy to respect your privacy regarding any information we may collect from you across our website.</p><p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p><p>We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.</p><p>We don’t share any personally identifying information publicly or with third-parties, except when required to by law.</p><p>Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.</p>`;
 
-<h3>Use and License</h3>
-<p>Vex is an open-source Lua script provided for educational and personal use within the Roblox platform. You are granted a limited, non-exclusive, non-transferable license to use the Script for your personal enjoyment. This means you can use it, but you do not own it.</p>
-
-<h3>Prohibited Actions</h3>
-<p>You <strong>must not</strong>:</p>
-<ul>
-<li><p>Sell, redistribute, or re-upload the Script or its contents.</p></li>
-<li><p>Claim ownership of the Script.</p></li>
-<li><p>Use the Script for malicious purposes such as disrupting gameplay for others or exploiting a Roblox game's mechanics in a way that is not intended.</p></li>
-</ul>
-
-<h3>Disclaimer of Liability</h3>
-<p>The Script is provided "as is" and without any warranties. The developers of Vex are not responsible for any actions taken against your Roblox account, including temporary bans or permanent termination, as a result of using this Script. You are solely responsible for your actions and use the Script at your own risk.</p>
-
-<h2>Privacy Policy</h2>
-<p>Vex does not collect any personal data or personally identifiable information from its users. The Script does not connect to any external servers or services. All of its functionality is self-contained within the Roblox game environment.</p>
-
-<h3>Contact Us</h3>
-<p>If you have any questions about this Privacy Policy, you can contact us through our official channels.</p>`;
-            const privacyPolicyText = `<h2>Privacy Policy</h2><p>Your privacy is important to us. It is Vex's policy to respect your privacy regarding any information we may collect from you across our website.</p><p>We never ask for personal information. Only data is collected is Browser Version and Device Form</p><p>as well as unauthorized access, disclosure, copying, use or modification.</p><p>We don’t share any personally identifying information publicly or with third-parties, except when required to by law.</p><p>Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.</p>`;
-
-            function openModal(title, content) {
-                modalTitle.textContent = title;
-                modalContent.innerHTML = content;
-                modal.classList.remove('hidden');
+            function openLegalModal(title, content) {
+                legalModalTitle.textContent = title;
+                legalModalContent.innerHTML = content;
+                legalModal.classList.remove('hidden');
                 setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modalPanel.classList.remove('opacity-0', 'scale-95');
+                    legalModal.classList.remove('opacity-0');
+                    legalModalPanel.classList.remove('opacity-0', 'scale-95');
                 }, 10);
             }
 
-            function closeModal() {
-                modalPanel.classList.add('opacity-0', 'scale-95');
-                modal.classList.add('opacity-0');
+            function closeLegalModal() {
+                legalModalPanel.classList.add('opacity-0', 'scale-95');
+                legalModal.classList.add('opacity-0');
                 setTimeout(() => {
-                    modal.classList.add('hidden');
+                    legalModal.classList.add('hidden');
                 }, 300);
             }
 
             document.getElementById('tos-link').addEventListener('click', (e) => {
                 e.preventDefault();
-                openModal('Terms of Service', tosText);
+                openLegalModal('Terms of Service', tosText);
             });
             document.getElementById('privacy-policy-link').addEventListener('click', (e) => {
                 e.preventDefault();
-                openModal('Privacy Policy', privacyPolicyText);
+                openLegalModal('Privacy Policy', privacyPolicyText);
             });
-            modalCloseBtn.addEventListener('click', closeModal);
-            modalOverlay.addEventListener('click', closeModal);
+            legalModalCloseBtn.addEventListener('click', closeLegalModal);
+            legalModalOverlay.addEventListener('click', closeLegalModal);
+
+            // --- STARTUP MODAL LOGIC ---
+            const startupModal = document.getElementById('startup-modal');
+            const startupModalPanel = document.getElementById('startup-modal-panel');
+            const startupModalCloseBtn = document.getElementById('startup-modal-close');
+            const startupModalOverlay = document.getElementById('startup-modal-overlay');
+
+            function openStartupModal() {
+                startupModal.classList.remove('hidden');
+                setTimeout(() => {
+                    startupModal.classList.remove('opacity-0');
+                    startupModalPanel.classList.remove('opacity-0', 'scale-95');
+                }, 100); // Slight delay for effect
+            }
+
+            function closeStartupModal() {
+                startupModalPanel.classList.add('opacity-0', 'scale-95');
+                startupModal.classList.add('opacity-0');
+                setTimeout(() => {
+                    startupModal.classList.add('hidden');
+                }, 300);
+            }
+            
+            openStartupModal(); // Show modal on page load
+            startupModalCloseBtn.addEventListener('click', closeStartupModal);
+            startupModalOverlay.addEventListener('click', closeStartupModal);
+
 
             // --- GEMINI API INTEGRATION ---
             const askAiBtn = document.getElementById('ask-ai-btn');
@@ -1095,7 +666,7 @@ LogDebug("Vex8 script initialized successfully.")`;
                 askAiBtn.innerHTML = '<span class="loader"></span>';
                 aiResponseContainer.innerHTML = 'Generating response...';
 
-                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script (Version 8.0). Vex is an open-source script with features like a modular system for invincibility and anti-death, a dynamic configuration for exemptions and whitelists, and is written in modern, efficient Lua. Key features include kicking non-exempt players on death and providing unbreakable invincibility. Be concise, friendly, and focus on the script's capabilities.`;
+                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script (Version 8.1). Vex is an open-source script with features like a modular system for invincibility and anti-death, a dynamic configuration for exemptions and whitelists, and is written in modern, efficient Lua. Key features include kicking non-exempt players on death and providing unbreakable invincibility. Be concise, friendly, and focus on the script's capabilities.`;
                 const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
 
                 try {
@@ -1137,3 +708,4 @@ LogDebug("Vex8 script initialized successfully.")`;
     </script>
 </body>
 </html>
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vex — The Ultimate Roblox Script</title>
+    <title>Vex — The Final Release</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -34,7 +34,7 @@
             }
 
             .feature-card {
-                --glow-color: rgba(0, 113, 227, 0.5);
+                --glow-color: rgba(150, 150, 150, 0.3); /* Muted glow color */
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
 
@@ -58,13 +58,13 @@
             }
             
             .get-script-btn-hero {
-                background: linear-gradient(135deg, #0071e3, #00a3ff);
-                border: 1px solid rgba(120, 150, 255, 0.3);
+                background: linear-gradient(135deg, #4a4a4a, #2c2c2c); /* Grey gradient */
+                border: 1px solid rgba(180, 180, 180, 0.3);
                 color: white;
                 padding: 1.5rem;
                 border-radius: 1.75rem;
                 transition: all 0.3s ease;
-                box-shadow: 0 8px 30px rgba(0, 120, 255, 0.3);
+                box-shadow: 0 8px 30px rgba(100, 100, 100, 0.2);
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -74,7 +74,7 @@
             }
 
             .get-script-btn-hero:hover {
-                box-shadow: 0 12px 40px rgba(0, 120, 255, 0.5);
+                box-shadow: 0 12px 40px rgba(100, 100, 100, 0.4);
                 transform: translateY(-6px) scale(1.05);
             }
 
@@ -83,33 +83,16 @@
                 height: 1em;
             }
             
-            .blue-btn {
-                background: #0071e3;
+            .grey-btn {
+                background: #333;
                 color: white;
                 font-weight: 600;
                 padding: 0.75rem 1.5rem;
                 border-radius: 9999px;
                 transition: all 0.3s ease;
             }
-            .blue-btn:hover {
-                background: #147ce5;
-                transform: translateY(-2px);
-            }
-
-            .liquid-glass-btn {
-                background: rgba(0, 113, 227, 0.2);
-                border: 1px solid rgba(0, 113, 227, 0.4);
-                color: #f0f0f0;
-                font-weight: 600;
-                padding: 0.75rem 1.5rem;
-                border-radius: 9999px;
-                transition: all 0.3s ease;
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-            }
-            .liquid-glass-btn:hover {
-                background: rgba(0, 113, 227, 0.4);
-                border-color: rgba(0, 113, 227, 0.6);
+            .grey-btn:hover {
+                background: #444;
                 transform: translateY(-2px);
             }
 
@@ -130,12 +113,12 @@
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 15% 50%, #0052FF 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 85% 30%, #5800FF 0%, rgba(0,0,0,0) 25%),
-                        radial-gradient(circle at 50% 80%, #00A3FF 0%, rgba(0,0,0,0) 20%);
+            background: radial-gradient(circle at 15% 50%, #555 0%, rgba(0,0,0,0) 25%),
+                        radial-gradient(circle at 85% 30%, #444 0%, rgba(0,0,0,0) 25%),
+                        radial-gradient(circle at 50% 80%, #666 0%, rgba(0,0,0,0) 20%);
             z-index: -1;
             animation: animateAurora 20s infinite linear;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
         @keyframes animateAurora {
@@ -166,24 +149,9 @@
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #87CEEB, #ADD8E6);
+            background: linear-gradient(90deg, #ccc, #eee);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .loader {
-            width: 24px; height: 24px;
-            border: 3px solid #FFF;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-        }
-
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         
         .text-balance { text-wrap: balance; }
@@ -194,14 +162,13 @@
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl font-bold text-white flex items-center space-x-2" data-magnetic>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                 <span>Vex</span>
             </a>
             <nav class="hidden md:flex space-x-4 items-center">
-                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Features</a>
+                <a href="#features" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>About</a>
                 <a href="#backend" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>The Script</a>
-                <a href="#vex-ai" class="text-gray-300 hover:text-white transition-colors px-4 py-2" data-magnetic>Vex AI</a>
-                <button id="get-script-btn-nav" class="blue-btn" data-magnetic>
+                <button id="get-script-btn-nav" class="grey-btn" data-magnetic>
                     <span>Get Script</span>
                 </button>
             </nav>
@@ -216,12 +183,10 @@
             <div class="container mx-auto px-6" id="hero-content">
                 <div class="max-w-4xl mx-auto">
                     <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight mb-6">
-                        Unlock the power of <span class="gradient-text">Vex</span>.
-                        <br>
-                        Unrivaled control.
+                        The End of an Era. <br> <span class="gradient-text">Vex is Open Source.</span>
                     </h1>
                     <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 text-balance">
-                        The most advanced open-source script for Roblox. Seamlessly integrated, intuitively designed, and powerfully simple.
+                        No more updates. No more support. The script is now public as a final statement against a platform we can no longer endorse.
                     </p>
                     <div class="flex flex-col items-center">
                         <button id="get-script-btn-hero" class="get-script-btn-hero" data-magnetic>
@@ -236,43 +201,32 @@
         </section>
 
         <div class="relative z-10 bg-black">
-            <section class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-4xl mx-auto glass-effect rounded-3xl p-10 view-animate">
-                        <h2 class="text-3xl font-bold text-white mb-4 text-balance">Unleash the True Potential of Roblox</h2>
-                        <p class="text-gray-400 text-lg text-balance">
-                            Vex provides a comprehensive suite of powerful features designed to give you ultimate control in any Roblox experience. It offers seamless integration and an intuitive interface, making it easy to master your gameplay. With built-in anti-cheat measures and performance optimizations, Vex ensures a smooth and reliable experience.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
             <section id="features" class="py-20">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">Engineered for Excellence.</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white view-animate text-balance">A Final, Polished Product.</h2>
                     </div>
                     <div class="grid md:grid-cols-3 gap-8">
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Optimized Performance</h3>
-                            <p class="text-gray-400">Lightweight and efficient code ensures zero impact on game performance, keeping your experience smooth.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Stable & Optimized</h3>
+                            <p class="text-gray-400">The script is in its final, most stable form. It's lightweight and efficient, ensuring zero impact on game performance.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.2s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Version 8.1</h3>
-                            <p class="text-gray-400">Continuously updated with the latest features and security patches to stay ahead of the curve.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Final Version</h3>
+                            <p class="text-gray-400">This project is no longer in active development. Version 8.1 is the last release and will receive no further updates.</p>
                         </div>
                         <div class="text-center p-8 rounded-3xl glass-effect feature-card view-animate" style="animation-delay: 0.4s;">
                             <div class="flex items-center justify-center h-20 w-20 rounded-2xl bg-gray-900 border border-gray-800 mx-auto mb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                             </div>
-                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Secure & Undetected</h3>
-                            <p class="text-gray-400">Advanced scripting techniques ensure maximum security and discretion during use.</p>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Fully Open-Source</h3>
+                            <p class="text-gray-400">The code is now public. Use it, learn from it, or modify it. We no longer claim any active stake in its future.</p>
                         </div>
                     </div>
                 </div>
@@ -305,34 +259,12 @@
             <section id="community" class="py-20">
                 <div class="container mx-auto px-6 text-center">
                     <div class="max-w-4xl mx-auto glass-effect rounded-3xl p-10 view-animate">
-                        <h2 class="text-3xl font-bold text-white mb-4 text-balance">Join the Community</h2>
+                        <h2 class="text-3xl font-bold text-white mb-4 text-balance">The Project is Open Source</h2>
                         <p class="text-gray-400 text-lg mb-8 text-balance">
-                            Have questions or want to contribute? Join our community of developers and users to get support, share ideas, and help shape the future of Vex.
+                            The future of Vex is in the hands of the community. The complete source code is available on GitHub for anyone to fork, modify, or learn from.
                         </p>
                         <div class="flex items-center justify-center">
                             <a href="https://github.com/StrikerXR/Vex/" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn" data-magnetic>View on GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="vex-ai" class="py-20">
-                <div class="container mx-auto px-6 text-center">
-                    <div class="max-w-3xl mx-auto">
-                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4 view-animate text-balance">Have a question?</h2>
-                        <p class="text-lg md:text-xl text-gray-400 mb-10 view-animate" style="animation-delay: 0.2s;">
-                            Ask our AI anything about the Vex script.
-                        </p>
-                        <div class="glass-effect p-8 rounded-3xl view-animate" style="animation-delay: 0.4s;">
-                            <div class="flex flex-col md:flex-row gap-4 mb-6">
-                                <input type="text" id="ai-prompt" placeholder="e.g., How do I add a new admin?" class="w-full bg-gray-900/50 text-white placeholder-gray-500 px-5 py-3 rounded-full border border-transparent focus:border-blue-500 focus:ring-0 transition-all">
-                                <button id="ask-ai-btn" class="blue-btn px-8 py-3 flex items-center justify-center space-x-2">
-                                    <span>✨ Ask Vex AI</span>
-                                </button>
-                            </div>
-                            <div id="vex-ai-response" class="text-left p-6 bg-black/20 rounded-2xl text-gray-300 min-h-[100px]">
-                                Ask a question to see the AI's response here.
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -345,14 +277,13 @@
             <div class="grid md:grid-cols-4 gap-8 text-gray-400">
                 <div>
                     <h4 class="font-semibold text-white mb-4">Vex</h4>
-                    <p>The Ultimate Roblox Script</p>
+                    <p>Final Release</p>
                 </div>
                 <div>
-                    <h4 class="font-semibold text-white mb-4">Product</h4>
+                    <h4 class="font-semibold text-white mb-4">Project</h4>
                     <ul>
-                        <li class="mb-2"><a href="#features" class="hover:text-white">Features</a></li>
+                        <li class="mb-2"><a href="#features" class="hover:text-white">About</a></li>
                         <li class="mb-2"><a href="#backend" class="hover:text-white">The Script</a></li>
-                        <li class="mb-2"><a href="#vex-ai" class="hover:text-white">Vex AI</a></li>
                     </ul>
                 </div>
                 <div>
@@ -370,7 +301,7 @@
                 </div>
             </div>
             <div class="mt-12 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2025 Vex Inc. All rights reserved.</p>
+                <p>&copy; 2025 Vex Project. The Vex script is open-source.</p>
             </div>
         </div>
     </footer>
@@ -390,7 +321,7 @@
         </div>
     </div>
 
-    <!-- NEW Startup Modal -->
+    <!-- Startup Modal -->
     <div id="startup-modal" class="fixed inset-0 z-[110] flex items-center justify-center p-4 hidden transition-opacity duration-300 opacity-0">
         <div id="startup-modal-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         <div id="startup-modal-panel" class="relative w-full max-w-2xl glass-effect rounded-2xl p-8 text-gray-300 transform transition-all opacity-0 scale-95 duration-300">
@@ -413,7 +344,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // --- THE FULL VEX SCRIPT FOR DISPLAY AND COPYING ---
             const vexScriptText = `--[[
 __     __        ___  
 \\ \\   / /____  _( _ ) 
@@ -586,7 +516,6 @@ LogDebug("Vex8.1 script initialized successfully.")`;
             document.getElementById('get-script-btn-nav').addEventListener('click', (e) => copyHandler(e.currentTarget));
             document.getElementById('get-script-btn-hero').addEventListener('click', (e) => copyHandler(e.currentTarget, true));
 
-            // --- LEGAL MODAL LOGIC ---
             const legalModal = document.getElementById('legal-modal');
             const legalModalOverlay = document.getElementById('legal-modal-overlay');
             const legalModalTitle = document.getElementById('legal-modal-title');
@@ -626,7 +555,6 @@ LogDebug("Vex8.1 script initialized successfully.")`;
             legalModalCloseBtn.addEventListener('click', closeLegalModal);
             legalModalOverlay.addEventListener('click', closeLegalModal);
 
-            // --- STARTUP MODAL LOGIC ---
             const startupModal = document.getElementById('startup-modal');
             const startupModalPanel = document.getElementById('startup-modal-panel');
             const startupModalCloseBtn = document.getElementById('startup-modal-close');
@@ -637,7 +565,7 @@ LogDebug("Vex8.1 script initialized successfully.")`;
                 setTimeout(() => {
                     startupModal.classList.remove('opacity-0');
                     startupModalPanel.classList.remove('opacity-0', 'scale-95');
-                }, 100); // Slight delay for effect
+                }, 100);
             }
 
             function closeStartupModal() {
@@ -648,62 +576,9 @@ LogDebug("Vex8.1 script initialized successfully.")`;
                 }, 300);
             }
             
-            openStartupModal(); // Show modal on page load
+            openStartupModal();
             startupModalCloseBtn.addEventListener('click', closeStartupModal);
             startupModalOverlay.addEventListener('click', closeStartupModal);
-
-
-            // --- GEMINI API INTEGRATION ---
-            const askAiBtn = document.getElementById('ask-ai-btn');
-            const aiPromptInput = document.getElementById('ai-prompt');
-            const aiResponseContainer = document.getElementById('vex-ai-response');
-
-            const handleAiRequest = async () => {
-                const userPrompt = aiPromptInput.value.trim();
-                if (!userPrompt) return;
-
-                askAiBtn.disabled = true;
-                askAiBtn.innerHTML = '<span class="loader"></span>';
-                aiResponseContainer.innerHTML = 'Generating response...';
-
-                const productInfo = `You are Vex AI, a helpful assistant for the 'Vex' Roblox script (Version 8.1). Vex is an open-source script with features like a modular system for invincibility and anti-death, a dynamic configuration for exemptions and whitelists, and is written in modern, efficient Lua. Key features include kicking non-exempt players on death and providing unbreakable invincibility. Be concise, friendly, and focus on the script's capabilities.`;
-                const fullPrompt = `${productInfo}\n\nUser question: "${userPrompt}"\n\nYour answer:`;
-
-                try {
-                    const payload = { contents: [{ role: "user", parts: [{ text: fullPrompt }] }] };
-                    const apiKey = "";
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) throw new Error(`API error: ${response.status}`);
-                    
-                    const result = await response.json();
-                    
-                    if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-                        aiResponseContainer.textContent = result.candidates[0].content.parts[0].text;
-                    } else {
-                        throw new Error('Invalid API response.');
-                    }
-                } catch (error) {
-                    console.error("Gemini API Error:", error);
-                    aiResponseContainer.textContent = 'Sorry, I had trouble connecting. Please try again.';
-                } finally {
-                    askAiBtn.disabled = false;
-                    askAiBtn.innerHTML = '<span>✨ Ask Vex AI</span>';
-                }
-            };
-
-            askAiBtn.addEventListener('click', handleAiRequest);
-            aiPromptInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleAiRequest();
-                }
-            });
         });
     </script>
 </body>

@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vex — The New Era</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-black text-gray-300">
+
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-3xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center glass-nav border-b border-white/5">
+            <a href="#" class="text-xl font-extrabold text-white flex items-center space-x-3" data-magnetic>
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <span>Vex <span class="text-indigo-400 font-black">Pro</span></span>
+            </a>
+            <nav class="hidden md:flex space-x-2 items-center">
+                <a href="#features" class="nav-link" data-magnetic>Features</a>
+                <a href="#backend" class="nav-link" data-magnetic>Script</a>
+                <a href="#community" class="nav-link" data-magnetic>Community</a>
+                <button id="get-script-btn-nav" class="liquid-glass-btn" data-magnetic>
+                    <span>Download Script</span>
+                </button>
+            </nav>
+            <button class="md:hidden text-white nav-link" data-magnetic aria-label="Toggle navigation menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="relative">
+        <section class="min-h-[100vh] flex items-center justify-center text-center bg-transparent pt-32 pb-20 relative overflow-hidden">
+            <div id="liquid-bg-fx" class="absolute inset-0 z-0"></div>
+            
+            <div class="container mx-auto px-6 relative z-10" id="hero-content">
+                <div class="max-w-5xl mx-auto">
+                    <h1 class="text-5xl md:text-8xl lg:text-9xl font-extrabold text-white leading-tight mb-8">
+                        The Service is <br> <span class="gradient-text-hero">Back In Service.</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 text-balance font-light">
+                        Vex is reactivated with a new direction, full of powerful new features, and ready for a new era of management.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button id="get-script-btn-hero" class="hero-primary-btn" data-magnetic>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            Get Vex Script
+                        </button>
+                        <a href="#features" class="hero-secondary-btn" data-magnetic>Explore New Features</a>
+                    </div>
+                    <p id="copy-message" class="mt-8 text-indigo-300 text-lg opacity-0 transition-opacity duration-300">Click to copy script!</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="relative z-10 bg-black">
+            
+            <section id="features" class="py-24 md:py-32">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-6xl font-extrabold text-white view-animate text-balance">Core Upgrades.</h2>
+                        <p class="text-xl text-gray-400 mt-4 max-w-3xl mx-auto view-animate" style="animation-delay: 0.1s;">
+                            Rebuilt from the ground up to be more efficient, modular, and powerful than ever before.
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 advanced-grid">
+                        <div class="p-8 rounded-3xl liquid-card view-animate">
+                            <div class="icon-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Re-Optimized Core</h3>
+                            <p class="text-gray-400">The script now utilizes modern Lua APIs for maximum speed and minimal latency, ensuring a perfect player experience.</p>
+                        </div>
+                        <div class="p-8 rounded-3xl liquid-card view-animate" style="animation-delay: 0.15s;">
+                            <div class="icon-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Modular Architecture</h3>
+                            <p class="text-gray-400">New modules make extending functionality easy. Built for the future, not just the present.</p>
+                        </div>
+                        <div class="p-8 rounded-3xl liquid-card view-animate" style="animation-delay: 0.3s;">
+                            <div class="icon-container">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-white mb-3 text-balance">Enhanced Security</h3>
+                            <p class="text-gray-400">Next-generation anti-exploit checks and a fortified core for unbeatable performance and protection.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="backend" class="py-24 md:py-32">
+                <div class="container mx-auto px-6">
+                     <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-6xl font-extrabold text-white view-animate text-balance">The Vex Script Source.</h2>
+                        <p class="text-xl text-gray-400 mt-4 max-w-3xl mx-auto view-animate" style="animation-delay: 0.1s;">
+                            A look into the powerful, clean, and fully commented **Lua** source code that drives Vex.
+                        </p>
+                    </div>
+                    <div class="max-w-5xl mx-auto view-animate" style="animation-delay: 0.2s;">
+                        <div class="code-editor-container">
+                            <div class="code-editor-header">
+                                <div class="flex space-x-2">
+                                    <div class="dot red"></div>
+                                    <div class="dot yellow"></div>
+                                    <div class="dot green"></div>
+                                </div>
+                                <span class="file-name">Vex.lua (v9.0)</span>
+                            </div>
+                            <pre id="vex-script-display" class="code-text"></pre>
+                        </div>
+                        <p class="text-center text-lg text-gray-500 mt-6 view-animate" style="animation-delay: 0.3s;">
+                            *This script is for demonstration and educational purposes only.*
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="community" class="py-24 md:py-32">
+                <div class="container mx-auto px-6 text-center">
+                    <div class="max-w-4xl mx-auto liquid-card p-12 view-animate">
+                        <h2 class="text-4xl font-bold text-white mb-4 text-balance">Join The New Vex Community</h2>
+                        <p class="text-gray-300 text-xl mb-10 text-balance">
+                            The new Vex is driven by its community. Join the conversation, contribute code, and help shape the future of player management.
+                        </p>
+                        <div class="flex items-center justify-center space-x-4">
+                            <a href="https://github.com/StrikerXR/Vex/" target="_blank" rel="noopener noreferrer" class="liquid-glass-btn-secondary" data-magnetic>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M15 22.316V22.5h-6v-.184l-2.486-.33c-.76-.1-.979-.318-1.077-.962-.124-.817-.184-1.745-.184-2.674V17h12v1.442c0 .929-.06 1.857-.184 2.674-.098.644-.317.862-1.077.962L15 22.316zM12 2C6.477 2 2 6.477 2 12c0 4.418 2.864 8.164 6.837 9.48.5.092.684-.217.684-.482 0-.238-.009-.87-.014-1.705-2.784.605-3.376-1.343-3.376-1.343-.455-1.157-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.004.07 1.532 1.03 1.532 1.03.89 1.529 2.336 1.087 2.903.832.091-.645.35-1.087.637-1.338-2.772-.315-5.694-1.386-5.694-6.15 0-1.358.485-2.462 1.278-3.332-.133-.315-.552-1.58.121-3.284 0 0 1.04-.333 3.425 1.267 1.01-.282 2.083-.423 3.155-.427 1.072.004 2.145.145 3.155.427 2.385-1.6 3.425-1.267 3.425-1.267.673 1.704.254 2.969.121 3.284.793.87 1.278 1.974 1.278 3.332 0 4.777-2.926 5.832-5.702 6.143.45.388.855 1.15.855 2.32 0 1.674-.015 3.023-.015 3.435 0 .267.18.578.688.483C21.144 20.165 24 16.418 24 12c0-5.523-4.477-10-10-10z"/></svg>
+                                View on GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer-glass">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8 text-gray-400">
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Vex <span class="text-indigo-400">Pro</span></h4>
+                    <p>The New Era of Player Management.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Navigation</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li class="mb-2"><a href="#backend" class="hover:text-white transition-colors">The Script</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Resources</h4>
+                    <ul>
+                        <li class="mb-2"><a href="https://github.com/StrikerXR/Vex/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">GitHub Repository</a></li>
+                        <li class="mb-2"><a href="#" id="new-era-doc-link" class="hover:text-white cursor-pointer transition-colors">New Era Documentation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Legal</h4>
+                    <ul>
+                        <li class="mb-2"><a href="#" id="privacy-policy-link" class="hover:text-white cursor-pointer transition-colors">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" id="tos-link" class="hover:text-white cursor-pointer transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2025 Vex Pro. All rights reserved. Service Back Online.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="advanced-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-500">
+        <div id="modal-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-md"></div>
+        <div id="modal-panel" class="relative w-full max-w-4xl liquid-card p-8 md:p-12 text-gray-200 transform opacity-0 translate-y-10 transition-all duration-700 ease-out">
+            <div class="flex justify-between items-start mb-6">
+                <h3 id="modal-title" class="text-3xl font-bold gradient-text-title"></h3>
+                <button id="modal-close" class="text-gray-400 hover:text-white transition-colors p-2 -mr-3" aria-label="Close modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div id="modal-content" class="prose prose-invert prose-p:text-gray-300 prose-headings:text-white prose-a:text-indigo-400 max-h-[70vh] overflow-y-auto pr-4 custom-scrollbar">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
 

@@ -1,0 +1,281 @@
+/* Using modern CSS variables for design system */
+:root {
+    --color-primary: 255 255 255; /* White for light effects */
+    --color-secondary: 79 70 229; /* Indigo 600 */
+    --color-bg-dark: 0 0 0;
+    --blur-intensity: 32px;
+    --glass-background: rgba(var(--color-primary), 0.05);
+    --glass-border: rgba(var(--color-primary), 0.1);
+    --glow-color: rgba(var(--color-secondary), 0.6);
+}
+
+@layer base {
+    html {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        scroll-behavior: smooth;
+    }
+    body {
+        background-color: rgb(var(--color-bg-dark));
+        overflow-x: hidden;
+    }
+    /* Advanced custom scrollbar for modal/code */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: rgba(var(--color-secondary), 0.5);
+        border-radius: 10px;
+        border: 2px solid rgb(var(--color-bg-dark));
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* * ADVANCED LIQUID GLASS COMPONENTS
+ * Implements the core aesthetic using backdrop-filter and subtle borders.
+ */
+@layer components {
+    .liquid-card, .code-editor-container {
+        background-color: var(--glass-background);
+        backdrop-filter: blur(var(--blur-intensity));
+        -webkit-backdrop-filter: blur(var(--blur-intensity));
+        border: 1px solid var(--glass-border);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        border-radius: 1.5rem; /* 24px */
+    }
+
+    .liquid-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 50px rgba(var(--color-secondary), 0.15);
+    }
+
+    /* Subtle internal light effect for liquid feel */
+    .liquid-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 10% 10%, rgba(var(--color-primary), 0.15) 0%, transparent 40%);
+        opacity: 0.5;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+    }
+    .liquid-card:hover::before {
+        opacity: 1;
+    }
+
+    .icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 5rem;
+        width: 5rem;
+        border-radius: 1.25rem;
+        background: rgba(var(--color-secondary), 0.1);
+        border: 1px solid rgba(var(--color-secondary), 0.3);
+        margin: 0 auto 1.5rem;
+        color: rgb(var(--color-secondary));
+        box-shadow: 0 0 20px rgba(var(--color-secondary), 0.1);
+    }
+
+    /* Navigation Bar Glass Effect */
+    .glass-nav {
+        background-color: rgba(var(--color-bg-dark), 0.4);
+    }
+    
+    /* Footer Glass Effect */
+    .footer-glass {
+        background-color: rgba(var(--color-bg-dark), 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(var(--color-primary), 0.05);
+    }
+
+    .nav-link {
+        color: rgba(var(--color-primary), 0.7);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        font-weight: 500;
+    }
+    .nav-link:hover {
+        color: rgb(var(--color-primary));
+        background: rgba(var(--color-primary), 0.1);
+    }
+}
+
+/* * ADVANCED BUTTONS (LIQUID GLASS EFFECT)
+ */
+@layer components {
+    /* Primary Hero Button */
+    .hero-primary-btn {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.25rem; /* text-xl */
+        font-weight: 700;
+        padding: 1.25rem 2.5rem;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, rgb(var(--color-secondary)), color-mix(in srgb, rgb(var(--color-secondary)) 80%, black));
+        border: 1px solid rgba(var(--color-primary), 0.3);
+        color: white;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-shadow: 0 10px 30px rgba(var(--color-secondary), 0.4);
+    }
+    .hero-primary-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(var(--color-secondary), 0.6);
+    }
+
+    /* Secondary Hero Button */
+    .hero-secondary-btn {
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.25rem; /* text-xl */
+        font-weight: 600;
+        padding: 1.25rem 2.5rem;
+        border-radius: 9999px;
+        background-color: rgba(var(--color-primary), 0.1);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(var(--color-primary), 0.2);
+        color: rgb(var(--color-primary));
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .hero-secondary-btn:hover {
+        transform: translateY(-1px) scale(1.01);
+        background-color: rgba(var(--color-primary), 0.2);
+    }
+
+    /* Nav/Small Button */
+    .liquid-glass-btn {
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        background: rgba(var(--color-secondary), 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(var(--color-secondary), 0.5);
+        color: rgb(var(--color-primary));
+        transition: all 0.3s ease;
+    }
+    .liquid-glass-btn:hover {
+        background: rgba(var(--color-secondary), 0.4);
+        transform: translateY(-2px);
+    }
+    
+    /* Secondary small button (e.g., GitHub) */
+    .liquid-glass-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        background: rgba(var(--color-primary), 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(var(--color-primary), 0.3);
+        color: rgb(var(--color-primary));
+        transition: all 0.3s ease;
+    }
+    .liquid-glass-btn-secondary:hover {
+        background: rgba(var(--color-primary), 0.15);
+        transform: translateY(-2px);
+    }
+}
+
+/* * ADVANCED CODE EDITOR UI
+ */
+@layer components {
+    .code-editor-container {
+        border-radius: 1rem;
+        background-color: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(var(--color-primary), 0.1);
+    }
+    .code-editor-header {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        background-color: rgba(var(--color-primary), 0.05);
+        border-bottom: 1px solid rgba(var(--color-primary), 0.05);
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+    .code-editor-header .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+    .code-editor-header .red { background-color: #ff5f56; }
+    .code-editor-header .yellow { background-color: #ffbd2e; }
+    .code-editor-header .green { background-color: #27c93f; }
+    .code-editor-header .file-name {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 0.875rem;
+        color: #9ca3af;
+    }
+    .code-text {
+        font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+        white-space: pre-wrap;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        padding: 1.5rem;
+        max-height: 500px;
+        overflow-y: auto;
+        color: #d1d5db; /* Light gray code text */
+        background-color: transparent;
+    }
+}
+
+/* * SCROLL-DRIVEN & VISIBILITY ANIMATIONS (LATEST CSS)
+ */
+.view-animate {
+    animation: fade-in-up linear;
+    animation-timeline: view(block);
+    animation-range: entry 20% cover 40%; /* Starts 20% into entry, ends 40% into cover */
+    animation-fill-mode: both;
+}
+
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* * ADVANCED GRADIENT TEXT AND BACKGROUND EFFECTS
+ */
+.gradient-text-hero {
+    background: linear-gradient(90deg, #a78bfa, #818cf8, #4f46e5); /* Light Purple to Deep Indigo */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 8px rgba(79, 70, 229, 0.4));
+}
+
+.gradient-text-title {
+    background: linear-gradient(90deg, #d1d5db, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Liquid/Aurora Background Effect - Kept and slightly enhanced */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.3) 0%, rgba(0,0,0,0) 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.3) 0%, rgba(0,0,0,0) 25%),
+                radial-gradient(circle at 50% 80%, rgba(109, 40, 217, 0.3) 0%, rgba(0,0,0,0) 20%);
+    z-index: -1;
+    animation: animateAurora 30s infinite alternate;
+    opacity: 0.3;
+}
+
+@keyframes animateAurora {
+    0% { transform: translate(0, 0) scale(1.5); }
+    100% { transform: translate(-50px, 50px) scale(1.7); }
+}
